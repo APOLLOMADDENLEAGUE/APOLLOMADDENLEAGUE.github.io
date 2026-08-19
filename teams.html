@@ -3,409 +3,293 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050507" />
   <title>AML Teams | Apollo Madden League</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .teams-shell {
-      width: min(1240px, calc(100% - 28px));
-      margin: 0 auto;
-      padding: 34px 0 70px;
-    }
-    .teams-top {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-      margin-bottom: 30px;
-    }
-    .teams-top img { width: 115px; display:block; }
-    .teams-top a {
-      color:#fff; text-decoration:none; font-size:.82rem; font-weight:800; letter-spacing:.12em;
-    }
-    .teams-hero { margin-bottom: 32px; }
-    .teams-hero h1 {
-      margin: 8px 0 12px;
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: .92;
-      letter-spacing: -.045em;
-    }
-    .teams-hero p {
-      max-width: 760px; color:#a7a8b2; line-height:1.7; font-size:1.03rem; margin:0;
-    }
-    .teams-summary {
-      display:flex; flex-wrap:wrap; gap:12px; margin: 20px 0 30px;
-    }
-    .teams-summary span {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      color:#f1f1f5;
-      font-size:.82rem;
-      font-weight:800;
-      letter-spacing:.08em;
-    }
-    .teams-grid {
-      display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 18px;
-    }
-    .team-card {
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:16px;
-      min-height: 300px;
-      padding: 20px;
-      border-radius: 22px;
-      text-decoration:none;
-      color: var(--text);
-      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01)), rgba(17,17,23,.9);
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 20px 50px rgba(0,0,0,.26);
-      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-    }
-    .team-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255,255,255,.18);
-      box-shadow: 0 28px 70px rgba(0,0,0,.35), 0 0 30px rgba(41,184,255,.08);
-    }
-    .team-logo-wrap {
-      display:grid;
-      place-items:center;
-      min-height: 165px;
-      padding: 12px;
-      border-radius: 18px;
-      background: radial-gradient(circle at 50% 20%, rgba(255,255,255,.06), rgba(255,255,255,.015));
-      border: 1px solid rgba(255,255,255,.06);
-    }
-    .team-logo {
-      max-width: 100%;
-      max-height: 140px;
-      width: auto;
-      height: auto;
-      display:block;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 25px rgba(0,0,0,.25));
-    }
-    .team-card-body h2 {
-      margin: 10px 0 8px;
-      font-size: 1.45rem;
-      line-height: 1.05;
-      letter-spacing: -.02em;
-    }
-    .team-card-body p {
-      margin:0; color:#a7a8b2; font-size:.95rem; line-height:1.55;
-    }
-    .team-badges { display:flex; flex-wrap:wrap; gap:8px; }
-    .team-badges span {
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.05);
-      color:#d9dbe3;
-      font-size:.72rem;
-      font-weight:800;
-      letter-spacing:.08em;
-    }
-    @media (max-width: 1080px) { .teams-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
-    @media (max-width: 760px) {
-      .teams-shell { width:min(100% - 20px, 1240px); padding-top:24px; }
-      .teams-hero h1 { font-size: clamp(2.4rem, 12vw, 4rem); }
-      .teams-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; }
-      .team-card { min-height: 250px; padding: 16px; gap:12px; }
-      .team-logo-wrap { min-height: 130px; }
-      .team-logo { max-height: 108px; }
-      .team-card-body h2 { font-size:1.12rem; }
-    }
-    @media (max-width: 520px) {
-      .teams-top img { width: 88px; }
-      .teams-grid { grid-template-columns: 1fr; }
-      .team-card { min-height: unset; }
-    }
+    .teams-shell{width:min(1240px,calc(100% - 28px));margin:0 auto;padding:34px 0 70px}
+    .teams-top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:30px}
+    .teams-top img{width:115px;display:block} .teams-top a{font-size:.82rem;font-weight:800;letter-spacing:.12em}
+    .teams-hero{margin-bottom:32px} .teams-hero h1{margin:8px 0 12px;font-size:clamp(3rem,8vw,6rem);line-height:.92;letter-spacing:-.045em}
+    .teams-hero p{max-width:760px;line-height:1.7;font-size:1.03rem;margin:0}
+    .teams-summary{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 30px}
+    .teams-summary span{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:.82rem;font-weight:800;letter-spacing:.08em}
+    .teams-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+    .team-card{display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:300px;padding:20px;border-radius:22px;text-decoration:none;color:var(--text);transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+    .team-logo-wrap{display:grid;place-items:center;min-height:165px;padding:12px;border-radius:18px} .team-logo{max-width:100%;max-height:140px;width:auto;height:auto;display:block;object-fit:contain}
+    .team-card-body h2{margin:10px 0 8px;font-size:1.45rem;line-height:1.05;letter-spacing:-.02em} .team-card-body p{margin:0}
+    .team-badges{display:flex;flex-wrap:wrap;gap:8px} .team-badges span{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.05);color:#d9dbe3;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+    @media(max-width:1080px){.teams-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.teams-shell{width:min(100% - 20px,1240px);padding-top:24px}.teams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.team-card{padding:16px}}
+    @media(max-width:520px){.teams-top img{width:88px}.teams-grid{grid-template-columns:1fr}}
   </style>
+  <link rel="stylesheet" href="premium.css" />
 </head>
 <body>
-  <div class="background-glow glow-pink"></div>
-  <div class="background-glow glow-blue"></div>
-
+  <div class="background-glow glow-pink"></div><div class="background-glow glow-blue"></div>
   <main class="teams-shell">
-    <div class="teams-top">
-      <img src="assets/aml-logo.png" alt="AML logo" />
-      <a href="index.html">← AML HOME</a>
-    </div>
-
-    <section class="teams-hero">
-      <span class="eyebrow">ALL 32 FRANCHISES</span>
-      <h1>AML TEAMS</h1>
-      <p>Browse every Apollo Madden League franchise in alphabetical order. Click any logo card to open that team’s page.</p>
-    </section>
-
-    <div class="teams-summary">
-      <span>32 Teams</span>
-      <span>Alphabetical Order</span>
-      <span>16 AFC Teams</span>
-      <span>16 NFC Teams</span>
-    </div>
-
+    <div class="teams-top"><img src="assets/aml-logo.png" alt="AML logo"/><a href="index.html">← AML HOME</a></div>
+    <section class="teams-hero"><span class="eyebrow">ALL 32 FRANCHISES</span><h1>AML TEAMS</h1><p>Every current Apollo Madden League franchise in alphabetical order. Each team has its own dedicated page and identity.</p></section>
+    <div class="teams-summary"><span>32 TEAMS</span><span>16 AFC</span><span>16 NFC</span><span>CLICK ANY TEAM</span></div>
     <section class="teams-grid">
-      <a class="team-card" href="team-apollo.html">
+      <a class="team-card" style="--team-accent:#d6a548;--team-accent-2:#7c5a21" href="team-apollo.html">
         <div class="team-logo-wrap"><img src="assets/apollo.png" alt="Apollo logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>South Division</span></div>
           <h2>Apollo</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-black-cats.html">
+      <a class="team-card" style="--team-accent:#b8f13b;--team-accent-2:#31313d" href="team-black-cats.html">
         <div class="team-logo-wrap"><img src="assets/black-cats.png" alt="Black Cats logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>North Division</span></div>
           <h2>Black Cats</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-blizzards.html">
+      <a class="team-card" style="--team-accent:#65c7ff;--team-accent-2:#173b66" href="team-blizzards.html">
         <div class="team-logo-wrap"><img src="assets/blizzards.png" alt="Blizzards logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>East Division</span></div>
           <h2>Blizzards</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-dragons.html">
+      <a class="team-card" style="--team-accent:#13b9b5;--team-accent-2:#ef6a2e" href="team-dragons.html">
         <div class="team-logo-wrap"><img src="assets/dragons.png" alt="Dragons logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>North Division</span></div>
           <h2>Dragons</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-ducks.html">
+      <a class="team-card" style="--team-accent:#0a6247;--team-accent-2:#f2bf2f" href="team-ducks.html">
         <div class="team-logo-wrap"><img src="assets/ducks.png" alt="Ducks logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>North Division</span></div>
           <h2>Ducks</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-empire.html">
+      <a class="team-card" style="--team-accent:#4da2ff;--team-accent-2:#e6eef8" href="team-empire.html">
         <div class="team-logo-wrap"><img src="assets/empire.png" alt="Empire logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>North Division</span></div>
           <h2>Empire</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-falcons.html">
+      <a class="team-card" style="--team-accent:#ed2438;--team-accent-2:#7d101a" href="team-falcons.html">
         <div class="team-logo-wrap"><img src="assets/falcons.png" alt="Falcons logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>South Division</span></div>
           <h2>Falcons</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-flamingos.html">
+      <a class="team-card" style="--team-accent:#ff6ea8;--team-accent-2:#66d5c0" href="team-flamingos.html">
         <div class="team-logo-wrap"><img src="assets/flamingos.png" alt="Flamingos logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>South Division</span></div>
           <h2>Flamingos</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-griffins.html">
+      <a class="team-card" style="--team-accent:#e3b33d;--team-accent-2:#68449a" href="team-griffins.html">
         <div class="team-logo-wrap"><img src="assets/griffins.png" alt="Griffins logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>West Division</span></div>
           <h2>Griffins</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-guardians.html">
+      <a class="team-card" style="--team-accent:#223b67;--team-accent-2:#c89a3b" href="team-guardians.html">
         <div class="team-logo-wrap"><img src="assets/guardians.png" alt="Guardians logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>West Division</span></div>
           <h2>Guardians</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-kloud-nine.html">
+      <a class="team-card" style="--team-accent:#d9e5ff;--team-accent-2:#6f8ed8" href="team-kloud-nine.html">
         <div class="team-logo-wrap"><img src="assets/kloud-nine.png" alt="Kloud Nine logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>East Division</span></div>
           <h2>Kloud Nine</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-kush.html">
+      <a class="team-card" style="--team-accent:#75c744;--team-accent-2:#2c5a2b" href="team-kush.html">
         <div class="team-logo-wrap"><img src="assets/kush.png" alt="Kush logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>East Division</span></div>
           <h2>Kush</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-lake-hawks.html">
+      <a class="team-card" style="--team-accent:#2b8aa7;--team-accent-2:#b8c7cf" href="team-lake-hawks.html">
         <div class="team-logo-wrap"><img src="assets/lake-hawks.png" alt="Lake Hawks logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>West Division</span></div>
           <h2>Lake Hawks</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-metros.html">
+      <a class="team-card" style="--team-accent:#e52a38;--team-accent-2:#315a8c" href="team-metros.html">
         <div class="team-logo-wrap"><img src="assets/metros.png" alt="Metros logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>West Division</span></div>
           <h2>Metros</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-minions.html">
+      <a class="team-card" style="--team-accent:#2457c5;--team-accent-2:#f2c62f" href="team-minions.html">
         <div class="team-logo-wrap"><img src="assets/minions.png" alt="Minions logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>West Division</span></div>
           <h2>Minions</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-mob.html">
+      <a class="team-card" style="--team-accent:#b8202e;--team-accent-2:#d3b28c" href="team-mob.html">
         <div class="team-logo-wrap"><img src="assets/mob.png" alt="Mob logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>North Division</span></div>
           <h2>Mob</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-ocelots.html">
+      <a class="team-card" style="--team-accent:#d4a567;--team-accent-2:#24472c" href="team-ocelots.html">
         <div class="team-logo-wrap"><img src="assets/ocelots.png" alt="Ocelots logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>West Division</span></div>
           <h2>Ocelots</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-omnitrix.html">
+      <a class="team-card" style="--team-accent:#9dff45;--team-accent-2:#7f94a2" href="team-omnitrix.html">
         <div class="team-logo-wrap"><img src="assets/omnitrix.png" alt="OmniTrix logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>South Division</span></div>
           <h2>OmniTrix</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-order.html">
+      <a class="team-card" style="--team-accent:#b3882b;--team-accent-2:#18375e" href="team-order.html">
         <div class="team-logo-wrap"><img src="assets/order.png" alt="Order logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>East Division</span></div>
           <h2>Order</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-overdrive.html">
+      <a class="team-card" style="--team-accent:#1d72ff;--team-accent-2:#aebbd0" href="team-overdrive.html">
         <div class="team-logo-wrap"><img src="assets/overdrive.png" alt="Overdrive logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>East Division</span></div>
           <h2>Overdrive</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-pheonixes.html">
+      <a class="team-card" style="--team-accent:#e12a2e;--team-accent-2:#f07839" href="team-pheonixes.html">
         <div class="team-logo-wrap"><img src="assets/pheonixes.png" alt="Pheonixes logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>East Division</span></div>
           <h2>Pheonixes</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-rhode-runners.html">
+      <a class="team-card" style="--team-accent:#7844aa;--team-accent-2:#d6484b" href="team-rhode-runners.html">
         <div class="team-logo-wrap"><img src="assets/rhode-runners.png" alt="Rhode Runners logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>North Division</span></div>
           <h2>Rhode Runners</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-sharks.html">
+      <a class="team-card" style="--team-accent:#16999f;--team-accent-2:#162c35" href="team-sharks.html">
         <div class="team-logo-wrap"><img src="assets/sharks.png" alt="Sharks logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>West Division</span></div>
           <h2>Sharks</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-sorcerers.html">
+      <a class="team-card" style="--team-accent:#57e2ff;--team-accent-2:#253b72" href="team-sorcerers.html">
         <div class="team-logo-wrap"><img src="assets/sorcerers.png" alt="Sorcerers logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>East Division</span></div>
           <h2>Sorcerers</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-speed-racers.html">
+      <a class="team-card" style="--team-accent:#d7292f;--team-accent-2:#d9dce4" href="team-speed-racers.html">
         <div class="team-logo-wrap"><img src="assets/speed-racers.png" alt="Speed Racers logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>South Division</span></div>
           <h2>Speed Racers</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-stars.html">
+      <a class="team-card" style="--team-accent:#2e77c8;--team-accent-2:#50c8ff" href="team-stars.html">
         <div class="team-logo-wrap"><img src="assets/stars.png" alt="Stars logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>North Division</span></div>
           <h2>Stars</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-stingers.html">
+      <a class="team-card" style="--team-accent:#f28a32;--team-accent-2:#a22c48" href="team-stingers.html">
         <div class="team-logo-wrap"><img src="assets/stingers.png" alt="Stingers logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>South Division</span></div>
           <h2>Stingers</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-supermen.html">
+      <a class="team-card" style="--team-accent:#2d7959;--team-accent-2:#d54444" href="team-supermen.html">
         <div class="team-logo-wrap"><img src="assets/supermen.png" alt="Supermen logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>East Division</span></div>
           <h2>Supermen</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-surfers.html">
+      <a class="team-card" style="--team-accent:#1f9898;--team-accent-2:#f47d34" href="team-surfers.html">
         <div class="team-logo-wrap"><img src="assets/surfers.png" alt="Surfers logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>North Division</span></div>
           <h2>Surfers</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-thunder-birds.html">
+      <a class="team-card" style="--team-accent:#315ed1;--team-accent-2:#f07433" href="team-thunder-birds.html">
         <div class="team-logo-wrap"><img src="assets/thunder-birds.png" alt="Thunder Birds logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>West Division</span></div>
           <h2>Thunder Birds</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-vodoo.html">
+      <a class="team-card" style="--team-accent:#cfaa4e;--team-accent-2:#4b3922" href="team-vodoo.html">
         <div class="team-logo-wrap"><img src="assets/vodoo.png" alt="Vodoo logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>NFC</span><span>South Division</span></div>
           <h2>Vodoo</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
-      <a class="team-card" href="team-volts.html">
+      <a class="team-card" style="--team-accent:#72b7e9;--team-accent-2:#efe73b" href="team-volts.html">
         <div class="team-logo-wrap"><img src="assets/volts.png" alt="Volts logo" class="team-logo" /></div>
         <div class="team-card-body">
           <div class="team-badges"><span>AFC</span><span>South Division</span></div>
           <h2>Volts</h2>
-          <p>Open team page</p>
+          <p>View Team</p>
         </div>
       </a>
     </section>
   </main>
+  <script src="app.js" defer></script>
 </body>
 </html>

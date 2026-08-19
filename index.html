@@ -3,42 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050507" />
   <title>Apollo Madden League</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="premium.css" />
 </head>
 <body>
   <div class="background-glow glow-pink"></div>
   <div class="background-glow glow-blue"></div>
-
   <main class="page-shell">
     <header class="hero">
       <img src="assets/aml-logo.png" alt="AML logo" class="aml-logo" />
       <h1>APOLLO MADDEN LEAGUE</h1>
+      <p class="hero-subtitle">The league hub for AML franchises, users, champions, MVPs, and every season of league history.</p>
+      <div class="hero-meta"><span>32 FRANCHISES</span><span>LEAGUE ARCHIVE</span><span>AML HISTORY</span></div>
       <div class="hero-line"></div>
     </header>
 
     <section class="menu-grid">
-      <a class="menu-card featured" href="history.html">
+      <a class="menu-card featured" data-index="01" href="history.html">
         <span class="eyebrow">THE ARCHIVE</span>
         <h2>AML HISTORY</h2>
-        <p>Seasons, champions, awards, records, AML Bowls and league history.</p>
+        <p>Champions, MVPs, season archives and the moments that built the league.</p>
         <span class="open-link">EXPLORE HISTORY →</span>
       </a>
-
-      <a class="menu-card" href="teams.html">
-        <span class="eyebrow">FRANCHISES</span>
+      <a class="menu-card" data-index="02" href="teams.html">
+        <span class="eyebrow">32 FRANCHISES</span>
         <h2>AML TEAMS</h2>
-        <p>Browse every AML franchise, team history, championships and more.</p>
+        <p>Browse every current AML franchise and open its dedicated team page.</p>
         <span class="open-link">VIEW TEAMS →</span>
       </a>
-
-      <a class="menu-card" href="users.html">
-        <span class="eyebrow">THE PLAYERS</span>
+      <a class="menu-card" data-index="03" href="users.html">
+        <span class="eyebrow">THE USERS</span>
         <h2>AML USERS</h2>
-        <p>Explore current and former users, career histories, records and awards.</p>
+        <p>Career histories, records, championships and awards for AML users.</p>
         <span class="open-link">VIEW USERS →</span>
       </a>
     </section>
   </main>
+  <script src="app.js" defer></script>
 </body>
 </html>
