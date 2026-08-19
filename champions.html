@@ -3,70 +3,311 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AML CHAMPIONS | Apollo Madden League</title>
+  <title>AML Champions | Apollo Madden League</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .archive-shell {
-      width: min(1100px, calc(100% - 30px));
+    .champ-shell {
+      width: min(1200px, calc(100% - 30px));
       margin: 0 auto;
       padding: 34px 0 70px;
     }
-    .archive-top {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:20px;
-      margin-bottom:42px;
+
+    .champ-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 34px;
     }
-    .archive-top img { width:110px; }
-    .archive-top a {
-      color:#fff;
-      text-decoration:none;
-      font-size:.82rem;
-      font-weight:800;
-      letter-spacing:.1em;
+
+    .champ-top img {
+      width: 115px;
+      display: block;
     }
-    .archive-title {
-      font-size:clamp(3rem, 8vw, 6rem);
-      margin:0 0 12px;
-      line-height:.92;
-      letter-spacing:-.045em;
+
+    .champ-top a {
+      color: #fff;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .12em;
     }
-    .archive-sub {
-      color:#a7a8b2;
-      max-width:700px;
-      line-height:1.65;
+
+    .champ-hero {
+      margin-bottom: 34px;
     }
-    .coming {
-      margin-top:34px;
-      padding:28px;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:22px;
-      background:rgba(17,17,23,.88);
+
+    .champ-hero h1 {
+      margin: 8px 0 12px;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: .9;
+      letter-spacing: -.045em;
     }
-    .coming strong {
-      display:block;
-      margin-bottom:8px;
-      font-size:1.1rem;
+
+    .champ-hero p {
+      max-width: 780px;
+      color: #a7a8b2;
+      line-height: 1.7;
+      font-size: 1.03rem;
+      margin: 0;
     }
-    .coming span { color:#a7a8b2; }
+
+    .champion-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .champion-card {
+      display: grid;
+      grid-template-columns: minmax(280px, 460px) 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01)),
+        rgba(17,17,23,.9);
+      box-shadow: 0 24px 60px rgba(0,0,0,.22);
+    }
+
+    .champion-graphic-wrap {
+      width: 100%;
+    }
+
+    .champion-graphic {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      object-fit: cover;
+      background: rgba(255,255,255,.03);
+    }
+
+    .champion-content {
+      min-width: 0;
+    }
+
+    .champion-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: .78rem;
+      letter-spacing: .18em;
+      color: #d7d7dc;
+      font-weight: 800;
+    }
+
+    .champion-content h2 {
+      margin: 0 0 14px;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: -.03em;
+    }
+
+    .champion-content h2 span {
+      font-size: .58em;
+      color: #a7a8b2;
+      font-weight: 700;
+    }
+
+    .matchup {
+      margin: 0 0 14px;
+      font-size: 1.08rem;
+      line-height: 1.6;
+      color: #f2f2f4;
+      font-weight: 700;
+    }
+
+    .description {
+      margin: 0;
+      color: #a7a8b2;
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 850px) {
+      .champion-card {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="background-glow glow-pink"></div>
   <div class="background-glow glow-blue"></div>
 
-  <main class="archive-shell">
-    <div class="archive-top">
+  <main class="champ-shell">
+    <div class="champ-top">
       <img src="assets/aml-logo.png" alt="AML logo" />
       <a href="history.html">← AML HISTORY</a>
     </div>
-    <h1 class="archive-title">AML CHAMPIONS</h1>
-    <p class="archive-sub">The complete championship history of the Apollo Madden League.</p>
-    <div class="coming">
-      <strong>READY FOR AML DATA</strong>
-      <span>Send me the champion for each season and I’ll build the full championship archive here.</span>
-    </div>
+
+    <section class="champ-hero">
+      <span class="eyebrow">THE WINNERS</span>
+      <h1>AML CHAMPIONS</h1>
+      <p>Every championship winner in Apollo Madden League history, complete with title graphics, final scores and a short recap for each season.</p>
+    </section>
+
+    <section class="champion-list">
+      
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-1.png" alt="Season 1 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 1 Champion - Kenny <span>(M24)</span></h2>
+          <p class="matchup">Eagles (Kenny) def. Bengals (Mikey), 45–35</p>
+          <p class="description">Kenny opened AML championship history with a 45–35 win over Mikey and the Bengals, giving the Eagles the first title in league history.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-2.png" alt="Season 2 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 2 Champion - Kenny <span>(M24)</span></h2>
+          <p class="matchup">Eagles (Kenny) def. Chiefs (Chazz), 21–14</p>
+          <p class="description">Kenny and the Eagles made it back-to-back, defending the crown with a 21–14 win over Chazz and the Chiefs in Season 2.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-3.png" alt="Season 3 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 3 Champion - Slopper <span>(M25)</span></h2>
+          <p class="matchup">Ravens (Slopper) def. Giants (Chazz), 31–14</p>
+          <p class="description">Slopper claimed the Season 3 championship in convincing fashion, leading the Ravens past the Giants 31–14 for his first AML title.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-4.png" alt="Season 4 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 4 Champion - JBX <span>(M25)</span></h2>
+          <p class="matchup">Steelers (JBX) def. Giants (Chazz), 33–21</p>
+          <p class="description">JBX delivered a strong Super Bowl performance in Season 4, guiding the Steelers to a 33–21 win over the Giants and earning his first championship.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-5.jpg" alt="Season 5 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 5 Champion - Chazz <span>(M25)</span></h2>
+          <p class="matchup">Giants (Chazz) def. Ravens (Slopper), 24–21</p>
+          <p class="description">After falling short in the previous two title games, Chazz finally broke through in Season 5, edging Slopper’s Ravens 24–21 to win it all.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-6.jpg" alt="Season 6 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 6 Champion - ColeWorld <span>(M25)</span></h2>
+          <p class="matchup">Commanders (Cole) def. Dolphins (Mikey), 36–19</p>
+          <p class="description">ColeWorld captured his first AML championship in Season 6, steering the Commanders to a 36–19 win over Mikey and the Dolphins.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-7.jpg" alt="Season 7 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 7 Champion - ColeWorld <span>(M25)</span></h2>
+          <p class="matchup">Cardinals (Cole) def. Jaguars (Slopper), 45–16</p>
+          <p class="description">ColeWorld stayed on top in Season 7, winning back-to-back titles with a dominant 45–16 victory over Slopper and the Jaguars.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-8.jpg" alt="Season 8 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 8 Champion - JoeMa <span>(M26)</span></h2>
+          <p class="matchup">Falcons (JoeMa) def. Dolphins (Slopper), by force win</p>
+          <p class="description">JoeMa and the Falcons were awarded the Season 8 championship by force win. The league continues to honor JoeMa and his memory. LLJM.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-9.jpg" alt="Season 9 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 9 Champion - ColeWorld <span>(M26)</span></h2>
+          <p class="matchup">Seahawks (Cole) def. Colts (Sherm), 50–14</p>
+          <p class="description">ColeWorld returned to the top in Season 9 with one of the most dominant title-game performances in AML history, routing the Colts 50–14.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-10.jpg" alt="Season 10 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 10 Champion - ColeWorld <span>(M26)</span></h2>
+          <p class="matchup">Seahawks (Cole) def. Bills (Kenny), 36–7</p>
+          <p class="description">The Seahawks repeated in Season 10, as ColeWorld overwhelmed Kenny and the Bills 36–7 to earn another back-to-back championship run.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-11.jpg" alt="Season 11 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 11 Champion - Kenny <span>(M26)</span></h2>
+          <p class="matchup">Chiefs (Kenny) def. Saints (JBX), 42–27</p>
+          <p class="description">Kenny added a third AML title to his résumé in Season 11, powering the Chiefs past JBX and the Saints by a 42–27 final.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-12.jpg" alt="Season 12 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 12 Champion - Kenny <span>(M26)</span></h2>
+          <p class="matchup">Omnitrix (Kenny) def. Voodoo (Sebb), 45–41</p>
+          <p class="description">Season 12 marked the first season of AML original teams, and Kenny’s Omnitrix became the first original team to win a championship with a 45–41 victory over Sebb’s Voodoo.</p>
+        </div>
+      </article>
+    
+      <article class="champion-card">
+        <div class="champion-graphic-wrap">
+          <img src="assets/champions/season-13.jpg" alt="Season 13 championship graphic" class="champion-graphic" />
+        </div>
+        <div class="champion-content">
+          <div class="champion-kicker">AML CHAMPION</div>
+          <h2>Season 13 Champion - ColeWorld <span>(M26)</span></h2>
+          <p class="matchup">SpeedRacers (Cole) def. Voodoo (Sebb), 57–38</p>
+          <p class="description">ColeWorld closed out Season 13 in explosive fashion, leading the SpeedRacers to a 57–38 win over Voodoo and adding yet another title to his AML legacy.</p>
+        </div>
+      </article>
+    
+    </section>
   </main>
 </body>
 </html>
