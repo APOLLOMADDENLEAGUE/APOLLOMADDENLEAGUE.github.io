@@ -1,20 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
-<defs>
-  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#ffd76d" stop-opacity=".22"/>
-    <stop offset="100%" stop-color="#fff1bc" stop-opacity=".12"/>
-  </linearGradient>
-</defs>
-<rect width="1600" height="1000" fill="none"/>
-<g opacity=".14" fill="none" stroke="url(#gold)">
-  <path d="M800 120 C640 120 520 260 520 430 C520 610 640 730 800 730 C960 730 1080 610 1080 430 C1080 260 960 120 800 120 Z" stroke-width="2"/>
-  <path d="M800 170 C680 170 590 275 590 430 C590 575 680 680 800 680 C920 680 1010 575 1010 430 C1010 275 920 170 800 170 Z" stroke-width="1.5"/>
-</g>
-<g opacity=".08" stroke="#fff" fill="none">
-  <path d="M430 290 C360 440 350 600 420 760" stroke-width="9" stroke-linecap="round"/>
-  <path d="M1170 290 C1240 440 1250 600 1180 760" stroke-width="9" stroke-linecap="round"/>
-  <path d="M470 320 C420 450 415 565 465 700" stroke-width="4" stroke-linecap="round"/>
-  <path d="M1130 320 C1180 450 1185 565 1135 700" stroke-width="4" stroke-linecap="round"/>
-</g>
-<path d="M120 870 H1480" stroke="rgba(255,214,108,.22)" stroke-width="2"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+    <defs></defs>
+    
+    <rect width="1600" height="1000" fill="#0a0805"/>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#302213"/><stop offset="45%" stop-color="#151012"/><stop offset="100%" stop-color="#09090b"/></linearGradient>
+    <rect width="1600" height="1000" fill="url(#g)"/>
+    <ellipse cx="800" cy="145" rx="300" ry="120" fill="#fff1ba" opacity=".08"/>
+    <g opacity=".18">
+      <path d="M800 180 C660 180 555 300 555 452 C555 606 664 714 800 714 C936 714 1045 606 1045 452 C1045 300 940 180 800 180 Z" fill="none" stroke="#ffd77c" stroke-width="2"/>
+      <path d="M690 282 C640 332 620 400 620 458 C620 578 695 654 800 654 C905 654 980 578 980 458 C980 400 960 332 910 282" fill="none" stroke="#fff5d5" stroke-width="2"/>
+      <path d="M655 284 H945" stroke="#ffd77c" stroke-width="16" opacity=".25"/>
+      <path d="M720 654 H880" stroke="#ffd77c" stroke-width="18" opacity=".22"/>
+    </g>
+    <path d="M0 850 H1600" stroke="#ffd77c" stroke-width="2" opacity=".22"/>
+    <circle cx="447.3" cy="459.3" r="134.7" fill="#f5da83" opacity="0.039"/><circle cx="803.5" cy="956.4" r="136.3" fill="#f5da83" opacity="0.053"/><circle cx="1263.9" cy="451.0" r="107.5" fill="#f5da83" opacity="0.064"/><circle cx="267.3" cy="889.3" r="168.4" fill="#f5da83" opacity="0.054"/><circle cx="826.2" cy="65.7" r="97.3" fill="#f5da83" opacity="0.062"/><circle cx="1166.0" cy="622.4" r="93.7" fill="#f5da83" opacity="0.060"/><circle cx="1582.8" cy="872.0" r="146.6" fill="#f5da83" opacity="0.051"/><circle cx="677.9" cy="153.3" r="84.1" fill="#f5da83" opacity="0.069"/><circle cx="634.8" cy="389.0" r="128.4" fill="#f5da83" opacity="0.069"/><circle cx="1462.7" cy="689.9" r="158.4" fill="#f5da83" opacity="0.053"/>
+    
+    </svg>

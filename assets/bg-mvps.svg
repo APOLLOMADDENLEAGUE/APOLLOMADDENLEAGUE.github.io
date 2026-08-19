@@ -1,17 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
-<defs>
-  <linearGradient id="beam1" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0%" stop-color="#ffffff" stop-opacity=".18"/>
-    <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
-  </linearGradient>
-</defs>
-<rect width="1600" height="1000" fill="none"/>
-<polygon points="560,0 720,0 920,1000 760,1000" fill="url(#beam1)" opacity=".22"/>
-<polygon points="920,0 1080,0 1280,1000 1120,1000" fill="url(#beam1)" opacity=".12"/>
-<g opacity=".1" stroke="#fff">
-  <path d="M140 220 H1460"/><path d="M140 370 H1460"/><path d="M140 520 H1460"/><path d="M140 670 H1460"/><path d="M140 820 H1460"/>
-</g>
-<g opacity=".1" fill="#fff">
-  <circle cx="260" cy="220" r="8"/><circle cx="1240" cy="370" r="8"/><circle cx="520" cy="520" r="8"/><circle cx="1040" cy="670" r="8"/><circle cx="760" cy="820" r="8"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+    <defs></defs>
+    
+    <rect width="1600" height="1000" fill="#08080d"/>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#131a34"/><stop offset="50%" stop-color="#13101b"/><stop offset="100%" stop-color="#09090c"/></linearGradient>
+    <rect width="1600" height="1000" fill="url(#g)"/>
+    <polygon points="600,0 750,0 930,1000 780,1000" fill="#ffffff" opacity=".14"/>
+    <polygon points="840,0 980,0 1180,1000 1040,1000" fill="#ffffff" opacity=".08"/>
+    <path d="M140 250 H1460 M140 420 H1460 M140 590 H1460 M140 760 H1460" stroke="#ffffff" stroke-width="2" opacity=".10"/>
+    <g opacity=".14"><circle cx="260" cy="250" r="10" fill="#fff"/><circle cx="500" cy="420" r="10" fill="#fff"/><circle cx="860" cy="590" r="10" fill="#fff"/><circle cx="1270" cy="760" r="10" fill="#fff"/></g>
+    
+    </svg>
