@@ -1339,3 +1339,98 @@ body.team-page .team-panel{
   body.team-page .team-hero::before{background-size:min(60vw,260px)!important;background-position:center center!important;opacity:.055!important}
   .placeholder{padding:4px 12px 36px!important}
 }
+
+
+/* ==========================================================
+   V14 CINEMATIC SCENE BACKGROUNDS + NO DEAD SPACE
+   ========================================================== */
+html,body{scroll-padding-top:0!important}
+body::before, body::after{pointer-events:none}
+.page-shell,.history-shell,.champ-shell,.mvp-shell,.teams-shell,.team-shell,.archive-shell,.seasons-shell{padding-top:2px!important;margin-top:0!important}
+.hero,.history-hero,.champ-hero,.mvp-hero,.teams-hero,.team-hero,.placeholder{min-height:0!important}
+.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top{margin-top:0!important;margin-bottom:8px!important;min-height:46px!important;padding:6px 10px!important}
+body.home-page .hero{padding:8px 12px 18px!important;margin-bottom:10px!important}
+body.home-page .aml-logo{margin:0 auto 8px!important}
+body.home-page .hero h1{margin-top:0!important}
+body.home-page .hero-subtitle{margin-top:8px!important}
+body.home-page .hero-meta{margin-top:10px!important}
+body.home-page .menu-grid{margin-top:0!important}
+.history-hero,.champ-hero,.mvp-hero,.teams-hero{padding:8px 0 16px!important;margin-bottom:10px!important}
+.placeholder{padding-top:0!important}
+body.users-page .placeholder-inner, .archive-shell, .history-card, .champion-card, .mvp-card, .team-card{
+  background:rgba(10,10,14,.82)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+}
+body.home-page{background-image:url("assets/bg-home.svg"), linear-gradient(180deg,#050507,#050507)!important;background-size:cover!important;background-position:center top!important}
+body.history-page{background-image:url("assets/bg-history.svg"), linear-gradient(180deg,#06060a,#050507)!important;background-size:cover!important;background-position:center top!important}
+body.teams-page{background-image:url("assets/bg-teams.svg"), linear-gradient(180deg,#06060a,#050507)!important;background-size:cover!important;background-position:center top!important}
+body.champions-page{background-image:url("assets/bg-champions.svg"), linear-gradient(180deg,#06060a,#050507)!important;background-size:cover!important;background-position:center top!important}
+body.mvps-page{background-image:url("assets/bg-mvps.svg"), linear-gradient(180deg,#06060a,#050507)!important;background-size:cover!important;background-position:center top!important}
+body.season-page,body.seasons-page{background-image:url("assets/bg-season.svg"), linear-gradient(180deg,#06060a,#050507)!important;background-size:cover!important;background-position:center top!important}
+
+/* Team pages now use full scenic backgrounds per team */
+body.team-page{
+  background-color:#050507!important;
+  background-image:var(--team-bg)!important;
+  background-size:cover!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+  background-attachment:scroll!important;
+}
+body.team-page::before{
+  content:"";
+  position:fixed; inset:0; z-index:0;
+  background:linear-gradient(180deg,rgba(5,5,7,.14) 0%,rgba(5,5,7,.16) 12%,rgba(5,5,7,.28) 48%,rgba(5,5,7,.62) 100%)!important;
+  opacity:1!important; mask-image:none!important;
+}
+body.team-page::after{
+  content:"";
+  position:fixed; inset:0; z-index:0;
+  background:radial-gradient(circle at 50% 24%, rgba(255,255,255,.05), transparent 26%), radial-gradient(circle at 50% 30%, transparent 0 30%, rgba(0,0,0,.10) 60%, rgba(0,0,0,.38) 100%)!important;
+  opacity:1!important;
+}
+body.team-page .background-glow{display:none!important}
+body.team-page .team-shell::before,
+body.team-page .team-shell::after{display:none!important}
+body.team-page .team-shell{padding-top:0!important;padding-bottom:42px!important}
+body.team-page .team-top{margin-bottom:8px!important}
+body.team-page .team-hero{
+  min-height:0!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.02)),rgba(7,8,12,.64)!important;
+  border:1px solid color-mix(in srgb,var(--team-accent) 22%, rgba(255,255,255,.16))!important;
+  box-shadow:0 28px 70px rgba(0,0,0,.34)!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+}
+body.team-page .team-hero::before{
+  opacity:.11!important;
+  background-size:min(28vw,250px)!important;
+  background-position:right 26px center!important;
+  filter:grayscale(1) brightness(2.5)!important;
+}
+body.team-page .team-logo-panel{
+  background:linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.015)), rgba(8,8,12,.42)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+}
+body.team-page .team-copy p{color:#d9deea!important;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+body.team-page .team-tags span{background:rgba(255,255,255,.09)!important}
+body.team-page .team-panels{margin-top:12px!important}
+body.team-page .team-panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015)),rgba(8,8,12,.72)!important;
+  border-color:rgba(255,255,255,.12)!important;
+  backdrop-filter:blur(9px)!important;
+  -webkit-backdrop-filter:blur(9px)!important;
+}
+body.team-page .team-panel p{color:#d0d6e2!important}
+body.team-page .team-copy h1, body.team-page .team-panel h2{ text-shadow:0 3px 16px rgba(0,0,0,.28)}
+
+@media(max-width:760px){
+  .page-shell,.history-shell,.champ-shell,.mvp-shell,.teams-shell,.team-shell,.archive-shell,.seasons-shell{padding-top:0!important}
+  body.home-page .hero{padding:6px 8px 14px!important}
+  .history-hero,.champ-hero,.mvp-hero,.teams-hero{padding:6px 0 12px!important}
+  body.team-page{background-size:auto 1000px!important;background-position:center top!important}
+  body.team-page .team-shell{padding-bottom:24px!important}
+  body.team-page .team-hero::before{background-size:min(42vw,190px)!important;background-position:right 12px top 18px!important;opacity:.08!important}
+}
