@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="none">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff39bd" stop-opacity=".16"/><stop offset="100%" stop-color="#31b9ff" stop-opacity=".16"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="none"/>
+<g opacity=".13" stroke="url(#g)" fill="none">
+  <path d="M90 180 H1510" stroke-width="2"/>
+  <path d="M90 500 H1510" stroke-width="2"/>
+  <path d="M90 820 H1510" stroke-width="2"/>
+  <path d="M400 100 V900" stroke-width="2"/>
+  <path d="M800 100 V900" stroke-width="2"/>
+  <path d="M1200 100 V900" stroke-width="2"/>
+</g>
+<g opacity=".1" fill="#fff">
+  <circle cx="400" cy="180" r="10"/><circle cx="800" cy="180" r="10"/><circle cx="1200" cy="180" r="10"/>
+  <circle cx="400" cy="500" r="10"/><circle cx="800" cy="500" r="10"/><circle cx="1200" cy="500" r="10"/>
+  <circle cx="400" cy="820" r="10"/><circle cx="800" cy="820" r="10"/><circle cx="1200" cy="820" r="10"/>
+</g>
+<g opacity=".14" stroke="#fff">
+  <path d="M0 120 L380 500 L0 880"/>
+  <path d="M1600 120 L1220 500 L1600 880"/>
+</g>
+</svg>

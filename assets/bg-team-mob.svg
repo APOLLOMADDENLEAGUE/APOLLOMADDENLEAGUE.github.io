@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c8ccd6" stop-opacity=".60"/><stop offset="1" stop-color="#7a8497" stop-opacity=".46"/></linearGradient>
+  <radialGradient id="r" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#c8ccd6" stop-opacity=".18"/><stop offset="1" stop-color="#050507" stop-opacity="0"/></radialGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1600" height="1000" fill="#050507"/>
+<rect width="1600" height="1000" fill="url(#r)"/>
+<g opacity=".16" stroke="url(#g)"><path d="M200 0 L-60 1000" stroke-width="2"/><path d="M320 0 L60 1000" stroke-width="2"/><path d="M440 0 L180 1000" stroke-width="2"/><path d="M560 0 L300 1000" stroke-width="2"/><path d="M680 0 L420 1000" stroke-width="2"/><path d="M800 0 L540 1000" stroke-width="2"/><path d="M920 0 L660 1000" stroke-width="2"/><path d="M1040 0 L780 1000" stroke-width="2"/><path d="M1160 0 L900 1000" stroke-width="2"/><path d="M1280 0 L1020 1000" stroke-width="2"/><path d="M1400 0 L1140 1000" stroke-width="2"/><path d="M1520 0 L1260 1000" stroke-width="2"/><path d="M1640 0 L1380 1000" stroke-width="2"/><path d="M1760 0 L1500 1000" stroke-width="2"/><path d="M1880 0 L1620 1000" stroke-width="2"/></g><g fill="none" stroke="#fff" opacity=".07"><rect x="210" y="250" width="240" height="340" rx="20" transform="rotate(-10 330 420)"/><rect x="1140" y="250" width="240" height="340" rx="20" transform="rotate(10 1260 420)"/></g>
+
+<rect x="28" y="28" width="1544" height="944" rx="44" fill="none" stroke="white" stroke-opacity=".035"/>
+</svg>

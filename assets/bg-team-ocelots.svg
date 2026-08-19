@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d6c54a" stop-opacity=".60"/><stop offset="1" stop-color="#4fbf74" stop-opacity=".46"/></linearGradient>
+  <radialGradient id="r" cx="50%" cy="20%" r="70%"><stop offset="0" stop-color="#d6c54a" stop-opacity=".18"/><stop offset="1" stop-color="#050507" stop-opacity="0"/></radialGradient>
+  <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+</defs>
+<rect width="1600" height="1000" fill="#050507"/>
+<rect width="1600" height="1000" fill="url(#r)"/>
+<g fill="none" stroke="url(#g)" opacity=".54"><ellipse cx="220" cy="220" rx="55" ry="35" transform="rotate(-15 220 220)" stroke-width="7"/><ellipse cx="480" cy="350" rx="55" ry="35" transform="rotate(25 480 350)" stroke-width="7"/><ellipse cx="760" cy="180" rx="55" ry="35" transform="rotate(-5 760 180)" stroke-width="7"/><ellipse cx="1080" cy="330" rx="55" ry="35" transform="rotate(18 1080 330)" stroke-width="7"/><ellipse cx="1360" cy="210" rx="55" ry="35" transform="rotate(-18 1360 210)" stroke-width="7"/><ellipse cx="350" cy="720" rx="55" ry="35" transform="rotate(10 350 720)" stroke-width="7"/><ellipse cx="860" cy="680" rx="55" ry="35" transform="rotate(-20 860 680)" stroke-width="7"/><ellipse cx="1260" cy="720" rx="55" ry="35" transform="rotate(15 1260 720)" stroke-width="7"/></g><g stroke="#fff" stroke-linecap="round" opacity=".07"><path d="M1200 520 l-170 290" stroke-width="16"/><path d="M1280 550 l-150 290" stroke-width="12"/><path d="M1360 590 l-120 260" stroke-width="9"/></g>
+
+<rect x="28" y="28" width="1544" height="944" rx="44" fill="none" stroke="white" stroke-opacity=".035"/>
+</svg>
