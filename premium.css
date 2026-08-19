@@ -754,3 +754,445 @@ body.seasons-page .season-grid a:nth-child(4n + 1)::before{
     padding-bottom:26px!important;
   }
 }
+
+
+/* ==========================================================
+   V11 — STRONGER PAGE IDENTITY (intentionally more visible)
+   ========================================================== */
+
+/* GLOBAL: subtle but obvious giant AML watermark */
+body.aml-page::before{
+  opacity:.26!important;
+}
+body.aml-page::after{
+  background:
+    radial-gradient(circle at 50% 0%, transparent 0 28%, rgba(0,0,0,.18) 62%, rgba(0,0,0,.48) 100%)!important;
+}
+
+/* HOME */
+body.home-page .hero{
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+body.home-page .hero::after{
+  font-size:clamp(12rem,34vw,24rem)!important;
+  right:-1vw!important;
+  bottom:-42px!important;
+  color:rgba(255,255,255,.075)!important;
+  text-shadow:
+    0 0 60px rgba(255,57,189,.10),
+    0 0 70px rgba(49,185,255,.10)!important;
+}
+
+/* HISTORY */
+body.history-page .history-hero{
+  overflow:hidden;
+  border-radius:26px;
+  padding:44px 28px 42px!important;
+  background:
+    linear-gradient(110deg,rgba(255,57,189,.065),rgba(49,185,255,.04)),
+    rgba(12,12,18,.62);
+  border:1px solid rgba(255,255,255,.06);
+}
+body.history-page .history-hero::after{
+  content:"AML"!important;
+  font-size:clamp(8rem,28vw,18rem)!important;
+  top:-10px!important;
+  right:-8px!important;
+  color:rgba(255,255,255,.065)!important;
+  letter-spacing:-.08em!important;
+}
+body.history-page .history-card{
+  box-shadow:0 22px 60px rgba(0,0,0,.28)!important;
+}
+body.history-page .history-card:nth-child(1){
+  background:
+    linear-gradient(145deg,rgba(255,212,106,.065),rgba(255,255,255,.01)),
+    rgba(12,12,18,.92)!important;
+}
+body.history-page .history-card:nth-child(2){
+  background:
+    linear-gradient(145deg,rgba(135,100,255,.065),rgba(49,185,255,.025)),
+    rgba(12,12,18,.92)!important;
+}
+
+/* CHAMPIONS — clear legacy/gold identity */
+body.champions-page{
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255,206,90,.16), transparent 31%),
+    radial-gradient(circle at 92% 10%, rgba(255,239,184,.075), transparent 25%),
+    radial-gradient(circle at 70% 55%, rgba(49,185,255,.055), transparent 34%),
+    linear-gradient(180deg,#090806 0%,#050507 46%,#060608 100%)!important;
+}
+body.champions-page .champ-hero{
+  overflow:hidden;
+  border-radius:28px;
+  padding:46px 30px 46px!important;
+  background:
+    linear-gradient(120deg,rgba(255,214,102,.09),rgba(255,255,255,.015)),
+    rgba(15,14,12,.72);
+  border:1px solid rgba(255,224,145,.13);
+}
+body.champions-page .champ-hero::before{
+  content:"🏆"!important;
+  font-size:clamp(7rem,20vw,13rem)!important;
+  top:50%!important;
+  right:3%!important;
+  transform:translateY(-50%);
+  opacity:.09;
+  color:initial!important;
+  filter:grayscale(1) sepia(.7);
+}
+body.champions-page .champ-hero::after{
+  height:3px!important;
+  background:linear-gradient(90deg,#ffd66c,#fff1b8,transparent 82%)!important;
+}
+body.champions-page .champion-card{
+  border-color:rgba(255,219,125,.17)!important;
+  box-shadow:0 24px 70px rgba(0,0,0,.31), inset 0 1px 0 rgba(255,255,255,.03)!important;
+}
+body.champions-page .champion-card::before{
+  height:4px!important;
+  background:linear-gradient(90deg,#ffc84f,#fff3ba,rgba(255,255,255,.05))!important;
+}
+body.champions-page .champion-kicker{
+  color:#ffe8a3!important;
+}
+body.champions-page .champion-graphic{
+  box-shadow:0 16px 40px rgba(0,0,0,.35);
+}
+
+/* MVP — visible awards/spotlight identity */
+body.mvps-page{
+  background:
+    radial-gradient(ellipse at 50% -4%, rgba(255,255,255,.12), transparent 24%),
+    radial-gradient(circle at 10% 18%, rgba(255,57,189,.12), transparent 28%),
+    radial-gradient(circle at 91% 17%, rgba(49,185,255,.12), transparent 28%),
+    linear-gradient(180deg,#08080d 0%,#050507 48%,#06060a 100%)!important;
+}
+body.mvps-page .mvp-hero{
+  overflow:hidden;
+  border-radius:28px;
+  padding:46px 30px 46px!important;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.09),transparent 52%),
+    linear-gradient(120deg,rgba(255,57,189,.055),rgba(49,185,255,.055)),
+    rgba(12,12,18,.72);
+  border:1px solid rgba(255,255,255,.08);
+}
+body.mvps-page .mvp-hero::before{
+  font-size:clamp(7rem,24vw,16rem)!important;
+  right:-1%!important;
+  top:-4%!important;
+  color:rgba(255,255,255,.07)!important;
+}
+body.mvps-page .mvp-card{
+  box-shadow:0 24px 68px rgba(0,0,0,.30)!important;
+}
+body.mvps-page .mvp-card::before{
+  height:4px!important;
+}
+body.mvps-page .mvp-card:nth-child(odd)::after{
+  background:rgba(255,57,189,.19)!important;
+}
+body.mvps-page .mvp-card:nth-child(even)::after{
+  background:rgba(49,185,255,.18)!important;
+}
+
+/* TEAMS INDEX — stronger per-team accents */
+body.teams-page .teams-hero{
+  overflow:hidden;
+  border-radius:26px;
+  padding:44px 28px 42px!important;
+  background:
+    linear-gradient(110deg,rgba(255,57,189,.05),rgba(49,185,255,.05)),
+    rgba(12,12,18,.62);
+  border:1px solid rgba(255,255,255,.06);
+}
+body.teams-page .teams-hero::after{
+  content:"32"!important;
+  position:absolute!important;
+  right:18px!important;
+  top:50%!important;
+  transform:translateY(-50%);
+  font-size:clamp(8rem,22vw,14rem)!important;
+  font-weight:1000!important;
+  line-height:.8!important;
+  color:rgba(255,255,255,.06)!important;
+}
+body.teams-page .team-card{
+  border-color:color-mix(in srgb,var(--team-accent) 22%,rgba(255,255,255,.08))!important;
+}
+body.teams-page .team-card::before{
+  height:5px!important;
+}
+body.teams-page .team-card::after{
+  opacity:.18!important;
+  width:220px!important;
+  height:220px!important;
+}
+body.teams-page .team-logo-wrap{
+  background:
+    radial-gradient(circle at 50% 48%,color-mix(in srgb,var(--team-accent) 23%,transparent),rgba(255,255,255,.015) 56%,transparent 76%)!important;
+}
+
+/* INDIVIDUAL TEAM PAGES — clearly team branded */
+body.team-page{
+  background:
+    radial-gradient(circle at 10% -8%, color-mix(in srgb,var(--team-accent) 30%, transparent), transparent 33%),
+    radial-gradient(circle at 92% 8%, color-mix(in srgb,var(--team-accent-2) 26%, transparent), transparent 31%),
+    linear-gradient(180deg,#08080c 0%,#050507 48%,#07070b 100%)!important;
+}
+body.team-page .team-hero{
+  min-height:410px;
+  border-color:color-mix(in srgb,var(--team-accent) 25%,rgba(255,255,255,.08))!important;
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.33),
+    0 0 45px color-mix(in srgb,var(--team-accent) 9%,transparent)!important;
+}
+body.team-page .team-hero::before{
+  background-position:right -12px center!important;
+  background-size:min(42vw,390px)!important;
+  opacity:.115!important;
+  filter:grayscale(.1) brightness(1.35) saturate(.85)!important;
+}
+body.team-page .team-hero::after{
+  width:360px!important;
+  height:360px!important;
+  right:-90px!important;
+  top:-80px!important;
+  opacity:.72!important;
+}
+body.team-page .team-logo-panel{
+  border-color:color-mix(in srgb,var(--team-accent) 22%,rgba(255,255,255,.06))!important;
+  box-shadow:inset 0 0 50px color-mix(in srgb,var(--team-accent) 7%,transparent);
+}
+body.team-page .team-copy h1{
+  text-shadow:0 12px 35px rgba(0,0,0,.34);
+}
+body.team-page .team-panel{
+  border-color:color-mix(in srgb,var(--team-accent) 16%,rgba(255,255,255,.08))!important;
+}
+body.team-page .team-panel:nth-child(1){
+  box-shadow:inset 0 4px 0 var(--team-accent),0 16px 40px rgba(0,0,0,.17)!important;
+}
+body.team-page .team-panel:nth-child(2){
+  box-shadow:inset 0 4px 0 color-mix(in srgb,var(--team-accent) 50%,var(--team-accent-2)),0 16px 40px rgba(0,0,0,.17)!important;
+}
+body.team-page .team-panel:nth-child(3){
+  box-shadow:inset 0 4px 0 var(--team-accent-2),0 16px 40px rgba(0,0,0,.17)!important;
+}
+
+/* SEASON PAGES — unmistakable giant season number */
+body.season-page{
+  background:
+    radial-gradient(circle at 13% 2%,rgba(255,57,189,.09),transparent 29%),
+    radial-gradient(circle at 88% 12%,rgba(49,185,255,.10),transparent 29%),
+    linear-gradient(180deg,#08080c 0%,#050507 48%,#06060a 100%)!important;
+}
+body.season-page .season-watermark{
+  right:-4px!important;
+  top:80px!important;
+  font-size:clamp(13rem,38vw,26rem)!important;
+  color:rgba(255,255,255,.075)!important;
+  text-shadow:
+    0 0 55px rgba(255,57,189,.04),
+    0 0 70px rgba(49,185,255,.04);
+}
+body.season-page .archive-title{
+  position:relative;
+}
+body.season-page .archive-title::after{
+  content:"";
+  display:block;
+  width:min(280px,60vw);
+  height:3px;
+  margin-top:18px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--pink),var(--blue),transparent);
+}
+body.season-page .coming{
+  min-height:150px;
+  box-shadow:0 24px 65px rgba(0,0,0,.26)!important;
+}
+
+/* MOBILE: keep the stronger identity but don't let watermarks crowd text */
+@media(max-width:760px){
+  body.home-page .hero{
+    min-height:360px;
+  }
+  body.team-page .team-hero{
+    min-height:auto;
+  }
+  body.team-page .team-hero::before{
+    background-size:min(72vw,300px)!important;
+    background-position:center center!important;
+    opacity:.065!important;
+  }
+  body.season-page .season-watermark{
+    font-size:clamp(11rem,55vw,18rem)!important;
+    top:100px!important;
+    opacity:.8;
+  }
+  body.champions-page .champ-hero::before{
+    font-size:8rem!important;
+    right:-10px!important;
+  }
+}
+
+
+/* ===== V12 richer background plates ===== */
+body.home-page{
+  background:
+    url("assets/bg-home.svg") center top / cover no-repeat,
+    radial-gradient(circle at 12% -8%, rgba(255,57,189,.16), transparent 29%),
+    radial-gradient(circle at 88% 12%, rgba(49,185,255,.14), transparent 27%),
+    linear-gradient(180deg,#06060a 0%,#040406 52%,#050509 100%) !important;
+}
+body.home-page .hero{
+  background:
+    radial-gradient(circle at 50% 12%,rgba(255,255,255,.08),transparent 34%),
+    linear-gradient(120deg,rgba(255,57,189,.06),rgba(49,185,255,.055)),
+    rgba(10,10,15,.68);
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 28px 70px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.04);
+}
+body.home-page .menu-card{backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+
+body.history-page{
+  background:
+    url("assets/bg-history.svg") center top / cover no-repeat,
+    radial-gradient(circle at 10% 10%, rgba(255,57,189,.10), transparent 28%),
+    radial-gradient(circle at 92% 15%, rgba(49,185,255,.10), transparent 26%),
+    linear-gradient(180deg,#07070b 0%,#050507 50%,#06060a 100%) !important;
+}
+body.history-page .history-card,
+body.teams-page .team-card,
+body.champions-page .champion-card,
+body.mvps-page .mvp-card,
+body.season-page .coming,
+body.users-page .placeholder-inner{
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+body.teams-page{
+  background:
+    url("assets/bg-teams.svg") center top / cover no-repeat,
+    radial-gradient(circle at 12% 2%, rgba(255,57,189,.10), transparent 28%),
+    radial-gradient(circle at 88% 10%, rgba(49,185,255,.10), transparent 28%),
+    linear-gradient(180deg,#07070b 0%,#050507 52%,#06060a 100%) !important;
+}
+body.teams-page .teams-shell{position:relative; isolation:isolate}
+body.teams-page .teams-shell::before{
+  content:"";
+  position:absolute;
+  inset:86px 0 auto 0;
+  height:170px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.08), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+body.teams-page .teams-shell > *{position:relative; z-index:1}
+
+body.champions-page{
+  background:
+    url("assets/bg-champions.svg") center top / cover no-repeat,
+    radial-gradient(circle at 8% 0%, rgba(255,206,90,.16), transparent 31%),
+    radial-gradient(circle at 92% 10%, rgba(255,239,184,.075), transparent 25%),
+    radial-gradient(circle at 70% 55%, rgba(49,185,255,.055), transparent 34%),
+    linear-gradient(180deg,#090806 0%,#050507 46%,#060608 100%) !important;
+}
+
+body.mvps-page{
+  background:
+    url("assets/bg-mvps.svg") center top / cover no-repeat,
+    radial-gradient(ellipse at 50% -4%, rgba(255,255,255,.10), transparent 24%),
+    radial-gradient(circle at 10% 18%, rgba(255,57,189,.12), transparent 28%),
+    radial-gradient(circle at 91% 17%, rgba(49,185,255,.12), transparent 28%),
+    linear-gradient(180deg,#08080d 0%,#050507 48%,#06060a 100%) !important;
+}
+
+body.season-page,
+body.seasons-page{
+  background:
+    url("assets/bg-season.svg") center top / cover no-repeat,
+    radial-gradient(circle at 13% 2%,rgba(255,57,189,.10),transparent 29%),
+    radial-gradient(circle at 88% 12%,rgba(49,185,255,.10),transparent 29%),
+    linear-gradient(180deg,#08080c 0%,#050507 48%,#06060a 100%) !important;
+}
+
+/* Team pages get a proper designed background plate */
+body.team-page .team-shell{
+  position:relative;
+  isolation:isolate;
+}
+body.team-page .team-shell::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 14% 14%, color-mix(in srgb,var(--team-accent) 18%, transparent), transparent 24%),
+    radial-gradient(circle at 88% 14%, color-mix(in srgb,var(--team-accent-2) 18%, transparent), transparent 24%),
+    repeating-linear-gradient(135deg,
+      transparent 0 95px,
+      color-mix(in srgb,var(--team-accent) 8%, transparent) 95px 112px,
+      transparent 112px 205px),
+    linear-gradient(180deg, transparent, rgba(0,0,0,.04));
+  opacity:.9;
+}
+body.team-page .team-shell::after{
+  content:"";
+  position:absolute;
+  inset:82px 0 auto 0;
+  height:330px;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(115deg,
+      color-mix(in srgb,var(--team-accent) 18%, transparent) 0 16%,
+      transparent 16% 55%,
+      color-mix(in srgb,var(--team-accent-2) 16%, transparent) 55% 70%,
+      transparent 70% 100%),
+    radial-gradient(circle at 72% 50%, color-mix(in srgb,var(--team-accent) 18%, transparent), transparent 36%);
+  filter:blur(0px);
+  opacity:.5;
+}
+body.team-page .team-shell > *{position:relative; z-index:1}
+body.team-page .team-hero{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.010)),
+    rgba(9,9,14,.80)!important;
+}
+body.team-page .team-panels .team-panel{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.008)),
+    rgba(10,10,15,.84)!important;
+}
+
+@media(max-width:760px){
+  body.home-page,
+  body.history-page,
+  body.teams-page,
+  body.champions-page,
+  body.mvps-page,
+  body.season-page,
+  body.seasons-page{
+    background-position:center top!important;
+  }
+  body.team-page .team-shell::after{height:220px; inset:68px 0 auto 0; opacity:.42}
+  body.team-page .team-shell::before{
+    background:
+      radial-gradient(circle at 14% 14%, color-mix(in srgb,var(--team-accent) 16%, transparent), transparent 22%),
+      radial-gradient(circle at 88% 12%, color-mix(in srgb,var(--team-accent-2) 16%, transparent), transparent 22%),
+      repeating-linear-gradient(135deg,
+        transparent 0 72px,
+        color-mix(in srgb,var(--team-accent) 7%, transparent) 72px 84px,
+        transparent 84px 150px);
+    opacity:.85;
+  }
+}
