@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Griffins | AML Teams</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .team-shell { width:min(1120px, calc(100% - 26px)); margin:0 auto; padding:34px 0 70px; }
+    .team-top { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:30px; }
+    .team-top img { width: 110px; display:block; }
+    .team-top a { color:#fff; text-decoration:none; font-size:.82rem; font-weight:800; letter-spacing:.12em; }
+    .team-hero {
+      display:grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap:28px;
+      align-items:center;
+      padding:26px;
+      border-radius:28px;
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01)), rgba(17,17,23,.92);
+      box-shadow: 0 24px 60px rgba(0,0,0,.26);
+    }
+    .team-logo-panel {
+      min-height: 330px;
+      border-radius: 22px;
+      display:grid;
+      place-items:center;
+      padding: 24px;
+      background: radial-gradient(circle at 50% 18%, rgba(255,255,255,.07), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .team-logo-panel img { max-width:100%; max-height:270px; display:block; object-fit:contain; filter: drop-shadow(0 14px 30px rgba(0,0,0,.28)); }
+    .team-copy h1 { margin:0 0 14px; font-size: clamp(2.4rem, 6vw, 4.7rem); line-height:.95; letter-spacing:-.04em; }
+    .team-copy p { margin:0; color:#a7a8b2; line-height:1.75; font-size:1rem; max-width: 650px; }
+    .team-tags { display:flex; flex-wrap:wrap; gap:10px; margin: 0 0 18px; }
+    .team-tags span { padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:#ececf2; font-size:.78rem; font-weight:800; letter-spacing:.08em; }
+    .team-panels { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:18px; margin-top:22px; }
+    .team-panel { padding:22px; border-radius:22px; border:1px solid rgba(255,255,255,.10); background: linear-gradient(145deg, rgba(255,255,255,.028), rgba(255,255,255,.01)), rgba(17,17,23,.88); }
+    .team-panel h2 { margin:0 0 10px; font-size:1.12rem; letter-spacing:.03em; }
+    .team-panel p { margin:0; color:#a7a8b2; line-height:1.7; font-size:.96rem; }
+    .panel-link { display:inline-block; margin-top:12px; font-size:.78rem; letter-spacing:.12em; font-weight:900; color:#78cfff; text-decoration:none; }
+    @media (max-width: 860px) {
+      .team-shell { width:min(100% - 20px, 1120px); padding-top:24px; }
+      .team-hero { grid-template-columns: 1fr; gap:18px; padding:20px; }
+      .team-logo-panel { min-height: 220px; }
+      .team-logo-panel img { max-height: 180px; }
+      .team-panels { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) { .team-top img { width:88px; } }
+  </style>
+</head>
+<body>
+  <div class="background-glow glow-pink"></div>
+  <div class="background-glow glow-blue"></div>
+
+  <main class="team-shell">
+    <div class="team-top">
+      <img src="assets/aml-logo.png" alt="AML logo" />
+      <a href="teams.html">← ALL TEAMS</a>
+    </div>
+
+    <section class="team-hero">
+      <div class="team-logo-panel">
+        <img src="assets/teams/griffins.png" alt="Griffins logo" />
+      </div>
+      <div class="team-copy">
+        <span class="eyebrow">TEAM PAGE</span>
+        <h1>Griffins</h1>
+        <div class="team-tags">
+          <span>NFC</span>
+          <span>West Division</span>
+          <span>AML Franchise</span>
+        </div>
+        <p>The Griffins are one of the 32 custom franchises in Apollo Madden League. This page can serve as the home for the team’s logo, branding, alignment, and future history updates.</p>
+      </div>
+    </section>
+
+    <section class="team-panels">
+      <article class="team-panel">
+        <h2>Conference</h2>
+        <p>Griffins competes in the NFC, giving the league a balanced 16-team split between the AFC and NFC.</p>
+      </article>
+      <article class="team-panel">
+        <h2>Division</h2>
+        <p>Griffins is placed in the NFC West division for the current AML alignment.</p>
+      </article>
+      <article class="team-panel">
+        <h2>More Team History</h2>
+        <p>This page is ready to grow with future updates like records, notable seasons, jerseys, captains, rivalries, and playoff history.</p>
+        <a class="panel-link" href="history.html">VIEW AML HISTORY</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
