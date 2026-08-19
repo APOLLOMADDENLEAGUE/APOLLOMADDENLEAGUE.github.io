@@ -413,3 +413,344 @@ html, body { scroll-padding-top: 0 !important; }
     margin-bottom: 8px !important;
   }
 }
+
+
+/* ===== V10 page-identity upgrades ===== */
+.aml-page .hero,
+.aml-page .history-hero,
+.aml-page .champ-hero,
+.aml-page .mvp-hero,
+.aml-page .teams-hero,
+.aml-page .archive-shell,
+.aml-page .placeholder-inner,
+.aml-page .team-hero{
+  position:relative;
+  isolation:isolate;
+}
+
+body.home-page .hero::after{
+  content:"A";
+  position:absolute;
+  right:max(12px, 2vw);
+  bottom:-22px;
+  font-size:clamp(9rem, 28vw, 18rem);
+  line-height:.82;
+  font-weight:1000;
+  letter-spacing:-.1em;
+  color:rgba(255,255,255,.04);
+  z-index:0;
+  text-shadow:0 0 40px rgba(255,57,189,.05),0 0 46px rgba(49,185,255,.05);
+}
+body.home-page .hero > *{position:relative;z-index:1}
+
+/* shared AML watermark on non-team pages */
+body.history-page .history-hero::after,
+body.teams-page .teams-hero::after,
+body.users-page .placeholder-inner::after,
+body.seasons-page .archive-shell::after{
+  content:"A";
+  position:absolute;
+  right:0;
+  top:-16px;
+  font-size:clamp(8rem, 26vw, 16rem);
+  line-height:.82;
+  font-weight:1000;
+  letter-spacing:-.1em;
+  color:rgba(255,255,255,.035);
+  z-index:0;
+  pointer-events:none;
+}
+body.history-page .history-hero > *,
+body.teams-page .teams-hero > *,
+body.users-page .placeholder-inner > *,
+body.seasons-page .archive-shell > *{position:relative;z-index:1}
+
+/* champions page */
+body.champions-page{
+  background:
+    radial-gradient(circle at 14% -8%, rgba(255,215,110,.10), transparent 26%),
+    radial-gradient(circle at 88% 15%, rgba(49,185,255,.10), transparent 24%),
+    linear-gradient(180deg,#07070b 0%,#050507 48%,#06060a 100%) !important;
+}
+body.champions-page .champ-hero{
+  padding-bottom:42px!important;
+}
+body.champions-page .champ-hero::before{
+  content:"A";
+  position:absolute;
+  right:0;
+  top:-16px;
+  font-size:clamp(8rem, 26vw, 16rem);
+  line-height:.82;
+  font-weight:1000;
+  letter-spacing:-.1em;
+  color:rgba(255,236,190,.045);
+  z-index:0;
+}
+body.champions-page .champ-hero::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:1px;
+  background:linear-gradient(90deg, rgba(255,212,107,.85), rgba(255,255,255,.12), transparent 86%);
+}
+body.champions-page .champ-hero > *{position:relative;z-index:1}
+body.champions-page .champion-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(145deg, rgba(255,214,102,.055), rgba(255,255,255,.015)),
+    rgba(12,12,18,.92)!important;
+  border-color:rgba(255,224,146,.14)!important;
+}
+body.champions-page .champion-card::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0;
+  height:3px;
+  background:linear-gradient(90deg, rgba(255,214,102,.95), rgba(255,255,255,.3), transparent 90%);
+}
+body.champions-page .champion-card::after{
+  content:"";
+  position:absolute;
+  width:220px;height:220px;
+  right:-85px; top:-85px;
+  border-radius:50%;
+  background:rgba(255,214,102,.18);
+  filter:blur(78px);
+  opacity:.2;
+}
+body.champions-page .champion-content h2{
+  text-wrap:balance;
+}
+body.champions-page .matchup{
+  color:#fff4d5!important;
+}
+
+/* mvp page */
+body.mvps-page .mvp-hero{
+  padding-bottom:42px!important;
+}
+body.mvps-page .mvp-hero::before{
+  content:"MVP";
+  position:absolute;
+  right:0;
+  top:-8px;
+  font-size:clamp(5rem, 18vw, 12rem);
+  line-height:.85;
+  font-weight:1000;
+  letter-spacing:-.06em;
+  color:rgba(255,255,255,.035);
+  z-index:0;
+}
+body.mvps-page .mvp-hero::after{
+  content:"";
+  position:absolute;
+  inset:-50px 24% auto 24%;
+  height:180px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.16), rgba(255,255,255,0) 68%);
+  opacity:.55;
+  filter:blur(18px);
+  z-index:0;
+}
+body.mvps-page .mvp-hero > *{position:relative;z-index:1}
+body.mvps-page .mvp-card{
+  position:relative;
+  overflow:hidden;
+}
+body.mvps-page .mvp-card::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0; height:3px;
+  background:linear-gradient(90deg, rgba(255,57,189,.85), rgba(49,185,255,.85));
+}
+body.mvps-page .mvp-card::after{
+  content:"";
+  position:absolute;
+  width:210px;height:210px;
+  right:-75px; top:-75px;
+  border-radius:50%;
+  background:rgba(49,185,255,.15);
+  filter:blur(70px);
+  opacity:.22;
+}
+body.mvps-page .stats-grid .stat{
+  background:linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015));
+}
+
+/* teams page */
+body.teams-page .teams-hero{
+  padding-bottom:40px!important;
+}
+body.teams-page .teams-hero::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:1px;
+  background:linear-gradient(90deg, rgba(255,57,189,.75), rgba(49,185,255,.65), transparent 85%);
+}
+body.teams-page .team-card-body p{
+  color:#b0b6c3!important;
+}
+body.teams-page .team-card .team-card-body::after{
+  content:"VIEW TEAM →";
+  display:inline-flex;
+  align-items:center;
+  margin-top:12px;
+  min-height:34px;
+  padding:0 11px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  color:#f4f5f7;
+  font-size:.70rem;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+
+/* user placeholder */
+body.users-page .placeholder{
+  min-height:calc(100vh - 20px)!important;
+}
+body.users-page .placeholder-inner{
+  position:relative;
+  padding:38px 22px;
+  border-radius:28px;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.01)), rgba(12,12,18,.88);
+  box-shadow:0 22px 60px rgba(0,0,0,.26);
+}
+body.users-page .placeholder-inner::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:28px;
+  background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.06), transparent 42%);
+  z-index:0;
+}
+body.users-page .placeholder-inner>*{position:relative;z-index:1}
+
+/* team pages */
+body.team-page{
+  background:
+    radial-gradient(circle at 12% -8%, color-mix(in srgb,var(--team-accent) 18%, transparent), transparent 30%),
+    radial-gradient(circle at 88% 12%, color-mix(in srgb,var(--team-accent-2) 16%, transparent), transparent 28%),
+    linear-gradient(180deg,#07070b 0%,#050507 48%,#06060a 100%) !important;
+}
+body.team-page .team-hero{
+  overflow:hidden;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.01)),
+    rgba(17,17,23,.92);
+  border-color:rgba(255,255,255,.10)!important;
+}
+body.team-page .team-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:var(--team-logo-url);
+  background-repeat:no-repeat;
+  background-position: right 28px center;
+  background-size:min(32vw, 280px);
+  opacity:.055;
+  filter:grayscale(1) brightness(2.2);
+  pointer-events:none;
+  z-index:0;
+}
+body.team-page .team-hero::after{
+  content:"";
+  position:absolute;
+  width:240px;height:240px;
+  right:-40px; top:-40px;
+  border-radius:50%;
+  background:radial-gradient(circle, color-mix(in srgb,var(--team-accent) 55%, transparent), transparent 70%);
+  filter:blur(28px);
+  opacity:.5;
+  pointer-events:none;
+  z-index:0;
+}
+body.team-page .team-hero > *{position:relative;z-index:1}
+body.team-page .team-logo-panel{
+  background:
+    radial-gradient(circle at 50% 42%, color-mix(in srgb,var(--team-accent) 16%, transparent), rgba(255,255,255,.02) 58%, transparent 76%),
+    rgba(255,255,255,.01)!important;
+}
+body.team-page .team-copy h1{
+  background:linear-gradient(90deg,#fff 0%,#edf0f6 50%, color-mix(in srgb,var(--team-accent) 55%, #ffffff) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+body.team-page .team-tags span:first-child,
+body.team-page .panel-link{
+  border-color:color-mix(in srgb,var(--team-accent) 35%, transparent)!important;
+  color:color-mix(in srgb,var(--team-accent) 75%, #ffffff)!important;
+}
+body.team-page .team-tags span:first-child{
+  background:color-mix(in srgb,var(--team-accent) 14%, transparent)!important;
+}
+body.team-page .team-panel{
+  background:
+    linear-gradient(145deg, color-mix(in srgb,var(--team-accent) 5%, rgba(255,255,255,.018)), rgba(255,255,255,.008)),
+    rgba(17,17,23,.88)!important;
+}
+body.team-page .team-panel h2{
+  color:#fbfbfe;
+}
+body.team-page .team-panel:first-child{
+  box-shadow:inset 0 3px 0 color-mix(in srgb,var(--team-accent) 70%, transparent);
+}
+@media (max-width: 860px){
+  body.team-page .team-hero::before{
+    background-position: center center;
+    background-size:min(56vw, 260px);
+    opacity:.04;
+  }
+}
+
+/* seasons overview and individual season pages */
+body.season-page .archive-shell{
+  position:relative;
+  padding-top:34px!important;
+}
+body.season-page .season-watermark{
+  position:absolute;
+  right:8px;
+  top:92px;
+  font-size:clamp(8rem, 24vw, 16rem);
+  line-height:.82;
+  font-weight:1000;
+  letter-spacing:-.08em;
+  color:rgba(255,255,255,.035);
+  pointer-events:none;
+  z-index:0;
+}
+body.season-page .archive-top,
+body.season-page .archive-title,
+body.season-page .archive-sub,
+body.season-page .coming{
+  position:relative;
+  z-index:1;
+}
+body.season-page .coming{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.012)), rgba(17,17,23,.88)!important;
+}
+body.season-page .coming::before{
+  content:"";
+  position:absolute;
+  left:0; right:0; top:0; height:3px;
+  background:linear-gradient(90deg, rgba(255,57,189,.8), rgba(49,185,255,.8));
+}
+body.seasons-page .season-grid a:nth-child(4n + 1)::before{
+  background:linear-gradient(90deg, rgba(255,57,189,.9), rgba(49,185,255,.7));
+}
+
+/* subtle smoother phone spacing */
+@media (max-width: 760px){
+  .history-hero,.champ-hero,.mvp-hero,.teams-hero{
+    padding-top:26px!important;
+    padding-bottom:26px!important;
+  }
+}
