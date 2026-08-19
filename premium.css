@@ -1786,3 +1786,37 @@ body.team-page .profile-rebrand{
 @media(max-width:560px){
   body.team-page .profile-rebrand{font-size:1.2rem!important}
 }
+
+
+/* ==========================================================
+   V18 — CURRENT LEAGUE HUB + HALL OF FAME
+   ========================================================== */
+.current-shell,.hof-shell,.league-sub-shell{width:min(1180px,calc(100% - 36px));margin:0 auto;padding:2px 0 70px;position:relative;z-index:2}
+.current-hero,.hof-hero,.league-sub-hero{padding:14px 0 24px}
+.current-hero h1,.league-sub-hero h1{margin:0;font-size:clamp(3.2rem,9vw,7rem);line-height:.88;letter-spacing:-.055em;font-weight:1000}
+.current-hero p,.hof-hero p,.league-sub-hero p{max-width:760px;color:#c1c6d0;line-height:1.65;margin:16px 0 0}
+.current-season-badge{display:inline-flex;align-items:center;gap:14px;margin-top:18px;padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.13);background:rgba(8,8,12,.67);backdrop-filter:blur(8px)}
+.current-season-badge span{font-size:.65rem;font-weight:950;letter-spacing:.14em;color:#aab1bf}.current-season-badge strong{font-size:.84rem;letter-spacing:.11em}
+.current-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.current-card{position:relative;min-height:255px;padding:28px;border-radius:22px;text-decoration:none;color:#fff;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.01)),rgba(9,10,15,.78);backdrop-filter:blur(10px);transition:.2s ease}
+.current-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.22);box-shadow:0 30px 70px rgba(0,0,0,.35)}
+.current-card::after{content:"";position:absolute;width:280px;height:220px;right:-90px;bottom:-110px;border-radius:50%;background:linear-gradient(135deg,var(--pink),var(--blue));filter:blur(70px);opacity:.13}
+.current-card-season{grid-column:1/-1;min-height:310px;background:linear-gradient(120deg,rgba(255,43,191,.12),rgba(41,184,255,.08)),rgba(8,8,13,.82)}
+.current-number{position:absolute;right:24px;top:20px;color:rgba(255,255,255,.14);font-size:2.6rem;font-weight:1000}
+.current-card h2{position:relative;z-index:1;margin:8px 0 12px;font-size:clamp(2.2rem,5vw,4rem);line-height:.92;letter-spacing:-.05em}.current-card p{position:relative;z-index:1;color:#b7bdc8;max-width:560px;line-height:1.6}.current-card .open-link{left:28px;bottom:26px}
+body.current-page{background:radial-gradient(circle at 12% 8%,rgba(255,43,191,.15),transparent 28%),radial-gradient(circle at 85% 14%,rgba(41,184,255,.13),transparent 30%),#050507!important}
+
+.hof-hero h1{margin:0;font-size:clamp(3.4rem,10vw,7.6rem);line-height:.78;letter-spacing:-.06em;font-weight:1000;background:linear-gradient(180deg,#fff9d6,#d9a94a 55%,#8c5e1f);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 45px rgba(223,171,72,.10)}
+body.hof-page{background:radial-gradient(circle at 50% -10%,rgba(239,191,83,.18),transparent 34%),linear-gradient(180deg,#0b0905,#050507 55%,#050507)!important}
+.hof-empty{min-height:420px;border-radius:28px;border:1px solid rgba(231,191,102,.20);background:linear-gradient(145deg,rgba(231,191,102,.08),rgba(255,255,255,.015)),rgba(10,9,8,.82);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:34px;box-shadow:0 34px 90px rgba(0,0,0,.38)}
+.hof-ring{width:112px;height:112px;border-radius:50%;display:grid;place-items:center;margin-bottom:22px;border:2px solid rgba(235,194,99,.65);box-shadow:0 0 0 8px rgba(235,194,99,.06),0 0 50px rgba(235,194,99,.12);font-size:1.6rem;font-weight:1000;letter-spacing:.08em;color:#f0c96d}.hof-empty h2{margin:7px 0 12px;font-size:clamp(2rem,5vw,3.4rem)}.hof-empty p{max-width:680px;color:#b9b7b1;line-height:1.7}
+.hof-history-card{grid-column:1/-1!important;min-height:275px!important;background:linear-gradient(120deg,rgba(235,194,99,.10),rgba(255,255,255,.02)),rgba(14,12,9,.90)!important}
+
+body.divisions-page,body.rules-page,body.standings-page{background:radial-gradient(circle at 8% 0%,rgba(255,43,191,.10),transparent 28%),radial-gradient(circle at 92% 5%,rgba(41,184,255,.09),transparent 28%),#050507!important}
+.league-sub-hero{border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:18px}.league-sub-hero h1{font-size:clamp(3.4rem,9vw,6.7rem)}
+.division-grid,.standings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.division-card,.standing-card,.rule-block{border:1px solid rgba(255,255,255,.10);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01)),rgba(9,10,14,.80);padding:20px;backdrop-filter:blur(8px)}
+.division-conf{font-size:.67rem;font-weight:1000;letter-spacing:.16em;color:#8ad8ff}.nfc-division .division-conf{color:#ff83cf}.division-card h2,.standing-card h2,.rule-block h2{margin:5px 0 15px;font-size:1.65rem;letter-spacing:-.03em}
+.division-teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.division-team{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:13px;color:#fff;text-decoration:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);font-weight:850}.division-team:hover{background:rgba(255,255,255,.075)}.division-team img{width:38px;height:38px;object-fit:contain}
+.rules-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.rule-block{min-height:220px;position:relative}.rule-block>span{font-size:2rem;font-weight:1000;color:rgba(255,255,255,.15)}.rule-block p{color:#aeb5c1;line-height:1.65}
+.standing-list{display:grid;gap:7px}.standing-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.04);font-weight:850}.standing-row strong{color:#d2d8e2}
+@media(max-width:760px){.current-shell,.hof-shell,.league-sub-shell{width:min(100% - 24px,1180px);padding-top:0}.current-grid,.division-grid,.standings-grid,.rules-grid{grid-template-columns:1fr}.current-card-season{grid-column:auto}.division-teams{grid-template-columns:1fr}.current-card{min-height:235px}.current-card-season{min-height:270px}.hof-empty{min-height:360px;padding:26px 18px}}
