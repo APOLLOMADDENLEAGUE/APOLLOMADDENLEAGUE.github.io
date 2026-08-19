@@ -14,3 +14,30 @@ window.scrollTo(0,0);
     el.style.transform = 'none';
   });
 })();
+
+
+(() => {
+  const body = document.body;
+  if (!body.classList.contains('team-page')) return;
+
+  const slug = body.dataset.team;
+  const team = (window.AML_TEAM_DATA || {})[slug];
+  if (!team) return;
+
+  const fields = [
+    'rebranded',
+    'owner',
+    'regularSeasonRecord',
+    'divisionTitles',
+    'playoffAppearances',
+    'playoffRecord',
+    'superBowlAppearances',
+    'superBowlWins',
+    'franchiseMvps'
+  ];
+
+  fields.forEach(field => {
+    const el = document.querySelector(`[data-team-field="${field}"]`);
+    if (el) el.textContent = team[field] ?? '—';
+  });
+})();

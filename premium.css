@@ -1599,3 +1599,190 @@ body.mvps-page .mvp-hero{
   }
   body.teams-page .team-card::after{opacity:.74!important}
 }
+
+
+/* ==========================================================
+   V16 — FRANCHISE PROFILE / ALL-TIME TEAM STATS
+   ========================================================== */
+body.team-page .franchise-profile{
+  margin-top:14px;
+  padding:22px;
+  border-radius:26px;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
+    rgba(7,8,12,.68);
+  box-shadow:0 28px 70px rgba(0,0,0,.34);
+  backdrop-filter:blur(11px);
+  -webkit-backdrop-filter:blur(11px);
+  position:relative;
+  overflow:hidden;
+}
+body.team-page .franchise-profile::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:4px;
+  background:linear-gradient(90deg,var(--team-accent),var(--team-accent-2));
+}
+body.team-page .franchise-profile::after{
+  content:"";
+  position:absolute;
+  width:300px;height:300px;
+  border-radius:50%;
+  right:-110px;top:-140px;
+  background:var(--team-accent);
+  filter:blur(120px);
+  opacity:.10;
+  pointer-events:none;
+}
+body.team-page .profile-heading{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:18px;
+  padding-bottom:16px;
+  border-bottom:1px solid rgba(255,255,255,.09);
+  position:relative;
+  z-index:1;
+}
+body.team-page .profile-kicker{
+  display:block;
+  margin-bottom:7px;
+  font-size:.72rem;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.18em;
+  color:color-mix(in srgb,var(--team-accent) 78%,#fff);
+}
+body.team-page .profile-heading h2{
+  margin:0;
+  font-size:clamp(1.45rem,3vw,2.2rem);
+  letter-spacing:-.025em;
+  font-weight:950;
+}
+body.team-page .profile-season{
+  color:#aeb6c4;
+  font-size:.70rem;
+  font-weight:900;
+  letter-spacing:.13em;
+  white-space:nowrap;
+}
+body.team-page .profile-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  position:relative;
+  z-index:1;
+}
+body.team-page .profile-card{
+  min-height:118px;
+  padding:17px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
+    rgba(5,6,10,.64);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:14px;
+  position:relative;
+  overflow:hidden;
+}
+body.team-page .profile-card::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:3px;
+  background:linear-gradient(var(--team-accent),var(--team-accent-2));
+  opacity:.68;
+}
+body.team-page .profile-card-wide{
+  grid-column:span 2;
+}
+body.team-page .profile-card-mvps{
+  grid-column:1/-1;
+  min-height:130px;
+}
+body.team-page .profile-label{
+  color:#aeb6c4;
+  font-size:.68rem;
+  line-height:1.35;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+body.team-page .profile-value{
+  color:#fff;
+  font-size:clamp(1.75rem,3.7vw,2.65rem);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:-.045em;
+  text-shadow:0 5px 20px rgba(0,0,0,.5);
+}
+body.team-page .profile-owner{
+  color:color-mix(in srgb,var(--team-accent) 65%,#fff);
+}
+body.team-page .profile-record{
+  font-variant-numeric:tabular-nums;
+}
+body.team-page .profile-card-title{
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--team-accent) 13%,transparent),rgba(255,255,255,.012)),
+    rgba(5,6,10,.68);
+}
+body.team-page .profile-trophies{
+  color:color-mix(in srgb,var(--team-accent-2) 65%,#fff);
+}
+body.team-page .mvp-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+body.team-page .mvp-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:37px;
+  padding:0 13px;
+  border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--team-accent) 30%,rgba(255,255,255,.10));
+  background:color-mix(in srgb,var(--team-accent) 11%,rgba(255,255,255,.04));
+  color:#fff;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.045em;
+}
+body.team-page .mvp-empty{
+  color:#aeb6c4;
+  font-size:.92rem;
+  line-height:1.5;
+}
+
+@media(max-width:900px){
+  body.team-page .profile-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  body.team-page .profile-card-wide{grid-column:span 2}
+}
+@media(max-width:560px){
+  body.team-page .franchise-profile{padding:16px;border-radius:22px}
+  body.team-page .profile-heading{align-items:flex-start;flex-direction:column;gap:8px}
+  body.team-page .profile-season{white-space:normal}
+  body.team-page .profile-grid{grid-template-columns:1fr}
+  body.team-page .profile-card,
+  body.team-page .profile-card-wide,
+  body.team-page .profile-card-mvps{grid-column:auto}
+  body.team-page .profile-card{min-height:100px}
+  body.team-page .profile-value{font-size:2rem}
+}
+
+
+/* V17 — FINAL FRANCHISE DATA */
+body.team-page .profile-rebrand{
+  font-size:clamp(1.15rem,2.4vw,1.75rem)!important;
+  line-height:1.15!important;
+  letter-spacing:-.025em!important;
+}
+@media(max-width:560px){
+  body.team-page .profile-rebrand{font-size:1.2rem!important}
+}

@@ -17,22 +17,76 @@
     @media(max-width:860px){.team-shell{width:min(100% - 20px,1120px);padding-top:24px}.team-hero{grid-template-columns:1fr;gap:18px;padding:20px}.team-logo-panel{min-height:220px}.team-logo-panel img{max-height:180px}.team-panels{grid-template-columns:1fr}}
     @media(max-width:520px){.team-top img{width:88px}}
   </style>
-  <link rel="stylesheet" href="premium.css?v=15" />
+  <link rel="stylesheet" href="premium.css?v=17" />
 </head>
-<body class="team-page aml-page" style="--team-accent:#f7a21b; --team-accent-2:#f05b2a; --team-logo-url:url('assets/apollo.png'); --team-bg:url('assets/team-bg-apollo.webp');">
+<body class="team-page aml-page" data-team="apollo" style="--team-accent:#f7a21b; --team-accent-2:#f05b2a; --team-logo-url:url('assets/apollo.png'); --team-bg:url('assets/team-bg-apollo.webp');">
   <div class="background-glow glow-pink"></div><div class="background-glow glow-blue"></div>
   <main class="team-shell">
     <div class="team-top"><img src="assets/aml-logo.png" alt="AML logo"/><a href="teams.html">← ALL TEAMS</a></div>
     <section class="team-hero">
       <div class="team-logo-panel"><img src="assets/apollo.png" alt="Apollo logo"/></div>
-      <div class="team-copy"><span class="eyebrow">AML FRANCHISE</span><h1>Apollo</h1><div class="team-tags"><span>AFC</span><span>South Division</span><span>TEAM HUB</span></div><p>The Apollo team page is the home for this franchise’s AML identity. As the archive grows, this page can hold its user history, records, championships, awards, rivalries and season-by-season results.</p></div>
+      <div class="team-copy"><span class="eyebrow">AML FRANCHISE</span><h1>Apollo</h1><div class="team-tags"><span>AFC</span><span>South Division</span><span>TEAM HUB</span></div><p>Official AML franchise profile featuring the team’s current owner, all-time record, playoff history, Super Bowl results, MVPs and franchise history.</p></div>
     </section>
-    <section class="team-panels">
-      <article class="team-panel"><h2>TEAM HISTORY</h2><p>Franchise records, title runs, playoff appearances and major moments can live here.</p></article>
-      <article class="team-panel"><h2>USERS & ERAS</h2><p>Track who controlled the franchise across AML seasons and the eras they helped create.</p></article>
-      <article class="team-panel"><h2>AML ARCHIVE</h2><p>Connect this franchise back to the league’s full champions, MVPs and season archive.</p><a class="panel-link" href="history.html">VIEW AML HISTORY →</a></article>
+
+    <section class="franchise-profile">
+      <div class="profile-heading">
+        <div>
+          <span class="profile-kicker">FRANCHISE PROFILE</span>
+          <h2>ALL-TIME TEAM INFO</h2>
+        </div>
+        <span class="profile-season">AML FRANCHISE ARCHIVE</span>
+      </div>
+
+      <div class="profile-grid">
+        <article class="profile-card profile-card-wide">
+          <span class="profile-label">CURRENT OWNER / USER</span>
+          <strong class="profile-value profile-owner" data-team-field="owner">—</strong>
+        </article>
+
+        <article class="profile-card profile-card-wide">
+          <span class="profile-label">REBRANDED</span>
+          <strong class="profile-value profile-rebrand" data-team-field="rebranded">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">ALL-TIME REGULAR SEASON RECORD</span>
+          <strong class="profile-value profile-record" data-team-field="regularSeasonRecord">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">DIVISION TITLES</span>
+          <strong class="profile-value" data-team-field="divisionTitles">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">PLAYOFF APPEARANCES</span>
+          <strong class="profile-value" data-team-field="playoffAppearances">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">ALL-TIME PLAYOFF RECORD</span>
+          <strong class="profile-value profile-record" data-team-field="playoffRecord">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">SUPER BOWL APPEARANCES</span>
+          <strong class="profile-value" data-team-field="superBowlAppearances">—</strong>
+        </article>
+
+        <article class="profile-card profile-card-title">
+          <span class="profile-label">SUPER BOWL WINS</span>
+          <strong class="profile-value profile-trophies" data-team-field="superBowlWins">—</strong>
+        </article>
+
+        <article class="profile-card">
+          <span class="profile-label">FRANCHISE MVPs</span>
+          <strong class="profile-value" data-team-field="franchiseMvps">—</strong>
+        </article>
+      </div>
     </section>
+
   </main>
-  <script src="app.js?v=15" defer></script>
+  <script src="team-data.js?v=17" defer></script>
+  <script src="app.js?v=17" defer></script>
 </body>
 </html>
