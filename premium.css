@@ -2495,3 +2495,170 @@ body.users-page.yearbook-page::before{
   }
   .yearbook-caption h3{font-size:1.08rem}
 }
+
+
+/* ==========================================================
+   V22 — AML USERS HUB
+   ========================================================== */
+body.users-hub-page{
+  background:
+    radial-gradient(circle at 18% 0%,rgba(255,43,191,.12),transparent 30%),
+    radial-gradient(circle at 85% 8%,rgba(41,184,255,.11),transparent 28%),
+    linear-gradient(180deg,#07070b,#050507 62%,#06060a)!important;
+}
+body.users-hub-page .users-hub-shell{
+  width:min(1180px,calc(100% - 36px));
+  margin:0 auto;
+  padding:26px 0 72px;
+}
+body.users-hub-page .users-hub-hero{
+  padding:26px 0 34px;
+  position:relative;
+}
+body.users-hub-page .users-hub-hero::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:8px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(255,43,191,.48),rgba(41,184,255,.42),transparent 78%);
+}
+body.users-hub-page .users-hub-hero h1{
+  margin:6px 0 12px;
+  font-size:clamp(3.5rem,10vw,7.4rem);
+  line-height:.78;
+  letter-spacing:-.06em;
+  font-weight:1000;
+}
+body.users-hub-page .users-hub-hero p{
+  max-width:650px;
+  margin:0;
+  color:#9ba3b2;
+  font-size:1rem;
+  line-height:1.6;
+}
+body.users-hub-page .users-hub-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  margin-top:18px;
+}
+body.users-hub-page .users-hub-card{
+  position:relative;
+  min-height:330px;
+  padding:30px;
+  border-radius:25px;
+  overflow:hidden;
+  text-decoration:none;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.11);
+  background:
+    radial-gradient(circle at 83% 18%,rgba(255,43,191,.13),transparent 31%),
+    radial-gradient(circle at 94% 82%,rgba(41,184,255,.12),transparent 31%),
+    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.008)),
+    rgba(12,12,18,.88);
+  box-shadow:0 25px 65px rgba(0,0,0,.30);
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+body.users-hub-page .users-hub-card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  right:0;
+  height:4px;
+  background:linear-gradient(90deg,var(--pink),var(--blue));
+}
+body.users-hub-page .users-hub-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,255,255,.20);
+  box-shadow:0 32px 82px rgba(0,0,0,.38);
+}
+body.users-hub-page .users-hub-card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  position:relative;
+  z-index:2;
+}
+body.users-hub-page .users-hub-index{
+  color:rgba(255,255,255,.25);
+  font-size:.75rem;
+  font-weight:950;
+  letter-spacing:.15em;
+}
+body.users-hub-page .users-hub-tag{
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  color:#c9d0dc;
+  font-size:.62rem;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+body.users-hub-page .users-hub-card-copy{
+  position:relative;
+  z-index:2;
+  max-width:720px;
+  margin-top:52px;
+}
+body.users-hub-page .users-hub-kicker{
+  display:block;
+  margin-bottom:8px;
+  color:#d8a7d6;
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.16em;
+}
+body.users-hub-page .users-hub-card h2{
+  margin:0;
+  font-size:clamp(2.7rem,7vw,5.3rem);
+  line-height:.82;
+  letter-spacing:-.055em;
+  font-weight:1000;
+}
+body.users-hub-page .users-hub-card p{
+  max-width:620px;
+  margin:17px 0 0;
+  color:#aeb6c4;
+  line-height:1.6;
+}
+body.users-hub-page .users-hub-card .open-link{
+  display:inline-block;
+  margin-top:22px;
+  color:#fff;
+  font-size:.72rem;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+body.users-hub-page .users-hub-year{
+  position:absolute;
+  right:28px;
+  bottom:16px;
+  color:rgba(255,255,255,.045);
+  font-size:clamp(7rem,18vw,14rem);
+  line-height:.8;
+  font-weight:1000;
+  letter-spacing:-.09em;
+  user-select:none;
+}
+@media(max-width:700px){
+  body.users-hub-page .users-hub-shell{
+    width:min(100% - 22px,1180px);
+    padding-top:14px;
+  }
+  body.users-hub-page .users-hub-card{
+    min-height:310px;
+    padding:22px;
+  }
+  body.users-hub-page .users-hub-card-copy{
+    margin-top:45px;
+  }
+  body.users-hub-page .users-hub-year{
+    right:18px;
+    bottom:13px;
+  }
+}
