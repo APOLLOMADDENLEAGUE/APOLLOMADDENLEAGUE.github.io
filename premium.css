@@ -325,8 +325,7 @@ main,.background-glow{position:relative;z-index:1}
 .placeholder h1{font-weight:950!important;letter-spacing:-.05em}
 
 /* subtle reveal */
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
-.reveal.is-visible{opacity:1;transform:none}
+.reveal,.reveal.is-visible{opacity:1!important;transform:none!important}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
   .reveal{opacity:1!important;transform:none!important}
@@ -342,4 +341,75 @@ main,.background-glow{position:relative;z-index:1}
   .team-card{min-height:280px!important}
   .team-logo-wrap{min-height:150px!important}
   .team-logo{max-height:128px!important}
+}
+
+
+/* V9: instant page opening + tighter first screen */
+html, body { scroll-padding-top: 0 !important; }
+.page-shell,
+.history-shell,
+.champ-shell,
+.mvp-shell,
+.teams-shell,
+.team-shell,
+.archive-shell,
+.seasons-shell {
+  padding-top: 14px !important;
+}
+
+.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top {
+  margin-bottom: 16px !important;
+}
+
+.hero {
+  padding-top: 18px !important;
+  padding-bottom: 28px !important;
+  margin-bottom: 10px !important;
+}
+
+.history-hero,.champ-hero,.mvp-hero,.teams-hero {
+  padding-top: 18px !important;
+  padding-bottom: 22px !important;
+  margin-bottom: 14px !important;
+}
+
+@media (max-width:760px){
+  .page-shell,
+  .history-shell,
+  .champ-shell,
+  .mvp-shell,
+  .teams-shell,
+  .team-shell,
+  .archive-shell,
+  .seasons-shell {
+    padding-top: 8px !important;
+  }
+
+  .topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top {
+    min-height: 58px !important;
+    margin-bottom: 10px !important;
+    padding: 7px 10px !important;
+  }
+
+  .hero {
+    padding: 14px 10px 22px !important;
+  }
+
+  .aml-logo {
+    width: min(300px, 72vw) !important;
+    margin-bottom: 10px !important;
+  }
+
+  .hero-subtitle {
+    margin-top: 9px !important;
+  }
+
+  .hero-meta {
+    margin-top: 12px !important;
+  }
+
+  .history-hero,.champ-hero,.mvp-hero,.teams-hero {
+    padding: 12px 0 16px !important;
+    margin-bottom: 8px !important;
+  }
 }

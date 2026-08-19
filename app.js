@@ -1,26 +1,19 @@
-
 (() => {
-  const selectors = [
-    '.menu-card','.history-card','.season-tile','.team-card','.team-panel',
-    '.champion-card','.mvp-card','.coming','.placeholder-inner'
-  ];
-  const nodes = [...document.querySelectorAll(selectors.join(','))];
-  if (!nodes.length) return;
-  nodes.forEach((el, i) => {
-    el.classList.add('reveal');
-    el.style.transitionDelay = `${Math.min(i % 8, 7) * 34}ms`;
-  });
-  if (!('IntersectionObserver' in window)) {
-    nodes.forEach(el => el.classList.add('is-visible'));
-    return;
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
   }
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
-  nodes.forEach(el => io.observe(el));
+
+  const goTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+
+  // Make sure a newly opened AML page never lands in a preserved blank/old scroll position.
+  goTop();
+  window.addEventListener('pageshow', goTop);
+
+  // Remove any reveal classes left from an older cached stylesheet/script.
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.classList.add('is-visible');
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.transitionDelay = '0ms';
+  });
 })();
