@@ -1820,3 +1820,188 @@ body.divisions-page,body.rules-page,body.standings-page{background:radial-gradie
 .rules-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.rule-block{min-height:220px;position:relative}.rule-block>span{font-size:2rem;font-weight:1000;color:rgba(255,255,255,.15)}.rule-block p{color:#aeb5c1;line-height:1.65}
 .standing-list{display:grid;gap:7px}.standing-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:11px;background:rgba(255,255,255,.04);font-weight:850}.standing-row strong{color:#d2d8e2}
 @media(max-width:760px){.current-shell,.hof-shell,.league-sub-shell{width:min(100% - 24px,1180px);padding-top:0}.current-grid,.division-grid,.standings-grid,.rules-grid{grid-template-columns:1fr}.current-card-season{grid-column:auto}.division-teams{grid-template-columns:1fr}.current-card{min-height:235px}.current-card-season{min-height:270px}.hof-empty{min-height:360px;padding:26px 18px}}
+
+
+/* ==========================================================
+   V19 — FULL AML RULEBOOK
+   ========================================================== */
+body.rules-page{
+  background:
+    radial-gradient(circle at 8% 0%,rgba(255,43,191,.11),transparent 28%),
+    radial-gradient(circle at 92% 5%,rgba(41,184,255,.10),transparent 28%),
+    linear-gradient(180deg,#07070b 0%,#050507 46%,#06060a 100%)!important;
+}
+body.rules-page .league-sub-shell{
+  width:min(1080px,calc(100% - 28px));
+  margin:0 auto;
+  padding:2px 0 70px;
+}
+body.rules-page .rules-hero{
+  padding:20px 4px 22px!important;
+  margin-bottom:12px!important;
+}
+body.rules-page .rules-hero h1{
+  margin:4px 0 8px;
+  font-size:clamp(2.7rem,7vw,5.6rem);
+  line-height:.88;
+  letter-spacing:-.055em;
+  font-weight:1000;
+}
+body.rules-page .rules-hero p{
+  margin:0;
+  color:#aeb5c1;
+}
+body.rules-page .rules-quick{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:16px;
+}
+body.rules-page .rules-quick span{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:0 11px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  color:#dfe3ec;
+  font-size:.67rem;
+  font-weight:950;
+  letter-spacing:.11em;
+}
+body.rules-page .rules-list{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:11px;
+}
+body.rules-page .rule-section{
+  position:relative;
+  display:grid;
+  grid-template-columns:72px minmax(0,1fr);
+  gap:18px;
+  padding:22px 24px 23px;
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.09);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.044),rgba(255,255,255,.008)),
+    rgba(10,10,15,.80);
+  box-shadow:0 15px 40px rgba(0,0,0,.21);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+body.rules-page .rule-section::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:3px;
+  background:linear-gradient(180deg,var(--pink),var(--blue));
+  opacity:.72;
+}
+body.rules-page .rule-section:hover{
+  border-color:rgba(255,255,255,.15);
+}
+body.rules-page .rule-featured{
+  background:
+    linear-gradient(125deg,rgba(255,43,191,.08),rgba(41,184,255,.055)),
+    rgba(10,10,15,.82);
+}
+body.rules-page .rule-number{
+  font-size:2.3rem;
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:-.07em;
+  color:rgba(255,255,255,.13);
+  padding-top:2px;
+}
+body.rules-page .rule-copy h2{
+  margin:0 0 10px;
+  font-size:1.3rem;
+  line-height:1;
+  letter-spacing:.02em;
+  font-weight:950;
+}
+body.rules-page .rule-copy p{
+  margin:8px 0 0;
+  color:#c0c6d2;
+  line-height:1.62;
+  font-size:.95rem;
+}
+body.rules-page .rule-copy strong{
+  color:#fff;
+}
+body.rules-page .rule-copy ul{
+  margin:10px 0 0;
+  padding:0;
+  display:grid;
+  gap:7px;
+  list-style:none;
+}
+body.rules-page .rule-copy li{
+  position:relative;
+  padding-left:20px;
+  color:#c9ced8;
+  line-height:1.5;
+  font-size:.94rem;
+}
+body.rules-page .rule-copy li::before{
+  content:"";
+  position:absolute;
+  left:1px;
+  top:.64em;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--pink),var(--blue));
+  box-shadow:0 0 12px rgba(49,185,255,.18);
+}
+body.rules-page .rule-callout{
+  display:inline-flex;
+  align-items:center;
+  margin-top:15px;
+  padding:10px 13px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.10);
+  background:linear-gradient(90deg,rgba(255,43,191,.09),rgba(41,184,255,.08));
+  color:#fff;
+  font-size:.72rem;
+  line-height:1.35;
+  font-weight:950;
+  letter-spacing:.07em;
+}
+body.rules-page .rule-callout.danger{
+  border-color:rgba(255,105,105,.18);
+  background:rgba(255,67,67,.08);
+}
+body.rules-page .rule-callout.legendary{
+  background:linear-gradient(90deg,rgba(255,43,191,.13),rgba(41,184,255,.12));
+  border-color:rgba(255,255,255,.16);
+}
+body.rules-page .rule-muted{
+  color:#8f97a6!important;
+}
+body.rules-page .rule-handouts{
+  border-color:rgba(255,255,255,.13);
+}
+
+@media(max-width:620px){
+  body.rules-page .league-sub-shell{
+    width:min(100% - 20px,1080px);
+  }
+  body.rules-page .rules-hero{
+    padding:12px 2px 16px!important;
+  }
+  body.rules-page .rule-section{
+    grid-template-columns:1fr;
+    gap:7px;
+    padding:18px 17px 19px;
+  }
+  body.rules-page .rule-number{
+    font-size:1rem;
+    letter-spacing:.08em;
+  }
+  body.rules-page .rule-copy h2{
+    font-size:1.18rem;
+  }
+}
