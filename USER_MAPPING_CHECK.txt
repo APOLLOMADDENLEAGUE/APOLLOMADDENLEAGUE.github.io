@@ -1,0 +1,38 @@
+SENIOR (16)
+- Jimmy Cody McGill -> assets/jimmy-cody-mcgill.webp
+- Mikey The Voice Jefferson -> assets/mikey-the-voice-jefferson.webp
+- Kenny Ten McPherson -> assets/kenny-ten-mcpherson.webp
+- Christian Icczz Ruiz -> assets/christian-icczz-ruiz.webp
+- Cole World -> assets/cole-world.webp
+- Father Skol -> assets/father-skol.webp
+- Evan Yak Sparks -> assets/evan-yak-sparks.webp
+- Chazzy Smoove -> assets/chazzy-smoove.webp
+- Sushi 817 -> assets/sushi-817.webp
+- Rev -> assets/rev.webp
+- Lee Zero K -> assets/lee-zero-k.webp
+- Lemon Noah Juice -> assets/lemon-noah-juice.webp
+- Ty Echo C -> assets/ty-echo-c.webp
+- Sebb Day Harv -> assets/sebb-day-harv.webp
+- Johnnie JBX Willz -> assets/johnnie-jbx-willz.webp
+- Joseph MvP D -> assets/joseph-mvp-d.webp
+
+JUNIOR (3)
+- Salty Tristian Bathwater -> assets/salty-tristian-bathwater.webp
+- Phatts -> assets/phatts.webp
+- Fly Bathwater -> assets/fly-bathwater.webp
+
+SOPHOMORE (8)
+- LJ Salty -> assets/lj-salty.webp
+- Souliumz -> assets/souliumz.webp
+- Evan J Manziel -> assets/evan-j-manziel.webp
+- Rob Mazi -> assets/rob-mazi.webp
+- Father Figure -> assets/father-figure.webp
+- No Hate -> assets/no-hate.webp
+- Brando -> assets/brando.webp
+- Malcolm -> assets/malcolm.webp
+
+FRESHMAN (4)
+- Chubby Guy -> assets/chubby-guy.webp
+- Loot Fien -> assets/loot-fien.webp
+- Kfjaa -> assets/kfjaa.webp
+- Clutch -> assets/clutch.webp
