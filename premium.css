@@ -2148,3 +2148,350 @@ body.hof-page .hof-member-card:hover{
   body.hof-page .hof-members{grid-template-columns:1fr}
   body.hof-page .hof-member-card{min-height:205px}
 }
+
+
+/* ==========================================================
+   V21 — CURRENT AML USERS / YEARBOOK
+   ========================================================== */
+body.users-page.yearbook-page{
+  --yb-maroon:#68131d;
+  --yb-maroon-dark:#35090f;
+  --yb-gold:#c69a43;
+  --yb-gold-light:#e6c675;
+  --yb-ink:#2a211a;
+  --yb-paper:#ede5d4;
+  --yb-paper-2:#e4dac5;
+  margin:0;
+  color:var(--yb-ink)!important;
+  background:
+    radial-gradient(circle at 18% 5%,rgba(255,255,255,.76),transparent 23%),
+    radial-gradient(circle at 82% 30%,rgba(100,63,35,.055),transparent 26%),
+    repeating-linear-gradient(0deg,rgba(73,51,32,.018) 0 1px,transparent 1px 4px),
+    linear-gradient(180deg,var(--yb-paper),var(--yb-paper-2))!important;
+}
+body.users-page.yearbook-page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.24;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(255,255,255,.5),transparent 32%),
+    radial-gradient(circle at 70% 70%,rgba(80,50,25,.08),transparent 40%);
+}
+.yearbook-shell{
+  position:relative;
+  z-index:1;
+  width:min(1180px,calc(100% - 24px));
+  margin:0 auto;
+  padding:10px 0 70px;
+}
+.yearbook-topbar{
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:0 4px;
+  color:#5a4734;
+  font-size:.69rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+.yearbook-back{
+  color:var(--yb-maroon)!important;
+  text-decoration:none;
+}
+.yearbook-cover{
+  position:relative;
+  overflow:hidden;
+  min-height:390px;
+  padding:54px 54px 38px;
+  border:1px solid rgba(78,27,31,.35);
+  border-radius:6px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.05),transparent 35%),
+    linear-gradient(135deg,#711420,#4d0d15 55%,#35080e);
+  color:#fff;
+  box-shadow:
+    0 30px 65px rgba(61,35,20,.19),
+    inset 0 0 0 5px rgba(198,154,67,.10),
+    inset 0 0 0 7px rgba(255,255,255,.035);
+}
+.yearbook-cover::before{
+  content:"";
+  position:absolute;
+  inset:16px;
+  border:1px solid rgba(223,188,112,.34);
+  pointer-events:none;
+}
+.yearbook-cover::after{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  border:1px solid rgba(230,198,117,.12);
+  border-radius:50%;
+  right:-120px;
+  top:-170px;
+  box-shadow:
+    0 0 0 32px rgba(230,198,117,.025),
+    0 0 0 64px rgba(230,198,117,.018);
+}
+.yearbook-crest{
+  position:absolute;
+  right:56px;
+  bottom:46px;
+  width:132px;
+  height:132px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:2px solid var(--yb-gold-light);
+  box-shadow:
+    inset 0 0 0 7px rgba(230,198,117,.10),
+    0 0 0 1px rgba(255,255,255,.12);
+  color:var(--yb-gold-light);
+  font-family:Georgia,serif;
+  font-size:2.4rem;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.yearbook-cover-kicker{
+  position:relative;
+  z-index:1;
+  display:block;
+  margin-bottom:14px;
+  color:var(--yb-gold-light);
+  font-size:.72rem;
+  font-weight:950;
+  letter-spacing:.2em;
+}
+.yearbook-cover h1{
+  position:relative;
+  z-index:1;
+  margin:0;
+  max-width:760px;
+  color:#fff;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(3.4rem,8.5vw,7.6rem);
+  line-height:.79;
+  letter-spacing:-.055em;
+  font-weight:900;
+}
+.yearbook-cover p{
+  position:relative;
+  z-index:1;
+  margin:24px 0 0;
+  color:#efe1c0;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.yearbook-cover-rule{
+  position:relative;
+  z-index:1;
+  width:min(560px,70%);
+  height:2px;
+  margin-top:22px;
+  background:linear-gradient(90deg,var(--yb-gold-light),rgba(230,198,117,.15),transparent);
+}
+.yearbook-cover-meta{
+  position:relative;
+  z-index:1;
+  display:flex;
+  gap:20px;
+  margin-top:13px;
+  color:#d8c398;
+  font-size:.65rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+
+.yearbook-class{
+  position:relative;
+  margin-top:38px;
+  padding:28px 30px 34px;
+  border:1px solid rgba(89,62,40,.24);
+  border-radius:4px;
+  background:
+    radial-gradient(circle at 4% 0%,rgba(255,255,255,.72),transparent 25%),
+    repeating-linear-gradient(0deg,rgba(64,44,27,.018) 0 1px,transparent 1px 5px),
+    rgba(248,243,232,.78);
+  box-shadow:0 22px 50px rgba(73,50,29,.11);
+}
+.yearbook-class::before{
+  content:"";
+  position:absolute;
+  left:16px;
+  top:16px;
+  right:16px;
+  bottom:16px;
+  border:1px solid rgba(104,19,29,.11);
+  pointer-events:none;
+}
+.yearbook-class-header{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:20px;
+  padding-bottom:18px;
+  border-bottom:2px solid var(--yb-maroon);
+}
+.yearbook-class-kicker{
+  color:#8a6b37;
+  font-size:.65rem;
+  font-weight:950;
+  letter-spacing:.16em;
+}
+.yearbook-class-header h2{
+  margin:4px 0 0;
+  color:var(--yb-maroon-dark);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.4rem,6vw,4.4rem);
+  line-height:.9;
+  letter-spacing:-.045em;
+}
+.yearbook-class-header p{
+  margin:7px 0 0;
+  color:#7a6856;
+  font-family:Georgia,serif;
+  font-style:italic;
+}
+.yearbook-class-count{
+  min-width:98px;
+  padding:10px 12px;
+  border-left:1px solid rgba(104,19,29,.18);
+  text-align:right;
+}
+.yearbook-class-count strong{
+  display:block;
+  color:var(--yb-maroon);
+  font-family:Georgia,serif;
+  font-size:2.1rem;
+  line-height:.9;
+}
+.yearbook-class-count span{
+  color:#8b765d;
+  font-size:.59rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+
+.yearbook-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px 24px;
+  margin-top:25px;
+}
+.yearbook-card{
+  position:relative;
+}
+.yearbook-photo-wrap{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:16/9;
+  padding:7px;
+  background:#f8f2e4;
+  border:1px solid rgba(54,38,24,.38);
+  box-shadow:
+    0 9px 20px rgba(48,33,22,.14),
+    inset 0 0 0 2px rgba(255,255,255,.55);
+}
+.yearbook-photo-wrap::after{
+  content:"";
+  position:absolute;
+  inset:7px;
+  pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.17);
+}
+.yearbook-photo-wrap img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.yearbook-caption{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:11px 5px 0;
+}
+.yearbook-index{
+  min-width:27px;
+  color:#ad9470;
+  font-family:Georgia,serif;
+  font-size:.72rem;
+  line-height:1.45;
+}
+.yearbook-caption h3{
+  margin:0;
+  color:#301f1c;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1.16rem;
+  line-height:1.1;
+  font-weight:700;
+}
+.yearbook-caption p{
+  margin:4px 0 0;
+  color:#846f56;
+  font-size:.64rem;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.yearbook-card:hover .yearbook-photo-wrap{
+  transform:translateY(-2px) rotate(-.2deg);
+  box-shadow:0 15px 30px rgba(48,33,22,.18);
+}
+
+.yearbook-footer{
+  margin-top:32px;
+  padding:20px 4px 0;
+  border-top:1px solid rgba(92,65,42,.24);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:#76634f;
+  font-size:.65rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+.yearbook-footer strong{color:var(--yb-maroon)}
+
+@media(max-width:720px){
+  .yearbook-shell{width:min(100% - 14px,1180px)}
+  .yearbook-topbar{font-size:.58rem}
+  .yearbook-cover{
+    min-height:330px;
+    padding:38px 28px 30px;
+  }
+  .yearbook-cover::before{inset:10px}
+  .yearbook-crest{
+    width:78px;
+    height:78px;
+    right:25px;
+    bottom:27px;
+    font-size:1.45rem;
+  }
+  .yearbook-cover h1{font-size:clamp(3.1rem,16vw,5.5rem)}
+  .yearbook-cover p{max-width:70%;line-height:1.45}
+  .yearbook-class{
+    margin-top:22px;
+    padding:21px 17px 25px;
+  }
+  .yearbook-class::before{inset:9px}
+  .yearbook-class-header{align-items:flex-start}
+  .yearbook-class-count{min-width:68px}
+  .yearbook-class-count strong{font-size:1.65rem}
+  .yearbook-grid{
+    grid-template-columns:1fr;
+    gap:20px;
+  }
+  .yearbook-caption h3{font-size:1.08rem}
+}
