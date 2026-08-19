@@ -1434,3 +1434,168 @@ body.team-page .team-copy h1, body.team-page .team-panel h2{ text-shadow:0 3px 1
   body.team-page .team-shell{padding-bottom:24px!important}
   body.team-page .team-hero::before{background-size:min(42vw,190px)!important;background-position:right 12px top 18px!important;opacity:.08!important}
 }
+
+
+/* ==========================================================
+   V15 — REAL AI CINEMATIC TEAM WORLDS
+   ========================================================== */
+
+/* Keep the HOME PAGE exactly in the black + AML spotlight direction. */
+body.home-page{
+  background:
+    radial-gradient(circle at 7% 3%, rgba(255,43,191,.17), transparent 30%),
+    radial-gradient(circle at 92% 16%, rgba(41,184,255,.15), transparent 31%),
+    radial-gradient(ellipse at 50% -8%, rgba(255,255,255,.055), transparent 33%),
+    #050507!important;
+}
+body.home-page .hero{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  min-height:0!important;
+  padding-top:6px!important;
+}
+
+/* Make team listing cards preview the actual world for that franchise. */
+body.teams-page .team-card{
+  isolation:isolate;
+  background:rgba(7,8,12,.88)!important;
+}
+body.teams-page .team-card::after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  width:auto!important;
+  height:auto!important;
+  border-radius:inherit!important;
+  background-image:
+    linear-gradient(180deg,rgba(5,5,8,.08) 0%,rgba(5,5,8,.30) 42%,rgba(5,5,8,.94) 100%),
+    var(--team-card-bg)!important;
+  background-size:cover!important;
+  background-position:center!important;
+  filter:none!important;
+  opacity:.68!important;
+  z-index:-1!important;
+}
+body.teams-page .team-card::before{z-index:2!important}
+body.teams-page .team-card-body,
+body.teams-page .team-logo-wrap{position:relative;z-index:2}
+body.teams-page .team-logo-wrap{
+  background:radial-gradient(circle at 50% 45%,rgba(0,0,0,.12),rgba(0,0,0,.45) 75%)!important;
+}
+body.teams-page .team-card:hover::after{opacity:.82!important}
+
+/* Full-viewport photographic / generated world behind every team page. */
+body.team-page{
+  position:relative!important;
+  min-height:100vh!important;
+  background:#050507!important;
+}
+body.team-page::before{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:0!important;
+  background-image:var(--team-bg)!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  opacity:1!important;
+  filter:none!important;
+  mask-image:none!important;
+  -webkit-mask-image:none!important;
+}
+body.team-page::after{
+  content:""!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:0!important;
+  background:
+    linear-gradient(180deg,rgba(4,5,8,.30) 0%,rgba(4,5,8,.20) 30%,rgba(4,5,8,.42) 72%,rgba(4,5,8,.68) 100%),
+    radial-gradient(circle at 50% 28%,transparent 0 32%,rgba(0,0,0,.08) 67%,rgba(0,0,0,.26) 100%)!important;
+  opacity:1!important;
+}
+body.team-page .team-shell{
+  position:relative!important;
+  z-index:1!important;
+  padding-top:0!important;
+  margin-top:0!important;
+}
+body.team-page .background-glow{display:none!important}
+body.team-page .team-top{
+  margin-top:0!important;
+  margin-bottom:8px!important;
+  background:rgba(7,8,12,.70)!important;
+  backdrop-filter:blur(13px)!important;
+  -webkit-backdrop-filter:blur(13px)!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+}
+body.team-page .team-hero{
+  min-height:0!important;
+  margin-top:0!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),rgba(7,8,12,.56)!important;
+  border:1px solid color-mix(in srgb,var(--team-accent) 28%,rgba(255,255,255,.14))!important;
+  box-shadow:0 25px 70px rgba(0,0,0,.38)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+}
+body.team-page .team-hero::before{
+  opacity:.075!important;
+  background-size:min(27vw,230px)!important;
+  background-position:right 24px center!important;
+  filter:grayscale(1) brightness(2.6)!important;
+}
+body.team-page .team-hero::after{opacity:.12!important}
+body.team-page .team-logo-panel{
+  background:rgba(3,4,7,.34)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:inset 0 0 65px color-mix(in srgb,var(--team-accent) 9%,transparent)!important;
+}
+body.team-page .team-copy h1,
+body.team-page .team-copy p,
+body.team-page .team-panel h2,
+body.team-page .team-panel p{text-shadow:0 3px 16px rgba(0,0,0,.65)!important}
+body.team-page .team-copy p{color:#eef1f6!important}
+body.team-page .team-panels{margin-top:12px!important}
+body.team-page .team-panel{
+  background:linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.012)),rgba(7,8,12,.62)!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 20px 55px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(11px)!important;
+  -webkit-backdrop-filter:blur(11px)!important;
+}
+body.team-page .team-panel p{color:#e0e5ed!important}
+
+/* Absolutely no dead opening space. */
+body.home-page .page-shell,
+body.team-page .team-shell,
+body.teams-page .teams-shell,
+body.history-page .history-shell,
+body.champions-page .champ-shell,
+body.mvps-page .mvp-shell,
+body.season-page .archive-shell,
+body.seasons-page .seasons-shell{
+  padding-top:0!important;
+}
+body.home-page .hero,
+body.team-page .team-hero,
+body.teams-page .teams-hero,
+body.history-page .history-hero,
+body.champions-page .champ-hero,
+body.mvps-page .mvp-hero{
+  min-height:0!important;
+}
+
+@media(max-width:760px){
+  body.team-page::before{
+    background-position:center top!important;
+  }
+  body.team-page .team-top{margin-bottom:6px!important}
+  body.team-page .team-hero{padding-top:14px!important}
+  body.team-page .team-hero::before{
+    background-size:min(44vw,180px)!important;
+    background-position:right 8px top 14px!important;
+    opacity:.055!important;
+  }
+  body.teams-page .team-card::after{opacity:.74!important}
+}
