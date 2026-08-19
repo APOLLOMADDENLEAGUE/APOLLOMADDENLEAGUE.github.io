@@ -1196,3 +1196,146 @@ body.team-page .team-panels .team-panel{
     opacity:.85;
   }
 }
+
+
+/* ==========================================================
+   V13 FINAL OVERRIDES — NO BLANK START + REAL UNIQUE THEMES
+   ========================================================== */
+
+/* No page should open with a large empty hero/header area. */
+.page-shell,.history-shell,.champ-shell,.mvp-shell,.teams-shell,.team-shell,.archive-shell,.seasons-shell{
+  padding-top:8px!important;
+}
+.hero,.history-hero,.champ-hero,.mvp-hero,.teams-hero,.team-hero{
+  min-height:0!important;
+}
+body.home-page .hero{
+  min-height:0!important;
+  display:block!important;
+  padding:16px 18px 24px!important;
+}
+body.home-page .aml-logo{
+  margin-top:0!important;
+}
+body.team-page .team-hero{
+  min-height:0!important;
+}
+.placeholder{
+  min-height:0!important;
+  display:block!important;
+  padding:8px 24px 50px!important;
+}
+.placeholder-inner{
+  margin:0 auto!important;
+}
+body.users-page .placeholder{
+  min-height:0!important;
+}
+.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top{
+  margin-top:0!important;
+  margin-bottom:10px!important;
+}
+.history-hero,.champ-hero,.mvp-hero,.teams-hero{
+  padding-top:18px!important;
+  padding-bottom:24px!important;
+}
+
+/* Make designed backdrop artwork much more visible than prior versions. */
+body.home-page,body.history-page,body.teams-page,body.champions-page,body.mvps-page,body.season-page,body.seasons-page{
+  background-attachment:scroll!important;
+}
+body.home-page{
+  background-image:url("assets/bg-home.svg"),linear-gradient(180deg,#06060a,#040406 52%,#050509)!important;
+  background-size:cover,cover!important;
+}
+body.history-page{
+  background-image:url("assets/bg-history.svg"),linear-gradient(180deg,#07070b,#050507 50%,#06060a)!important;
+  background-size:cover,cover!important;
+}
+body.teams-page{
+  background-image:url("assets/bg-teams.svg"),linear-gradient(180deg,#07070b,#050507 52%,#06060a)!important;
+  background-size:cover,cover!important;
+}
+body.champions-page{
+  background-image:url("assets/bg-champions.svg"),linear-gradient(180deg,#0b0905,#050507 48%,#060608)!important;
+  background-size:cover,cover!important;
+}
+body.mvps-page{
+  background-image:url("assets/bg-mvps.svg"),linear-gradient(180deg,#08080d,#050507 48%,#06060a)!important;
+  background-size:cover,cover!important;
+}
+body.season-page,body.seasons-page{
+  background-image:url("assets/bg-season.svg"),linear-gradient(180deg,#08080c,#050507 48%,#06060a)!important;
+  background-size:cover,cover!important;
+}
+
+/* INDIVIDUAL TEAM PAGE: actual motif image, not a generic color wash. */
+body.team-page{
+  background-color:#050507!important;
+  background-image:var(--team-bg)!important;
+  background-size:cover!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+}
+body.team-page::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,5,7,.04) 0%,rgba(5,5,7,.10) 48%,rgba(5,5,7,.55) 100%)!important;
+  opacity:1!important;
+  mask-image:none!important;
+}
+body.team-page::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 28%,transparent 0 32%,rgba(0,0,0,.08) 62%,rgba(0,0,0,.42) 100%)!important;
+}
+body.team-page .team-shell::before,
+body.team-page .team-shell::after{
+  display:none!important;
+}
+body.team-page .team-hero{
+  background:rgba(8,8,12,.72)!important;
+  backdrop-filter:blur(9px)!important;
+  -webkit-backdrop-filter:blur(9px)!important;
+  border-color:color-mix(in srgb,var(--team-accent) 32%,rgba(255,255,255,.10))!important;
+}
+body.team-page .team-hero::before{
+  opacity:.10!important;
+  background-size:min(36vw,330px)!important;
+  background-position:right 18px center!important;
+}
+body.team-page .team-hero::after{
+  opacity:.22!important;
+  width:260px!important;
+  height:260px!important;
+}
+body.team-page .team-panel{
+  background:rgba(8,8,12,.77)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+}
+
+/* Make all top bars compact so the identity/content is on screen immediately. */
+.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top{
+  min-height:50px!important;
+  padding:6px 10px!important;
+}
+.topbar img,.champ-top img,.mvp-top img,.teams-top img,.team-top img,.archive-top img,.seasons-top img{
+  max-height:48px!important;
+  width:auto!important;
+}
+
+@media(max-width:760px){
+  .page-shell,.history-shell,.champ-shell,.mvp-shell,.teams-shell,.team-shell,.archive-shell,.seasons-shell{padding-top:4px!important}
+  body.home-page .hero{padding:10px 10px 18px!important}
+  .history-hero,.champ-hero,.mvp-hero,.teams-hero{padding:12px 0 18px!important}
+  body.team-page{background-size:auto 920px!important;background-position:center top!important}
+  body.team-page .team-hero::before{background-size:min(60vw,260px)!important;background-position:center center!important;opacity:.055!important}
+  .placeholder{padding:4px 12px 36px!important}
+}
