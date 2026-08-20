@@ -1,0 +1,17 @@
+AML V27 SEASON ARCHIVE UPDATE
+
+UPDATED:
+- Season 1 through Season 13 pages
+- Champion graphic + champion details
+- MVP graphic + MVP details/stat line
+- Final standings (where supplied)
+- All 13 playoff bracket graphics
+- Playoff score graphic galleries
+- League Awards placeholder section ready for award graphics/data
+
+NOTE:
+- Season 9 and Season 11 regular-season standings were explicitly skipped during data collection,
+  so those two pages show an archive-unavailable notice instead of invented standings.
+- Season 10 had fewer recoverable unique score files because multiple uploaded graphics reused the
+  same local filename. All recoverable Season 10 score graphics are included.
+- Season 14 was left unchanged because this update is the completed-history archive through Season 13.

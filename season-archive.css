@@ -1,0 +1,351 @@
+
+:root{
+  --archive-pink:#ff3eb5;
+  --archive-blue:#41bfff;
+  --archive-panel:rgba(12,12,18,.82);
+  --archive-line:rgba(255,255,255,.10);
+}
+html{scroll-behavior:smooth}
+body.season-archive-page{
+  background:
+    radial-gradient(circle at 14% -5%,rgba(255,62,181,.10),transparent 27%),
+    radial-gradient(circle at 87% 2%,rgba(65,191,255,.10),transparent 27%),
+    linear-gradient(180deg,#07070b,#050507 44%,#07070b)!important;
+}
+.season-archive-shell{
+  position:relative;
+  z-index:2;
+  width:min(1180px,calc(100% - 30px));
+  margin:0 auto;
+  padding:18px 0 80px;
+}
+.season-archive-top{
+  min-height:62px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:20px;
+}
+.season-archive-top img{width:84px;max-height:44px;object-fit:contain}
+.season-archive-top span{
+  justify-self:end;
+  color:#8f97a6;
+  font-size:.66rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+.season-back{
+  color:#fff!important;
+  text-decoration:none;
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.12em;
+}
+.season-archive-hero{
+  position:relative;
+  overflow:hidden;
+  padding:42px 0 32px;
+  border-bottom:1px solid var(--archive-line);
+}
+.season-ghost{
+  position:absolute;
+  right:0;
+  top:-24px;
+  color:rgba(255,255,255,.035);
+  font-size:clamp(10rem,30vw,23rem);
+  line-height:.8;
+  font-weight:1000;
+  letter-spacing:-.11em;
+  user-select:none;
+  pointer-events:none;
+}
+.season-archive-hero h1{
+  position:relative;
+  z-index:1;
+  margin:5px 0 12px;
+  font-size:clamp(4.2rem,11vw,9rem);
+  line-height:.78;
+  letter-spacing:-.065em;
+  font-weight:1000;
+}
+.season-archive-hero>p{
+  position:relative;
+  z-index:1;
+  max-width:700px;
+  margin:0;
+  color:#9ea6b4;
+  line-height:1.65;
+}
+.season-anchor-nav{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+.season-anchor-nav a{
+  display:inline-flex;
+  align-items:center;
+  min-height:34px;
+  padding:0 11px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.035);
+  color:#cbd1dc;
+  text-decoration:none;
+  font-size:.61rem;
+  font-weight:950;
+  letter-spacing:.10em;
+}
+.season-anchor-nav a:hover{
+  border-color:rgba(255,255,255,.20);
+  color:#fff;
+}
+.season-section{padding:42px 0 4px}
+.section-heading{margin-bottom:18px}
+.section-heading>span{
+  color:#9ca3b0;
+  font-size:.64rem;
+  font-weight:950;
+  letter-spacing:.16em;
+}
+.section-heading h2{
+  margin:5px 0 0;
+  font-size:clamp(2.1rem,5vw,4rem);
+  line-height:.9;
+  letter-spacing:-.045em;
+}
+.section-heading p{
+  margin:10px 0 0;
+  color:#8f97a6;
+  font-size:.82rem;
+  line-height:1.55;
+}
+.season-awards-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.season-award-card{
+  overflow:hidden;
+  border:1px solid var(--archive-line);
+  border-radius:24px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.008)),
+    var(--archive-panel);
+  box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+.season-award-art{
+  aspect-ratio:16/9;
+  background:#0a0a0e;
+  overflow:hidden;
+}
+.season-award-art img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+.season-award-copy{padding:19px 20px 21px}
+.season-award-copy>span{
+  color:#9ca4b2;
+  font-size:.62rem;
+  font-weight:950;
+  letter-spacing:.14em;
+}
+.season-award-copy h3{
+  margin:5px 0 11px;
+  font-size:clamp(1.8rem,4vw,3.3rem);
+  line-height:.88;
+  letter-spacing:-.045em;
+}
+.season-award-copy p{
+  margin:5px 0 0;
+  color:#b0b7c4;
+  font-size:.84rem;
+  line-height:1.5;
+}
+.standings-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.division-card{
+  border:1px solid var(--archive-line);
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(13,13,19,.80);
+}
+.division-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:15px;
+  padding:15px 16px 12px;
+  border-bottom:1px solid rgba(255,255,255,.075);
+}
+.division-head span{
+  color:#8f97a6;
+  font-size:.60rem;
+  font-weight:950;
+  letter-spacing:.13em;
+}
+.division-head h3{
+  margin:0;
+  font-size:1.15rem;
+  letter-spacing:-.02em;
+}
+.afc-card .division-head{box-shadow:inset 3px 0 0 rgba(65,191,255,.75)}
+.nfc-card .division-head{box-shadow:inset 3px 0 0 rgba(255,62,181,.75)}
+.standings-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:10px 16px;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  color:#b8bfcb;
+  font-size:.86rem;
+}
+.standings-row:last-child{border-bottom:0}
+.standings-row strong{color:#fff;font-size:.86rem}
+.standings-row.division-winner{
+  background:linear-gradient(90deg,rgba(255,62,181,.045),rgba(65,191,255,.04));
+}
+.dw-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:25px;
+  height:18px;
+  margin-left:5px;
+  padding:0 5px;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--archive-pink),var(--archive-blue));
+  color:#050507;
+  font-size:.51rem;
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:.05em;
+  vertical-align:middle;
+}
+.bracket-frame{
+  position:relative;
+  display:block;
+  padding:9px;
+  border-radius:22px;
+  border:1px solid var(--archive-line);
+  background:rgba(13,13,18,.88);
+  box-shadow:0 25px 65px rgba(0,0,0,.26);
+  overflow:hidden;
+}
+.bracket-frame img{
+  display:block;
+  width:100%;
+  max-height:900px;
+  object-fit:contain;
+  border-radius:15px;
+  background:#08080b;
+}
+.bracket-frame span{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  padding:8px 10px;
+  border-radius:999px;
+  background:rgba(5,5,7,.85);
+  border:1px solid rgba(255,255,255,.14);
+  color:#fff;
+  font-size:.58rem;
+  font-weight:950;
+  letter-spacing:.10em;
+}
+.score-gallery{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.score-card{
+  position:relative;
+  display:block;
+  min-width:0;
+  border:1px solid var(--archive-line);
+  border-radius:18px;
+  background:rgba(12,12,18,.88);
+  overflow:hidden;
+  text-decoration:none;
+  box-shadow:0 16px 38px rgba(0,0,0,.20);
+  transition:transform .2s ease,border-color .2s ease;
+}
+.score-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.20);
+}
+.score-card img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:contain;
+  background:#08080b;
+}
+.score-card span{
+  display:block;
+  padding:9px 11px 10px;
+  color:#9ea6b4;
+  font-size:.58rem;
+  font-weight:950;
+  letter-spacing:.13em;
+}
+.archive-empty{
+  padding:24px;
+  border:1px dashed rgba(255,255,255,.14);
+  border-radius:18px;
+  background:rgba(255,255,255,.025);
+}
+.archive-empty strong{
+  display:block;
+  color:#fff;
+  margin-bottom:7px;
+  font-size:.78rem;
+  letter-spacing:.11em;
+}
+.archive-empty span{
+  color:#8f97a6;
+  font-size:.84rem;
+  line-height:1.55;
+}
+.awards-ready{
+  background:
+    radial-gradient(circle at 0 0,rgba(255,62,181,.07),transparent 35%),
+    radial-gradient(circle at 100% 100%,rgba(65,191,255,.06),transparent 35%),
+    rgba(255,255,255,.025);
+}
+.season-pager{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  margin-top:48px;
+  padding-top:20px;
+  border-top:1px solid var(--archive-line);
+}
+.season-pager a{
+  color:#fff!important;
+  text-decoration:none;
+  font-size:.67rem;
+  font-weight:950;
+  letter-spacing:.11em;
+}
+@media(max-width:800px){
+  .season-awards-grid,.standings-grid{grid-template-columns:1fr}
+  .score-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .season-archive-top{grid-template-columns:1fr auto}
+  .season-archive-top img{display:none}
+}
+@media(max-width:520px){
+  .season-archive-shell{width:min(100% - 18px,1180px)}
+  .season-archive-top span{font-size:.54rem}
+  .season-archive-hero{padding-top:30px}
+  .score-gallery{grid-template-columns:1fr}
+  .score-card img{aspect-ratio:auto;max-height:620px}
+}
