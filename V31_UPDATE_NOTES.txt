@@ -1,0 +1,4 @@
+AML V31 Awards Update
+- Season 12: 8 award graphics and awards gallery included.
+- Season 13: 7 award graphics and awards gallery included.
+- season-archive.css cache-busted to v31 on both season pages.
