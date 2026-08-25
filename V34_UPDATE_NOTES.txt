@@ -1,0 +1,5 @@
+AML Website V34 — Hornet logo cache-fix
+- Uses the newly supplied yellow/dark-gray hornet logo.
+- The logo now has a NEW filename: assets/stingers-hornet-v34.png, preventing GitHub Pages/browser cache from showing the previous logo.
+- Updated all website references (Teams hub, Stingers team page, Divisions page).
+- Yellow + dark-charcoal Stingers team colors from V33 are preserved.
