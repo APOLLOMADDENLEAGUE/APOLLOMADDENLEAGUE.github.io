@@ -1,0 +1,5 @@
+AML Website V33 — Hornet/Stingers color update
+
+- Kept the new yellow/dark-gray hornet logo.
+- Updated the Stingers team theme from the old orange/red palette to neon yellow (#FFF200) and dark charcoal gray (#3F4248).
+- Updated both the Stingers franchise page and the Teams hub card.
