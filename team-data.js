@@ -45,7 +45,7 @@ window.AML_TEAM_DATA = {
   },
   "ducks": {
     "rebranded": "Yes — formerly Cheesesteaks",
-    "owner": "MvP",
+    "owner": "Zfrmda5",
     "regularSeasonRecord": "13-21",
     "divisionTitles": "1",
     "playoffAppearances": "1",

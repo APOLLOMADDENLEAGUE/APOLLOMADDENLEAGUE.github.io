@@ -114,18 +114,18 @@
         {conference:'AFC',name:'North',teams:['Mob','Surfers','Ducks','Black Cats']},
         {conference:'AFC',name:'South',teams:['Speed Racers','Apollo','Stingers','Volts']},
         {conference:'AFC',name:'East',teams:['Blizzards','Order','Sorcerers','Overdrive']},
-        {conference:'AFC',name:'West',teams:['Falcons','Dragons','Empire','Road Runners']},
-        {conference:'NFC',name:'North',teams:['Ocelots','Guardians','Minions','Griffins']},
-        {conference:'NFC',name:'South',teams:['Metros','Omnitrix','Lake Hawks','Phoenixes']},
-        {conference:'NFC',name:'East',teams:['Kush','Voodoo','Sharks','Flamingos']},
-        {conference:'NFC',name:'West',teams:['Thunder Birds','Stars','K9','Chicago Mob']}
+        {conference:'AFC',name:'West',teams:['Guardians','Lake Hawks','Thunder Birds','Sharks']},
+        {conference:'NFC',name:'North',teams:['Rhode Runners','Dragons','Empire','Stars']},
+        {conference:'NFC',name:'South',teams:['Flamingos','Falcons','Vodoo','OmniTrix']},
+        {conference:'NFC',name:'East',teams:['Kloud Nine','Pheonixes','Kush','Supermen']},
+        {conference:'NFC',name:'West',teams:['Griffins','Ocelots','Minions','Metros']}
       ];
       const USERS = ['Chazzy Smoove','Cole World','Loot Fien','Chubby Guy','LJ Salty','Jimmy Cody McGill','Mikey The Voice Jefferson','Kenny Ten Mchperson','Christian Icczz Ruiz','Souliumz','Evan J Manziel','Evan Yak Sparks','Father Skol','Rob Mazi','Salty Tristian Bathwater','DC Fashion','Rev','Sushi 817','Father Figure','Lee Zero K','Kfjaa','No Hate','Sebb Day Harv','Clutch','Joseph MvP D','Ty Echo C','Lemon Noah Juice','Johnnie JBX Willz','Fly Bathwater','Phatts','Brando','Malcolm'];
       const ALL_TEAMS = DIVISIONS.flatMap(d=>d.teams), AFC_TEAMS = DIVISIONS.filter(d=>d.conference==='AFC').flatMap(d=>d.teams), NFC_TEAMS = DIVISIONS.filter(d=>d.conference==='NFC').flatMap(d=>d.teams);
       const initialState = Object.fromEntries(DIVISIONS.map(d=>[`${d.conference}-${d.name}`,[...d.teams]]));
       let state = JSON.parse(JSON.stringify(initialState)), drag=null, ghost=null;
       const root=document.getElementById('predictor'), status=document.getElementById('status'), modal=document.getElementById('downloadModal'), previewImage=document.getElementById('previewImage'), downloadLink=document.getElementById('downloadLink');
-      const STORAGE_KEY='aml-s14-predictions-v2';
+      const STORAGE_KEY='aml-s14-predictions-v3';
       const fieldIds=['predictorName','mvpPick','mvpTeam','worstTeam','bestTeam','coty','wcoty','ccoty','fraud','rookie','passYds','passTds','rushYds','recYds','sacks','ints','afcFinal1','afcFinal2','nfcFinal1','nfcFinal2'];
       function keyFor(c,n){return `${c}-${n}`} function escapeHtml(s){return String(s).replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[ch]))}
       function populateSelect(selector,items){document.querySelectorAll(selector).forEach(sel=>{const first=sel.options[0];sel.innerHTML='';sel.appendChild(first);items.forEach(item=>{const o=document.createElement('option');o.value=item;o.textContent=item;sel.appendChild(o)})})}
