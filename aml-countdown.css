@@ -1,0 +1,165 @@
+/* AML Season 14 opening countdown — homepage takeover */
+.aml-draft-opening{
+  --aml-countdown-text:#f5f7f6;
+  --aml-countdown-muted:rgba(245,247,246,.62);
+  position:relative;
+  min-height:100vh;
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  isolation:isolate;
+  color:var(--aml-countdown-text);
+  background:
+    radial-gradient(circle at 54% 34%,rgba(105,151,119,.22),transparent 24rem),
+    radial-gradient(circle at 50% 70%,rgba(54,105,75,.16),transparent 31rem),
+    linear-gradient(180deg,#030605 0%,#06100b 45%,#010302 100%);
+}
+.aml-draft-opening::before{
+  content:"";
+  position:absolute;
+  inset:-8%;
+  z-index:-3;
+  opacity:.66;
+  background:
+    linear-gradient(112deg,transparent 0 34%,rgba(132,190,151,.11) 35% 37%,transparent 38% 52%,rgba(151,205,169,.075) 53% 55%,transparent 56%),
+    linear-gradient(76deg,transparent 0 44%,rgba(255,255,255,.035) 45% 46%,transparent 47%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 84px);
+  transform:rotate(-3deg) scale(1.08);
+}
+.aml-draft-opening::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.04) 34%,rgba(0,0,0,.2) 72%,rgba(0,0,0,.78)),
+    radial-gradient(ellipse at center,transparent 30%,rgba(0,0,0,.68) 100%);
+}
+.aml-countdown-noise{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.075;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.48'/%3E%3C/svg%3E");
+}
+.aml-countdown-brand{
+  position:absolute;
+  top:max(22px,env(safe-area-inset-top));
+  left:max(22px,env(safe-area-inset-left));
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:15px;
+  letter-spacing:.2em;
+}
+.aml-countdown-brand img{
+  width:38px;
+  height:38px;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 18px rgba(0,0,0,.45));
+}
+.aml-countdown-wrap{
+  width:min(1080px,calc(100% - 34px));
+  text-align:center;
+  padding:86px 0 76px;
+}
+.aml-countdown-kicker{
+  margin:0;
+  font-size:clamp(18px,2.75vw,31px);
+  font-weight:900;
+  letter-spacing:.15em;
+  line-height:1.35;
+  text-transform:uppercase;
+  text-shadow:0 3px 24px rgba(0,0,0,.58);
+}
+.aml-countdown-subtitle{
+  margin:15px 0 0;
+  color:var(--aml-countdown-muted);
+  font-size:clamp(12px,1.7vw,18px);
+  font-weight:600;
+  letter-spacing:.27em;
+  text-transform:uppercase;
+}
+.aml-countdown-timer{
+  display:grid;
+  grid-template-columns:repeat(9,auto);
+  align-items:start;
+  justify-content:center;
+  gap:clamp(8px,2.1vw,28px);
+  margin-top:clamp(42px,8vw,74px);
+}
+.aml-countdown-unit{min-width:clamp(54px,9vw,112px)}
+.aml-countdown-value{
+  display:block;
+  font-variant-numeric:tabular-nums;
+  font-size:clamp(37px,7vw,72px);
+  line-height:.95;
+  font-weight:850;
+  letter-spacing:.015em;
+  text-shadow:0 5px 22px rgba(0,0,0,.62);
+}
+.aml-countdown-label{
+  display:block;
+  margin-top:18px;
+  color:rgba(245,247,246,.61);
+  font-size:clamp(9px,1.4vw,14px);
+  font-weight:650;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.aml-countdown-colon{
+  margin-top:clamp(2px,1vw,7px);
+  color:rgba(245,247,246,.55);
+  font-size:clamp(32px,6vw,61px);
+  line-height:.95;
+  font-weight:700;
+}
+.aml-countdown-scroll{
+  position:absolute;
+  bottom:max(18px,env(safe-area-inset-bottom));
+  left:50%;
+  transform:translateX(-50%);
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:rgba(255,255,255,.78);
+  text-decoration:none;
+  font-size:25px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+#aml-site-content{scroll-margin-top:12px}
+@media(max-width:650px){
+  .aml-countdown-brand{font-size:13px;letter-spacing:.16em}
+  .aml-countdown-brand img{width:34px;height:34px}
+  .aml-countdown-wrap{width:calc(100% - 20px);padding-top:74px}
+  .aml-countdown-kicker{font-size:clamp(17px,5.4vw,25px);letter-spacing:.1em}
+  .aml-countdown-subtitle{font-size:11px;letter-spacing:.2em;margin-top:12px}
+  .aml-countdown-timer{gap:4px;margin-top:50px}
+  .aml-countdown-unit{min-width:48px}
+  .aml-countdown-value{font-size:clamp(32px,9.5vw,47px)}
+  .aml-countdown-label{margin-top:13px;font-size:8px;letter-spacing:.08em}
+  .aml-countdown-colon{font-size:31px;margin-top:2px}
+}
+@media(max-width:390px){
+  .aml-countdown-timer{gap:2px}
+  .aml-countdown-unit{min-width:43px}
+  .aml-countdown-value{font-size:31px}
+  .aml-countdown-colon{font-size:27px}
+  .aml-countdown-label{font-size:7px}
+}
+@media(prefers-reduced-motion:no-preference){
+  .aml-countdown-wrap{animation:amlCountdownReveal .9s ease both}
+  .aml-countdown-scroll{animation:amlCountdownFloat 2.3s ease-in-out infinite}
+  @keyframes amlCountdownReveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes amlCountdownFloat{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+}

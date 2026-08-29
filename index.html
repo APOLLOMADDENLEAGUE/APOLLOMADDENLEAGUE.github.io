@@ -7,11 +7,32 @@
   <title>Apollo Madden League</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="premium.css?v=18" />
+  <link rel="stylesheet" href="aml-countdown.css?v=1" />
 </head>
 <body class="home-page aml-page">
+  <section class="aml-draft-opening" id="aml-draft-opening" aria-labelledby="aml-countdown-heading">
+    <div class="aml-countdown-noise" aria-hidden="true"></div>
+    <div class="aml-countdown-brand"><img src="assets/aml-logo.png" alt="" aria-hidden="true" /><span>AML</span></div>
+    <div class="aml-countdown-wrap">
+      <h1 class="aml-countdown-kicker" id="aml-countdown-heading">AML SEASON 14 DRAFT DAY COUNTDOWN</h1>
+      <p class="aml-countdown-subtitle" id="aml-countdown-subtitle">A BRAND NEW YEAR IS COMING</p>
+      <div class="aml-countdown-timer" role="timer" aria-label="Time remaining until the AML Season 14 draft">
+        <div class="aml-countdown-unit"><span class="aml-countdown-value" id="aml-countdown-months">00</span><span class="aml-countdown-label">Months</span></div>
+        <div class="aml-countdown-colon" aria-hidden="true">:</div>
+        <div class="aml-countdown-unit"><span class="aml-countdown-value" id="aml-countdown-days">00</span><span class="aml-countdown-label">Days</span></div>
+        <div class="aml-countdown-colon" aria-hidden="true">:</div>
+        <div class="aml-countdown-unit"><span class="aml-countdown-value" id="aml-countdown-hours">00</span><span class="aml-countdown-label">Hours</span></div>
+        <div class="aml-countdown-colon" aria-hidden="true">:</div>
+        <div class="aml-countdown-unit"><span class="aml-countdown-value" id="aml-countdown-minutes">00</span><span class="aml-countdown-label">Min</span></div>
+        <div class="aml-countdown-colon" aria-hidden="true">:</div>
+        <div class="aml-countdown-unit"><span class="aml-countdown-value" id="aml-countdown-seconds">00</span><span class="aml-countdown-label">Sec</span></div>
+      </div>
+    </div>
+    <a class="aml-countdown-scroll" href="#aml-site-content" aria-label="Continue to the AML website">⌄</a>
+  </section>
   <div class="background-glow glow-pink"></div>
   <div class="background-glow glow-blue"></div>
-  <main class="page-shell">
+  <main class="page-shell" id="aml-site-content">
     <header class="hero">
       <img src="assets/aml-logo.png" alt="AML logo" class="aml-logo" />
       <h1>APOLLO MADDEN LEAGUE</h1>
@@ -45,8 +66,15 @@
         <p>Career histories, records, championships and awards for AML users.</p>
         <span class="open-link">VIEW USERS →</span>
       </a>
+      <a class="menu-card" data-index="05" href="predictions.html">
+        <span class="eyebrow">PLAY &amp; PREDICT</span>
+        <h2>AML MINI GAMES</h2>
+        <p>Make your Season 14 division, awards, stat leader and Final Four predictions.</p>
+        <span class="open-link">MAKE PREDICTIONS →</span>
+      </a>
     </section>
   </main>
+  <script src="aml-countdown.js?v=1" defer></script>
   <script src="app.js?v=18" defer></script>
 </body>
 </html>
