@@ -62,13 +62,13 @@
     </section>
 
     <section id="awards" class="section">
-      <div class="section-head"><div><div class="section-kicker">Prediction 03</div><h2 class="section-title">Season Awards</h2></div><p class="section-desc">Pick the AML user you think wins each league award.</p></div>
+      <div class="section-head"><div><div class="section-kicker">Prediction 03</div><h2 class="section-title">Season Awards</h2></div><p class="section-desc">Pick the team owner you think wins each league award.</p></div>
       <div class="awards-grid">
-        <article class="pick-card"><h3>COTY</h3><p>Coach of the Year</p><div class="field"><label for="coty">Winner</label><select id="coty" data-user-select><option value="">Choose user</option></select></div></article>
-        <article class="pick-card"><h3>WCOTY</h3><p>Worst Coach of the Year</p><div class="field"><label for="wcoty">Winner</label><select id="wcoty" data-user-select><option value="">Choose user</option></select></div></article>
-        <article class="pick-card"><h3>CCOTY</h3><p>Comeback Coach of the Year</p><div class="field"><label for="ccoty">Winner</label><select id="ccoty" data-user-select><option value="">Choose user</option></select></div></article>
-        <article class="pick-card"><h3>Fraud OTY</h3><p>Fraud of the Year</p><div class="field"><label for="fraud">Winner</label><select id="fraud" data-user-select><option value="">Choose user</option></select></div></article>
-        <article class="pick-card"><h3>Rookie OTY</h3><p>Rookie of the Year</p><div class="field"><label for="rookie">Winner</label><select id="rookie" data-user-select><option value="">Choose user</option></select></div></article>
+        <article class="pick-card"><h3>COTY</h3><p>Coach of the Year</p><div class="field"><label for="coty">Winner</label><select id="coty" data-user-select><option value="">Choose owner</option></select></div></article>
+        <article class="pick-card"><h3>WCOTY</h3><p>Worst Coach of the Year</p><div class="field"><label for="wcoty">Winner</label><select id="wcoty" data-user-select><option value="">Choose owner</option></select></div></article>
+        <article class="pick-card"><h3>CCOTY</h3><p>Comeback Coach of the Year</p><div class="field"><label for="ccoty">Winner</label><select id="ccoty" data-user-select><option value="">Choose owner</option></select></div></article>
+        <article class="pick-card"><h3>Fraud OTY</h3><p>Fraud of the Year</p><div class="field"><label for="fraud">Winner</label><select id="fraud" data-user-select><option value="">Choose owner</option></select></div></article>
+        <article class="pick-card"><h3>Rookie OTY</h3><p>Rookie of the Year</p><div class="field"><label for="rookie">Winner</label><select id="rookie" data-user-select><option value="">Choose owner</option></select></div></article>
       </div>
     </section>
 
@@ -120,7 +120,7 @@
         {conference:'NFC',name:'East',teams:['Kloud Nine','Pheonixes','Kush','Supermen']},
         {conference:'NFC',name:'West',teams:['Griffins','Ocelots','Minions','Metros']}
       ];
-      const USERS = ['Chazzy Smoove','Cole World','Loot Fien','Chubby Guy','LJ Salty','Jimmy Cody McGill','Mikey The Voice Jefferson','Kenny Ten Mchperson','Christian Icczz Ruiz','Souliumz','Evan J Manziel','Evan Yak Sparks','Father Skol','Rob Mazi','Salty Tristian Bathwater','DC Fashion','Rev','Sushi 817','Father Figure','Lee Zero K','Kfjaa','No Hate','Sebb Day Harv','Clutch','Joseph MvP D','Ty Echo C','Lemon Noah Juice','Johnnie JBX Willz','Fly Bathwater','Phatts','Brando','Malcolm'];
+      const USERS = ['Rev','SouliumZ','Zfrmda5','Loot Fien','ColeWorld','Malcolm','Clutch','Dom','Icczz','Yak Sparks','Mikey J','Sushi','Fly','ChubyGuys','Father','Salty Bathwater','Jimmy Mcgill','Lemon Juice','Echo','Mazi','Chazz','Kfjaa','Sebb','Kenny','No Hate','JBX','Father Figure','Zero','LjSalty','Brando','Phatts','Jmanziel'];
       const ALL_TEAMS = DIVISIONS.flatMap(d=>d.teams), AFC_TEAMS = DIVISIONS.filter(d=>d.conference==='AFC').flatMap(d=>d.teams), NFC_TEAMS = DIVISIONS.filter(d=>d.conference==='NFC').flatMap(d=>d.teams);
       const initialState = Object.fromEntries(DIVISIONS.map(d=>[`${d.conference}-${d.name}`,[...d.teams]]));
       let state = JSON.parse(JSON.stringify(initialState)), drag=null, ghost=null;
