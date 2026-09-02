@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070707" />
+  <title>MSPN | AML Season 14 Power Rankings</title>
+  <style>
+    :root{
+      --bg:#070707;--panel:#0d0d0f;--panel2:#131316;--text:#f7f7f8;--muted:#9b9ba3;
+      --red:#ed1b24;--red2:#a90f17;--border:rgba(255,255,255,.11);--max:1320px;
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth;background:var(--bg)}body{margin:0;background:linear-gradient(180deg,#040404 0,#09090b 42%,#050505 100%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh}
+    a{color:inherit}.topbar{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--border);background:rgba(5,5,6,.88);backdrop-filter:blur(16px)}
+    .topbar-inner{width:min(var(--max),calc(100% - 28px));min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .mini-logo{width:132px;height:auto;display:block}.back{font-size:13px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:10px 14px;color:#d7d7dc}.back:hover{border-color:rgba(237,27,36,.8);color:#fff}
+    .ticker{border-bottom:1px solid rgba(237,27,36,.33);background:#0a0a0b;overflow:hidden;white-space:nowrap}.ticker-inner{width:min(var(--max),calc(100% - 28px));margin:auto;min-height:34px;display:flex;align-items:center;gap:13px;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.ticker-tag{color:#fff;background:var(--red);padding:4px 8px;border-radius:3px}.ticker-copy{color:#bebec6;overflow:hidden;text-overflow:ellipsis}
+    .shell{width:min(var(--max),calc(100% - 28px));margin:auto;padding:46px 0 74px}.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:26px;padding:24px 0 34px;border-bottom:1px solid var(--border);position:relative}.hero:after{content:"";position:absolute;left:0;bottom:-1px;width:min(330px,55%);height:3px;background:linear-gradient(90deg,var(--red),transparent)}
+    .hero-logo{width:min(460px,82vw);height:auto;display:block;margin-bottom:24px}.kicker{color:var(--red);font-size:12px;font-weight:950;letter-spacing:.19em;text-transform:uppercase;margin-bottom:9px}.hero h1{margin:0;font-size:clamp(38px,7vw,82px);line-height:.92;letter-spacing:-.055em;text-transform:uppercase}.hero p{max-width:700px;margin:16px 0 0;color:var(--muted);line-height:1.55;font-size:15px}.edition{border:1px solid var(--border);background:var(--panel);padding:15px 17px;min-width:205px}.edition span{display:block}.edition .small{font-size:10px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase;font-weight:850}.edition .big{font-size:20px;font-weight:950;margin-top:5px;text-transform:uppercase}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:42px 0 18px}.section-head h2{margin:0;font-size:clamp(28px,4vw,48px);letter-spacing:-.035em;text-transform:uppercase}.section-head p{margin:0;color:var(--muted);font-size:13px;max-width:460px;text-align:right;line-height:1.5}
+    .podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:18px}.rank-card{position:relative;min-width:0;background:var(--panel);border:1px solid var(--border);overflow:hidden;cursor:zoom-in;transition:transform .18s ease,border-color .18s ease}.rank-card:hover{transform:translateY(-3px);border-color:rgba(237,27,36,.55)}.rank-card img{width:100%;height:auto;display:block;aspect-ratio:838/941;object-fit:cover}.rank-badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.82);border:1px solid rgba(255,255,255,.22);font-size:12px;font-weight:950;padding:7px 9px;letter-spacing:.06em}.podium .rank-card:first-child{border-color:rgba(237,27,36,.75);box-shadow:0 0 0 1px rgba(237,27,36,.12) inset}.podium .rank-card:first-child .rank-badge{background:var(--red);border-color:var(--red)}
+    .ranking-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.ranking-grid .rank-card img{aspect-ratio:838/941}.card-meta{padding:12px 12px 13px;border-top:1px solid var(--border)}.card-meta .rankline{font-size:10px;color:var(--red);font-weight:950;text-transform:uppercase;letter-spacing:.13em}.card-meta h3{font-size:14px;line-height:1.2;margin:5px 0 0;text-transform:uppercase;letter-spacing:-.015em}
+    .footer{margin-top:42px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#777780;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.footer img{width:105px;height:auto;opacity:.88}
+    .lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px}.lightbox.open{display:flex}.lightbox-inner{position:relative;width:min(760px,100%);max-height:calc(100vh - 36px);display:flex;align-items:center;justify-content:center}.lightbox img{display:block;max-width:100%;max-height:calc(100vh - 36px);object-fit:contain;border:1px solid rgba(255,255,255,.17);background:#050505}.lb-btn{position:absolute;width:46px;height:46px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.72);color:#fff;font-size:22px;display:grid;place-items:center;cursor:pointer}.lb-close{right:10px;top:10px}.lb-prev{left:10px;top:50%;transform:translateY(-50%)}.lb-next{right:10px;top:50%;transform:translateY(-50%)}.lb-caption{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(0,0,0,.78);border:1px solid rgba(255,255,255,.15);padding:10px 12px;font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;text-align:center}
+    @media(max-width:980px){.ranking-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.hero{grid-template-columns:1fr}.edition{width:max-content}.section-head{align-items:start;flex-direction:column}.section-head p{text-align:left}.podium{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:680px){.shell{padding-top:28px}.topbar-inner{min-height:60px}.mini-logo{width:108px}.hero-logo{width:min(380px,88vw)}.podium{grid-template-columns:1fr}.ranking-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.rank-card:hover{transform:none}.card-meta{padding:10px}.card-meta h3{font-size:12px}.section-head{margin-top:32px}.lb-prev,.lb-next{top:auto;bottom:12px;transform:none}.lb-caption{bottom:66px}}
+    @media(max-width:390px){.ranking-grid{grid-template-columns:1fr}.topbar-inner,.ticker-inner,.shell{width:min(100% - 20px,var(--max))}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="mspn.html" aria-label="MSPN home"><img class="mini-logo" src="assets/mspn-logo.png" alt="MSPN" /></a>
+      <a class="back" href="index.html">← AML Home</a>
+    </div>
+  </header>
+  <div class="ticker"><div class="ticker-inner"><span class="ticker-tag">MSPN</span><span class="ticker-copy">AML Season 14 preseason coverage • Power Rankings 1–32</span></div></div>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <img class="hero-logo" src="assets/mspn-logo.png" alt="MSPN" />
+        <div class="kicker">Season 14 • Preseason</div>
+        <h1>Power<br>Rankings</h1>
+        <p>The first MSPN power ranking of Season 14. All 32 AML franchises ranked before the opening kickoff.</p>
+      </div>
+      <aside class="edition"><span class="small">MSPN Rankings</span><span class="big">Preseason Edition</span></aside>
+    </section>
+
+    <div class="section-head"><div><div class="kicker">The Top Three</div><h2>Championship Tier</h2></div><p>Click any ranking graphic to open it full size. Use the arrows to move through all 32 teams.</p></div>
+    <section class="podium" id="podium" aria-label="Top three preseason power rankings"></section>
+
+    <div class="section-head"><div><div class="kicker">Full Rankings</div><h2>4 Through 32</h2></div><p>MSPN's complete Season 14 preseason board, in official ranking order.</p></div>
+    <section class="ranking-grid" id="rankingGrid" aria-label="Full preseason power rankings"></section>
+
+    <footer class="footer"><span>MSPN • AML Season 14</span><img src="assets/mspn-logo.png" alt="MSPN" /></footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Power ranking graphic viewer">
+    <div class="lightbox-inner">
+      <img id="lightboxImage" alt="" />
+      <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close">×</button>
+      <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous ranking">‹</button>
+      <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next ranking">›</button>
+      <div class="lb-caption" id="lbCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    (()=>{
+      const rankings=[
+        [1,'Indianapolis Speedracers'],[2,'Houston Apollo'],[3,'Ohmaha Omnitrix'],[4,'Arizona Phoenixes'],
+        [5,'New Orleans Voodoo'],[6,'Key West Flamingos'],[7,'New England Order'],[8,'Carolina Kloud Nine'],
+        [9,'Orlando Sorcerers'],[10,'San Antonio Stingers'],[11,'Seattle Kush'],[12,'South Burlington Supermen'],
+        [13,'Detroit Overdrive'],[14,'Charm City Griffins'],[15,'Buffalo Blizzards'],[16,'Las Vegas Volts'],
+        [17,'Montreal Falcons'],[18,'Austin Ocelots'],[19,'New Jersey Metros'],[20,'Los Angeles Minions'],
+        [21,'Chicago Mob'],[22,'Cleveland Lakehawks'],[23,'Hawaii Sharks'],[24,'D.C Dragons'],
+        [25,'Hollywood Stars'],[26,'New York Empire'],[27,'Cincinnati Black Cats'],[28,'OKC Thunderbirds'],
+        [29,'Rhode Island Road Runners'],[30,'Philadelphia Ducks'],[31,'Golden Gate Guardians'],[32,'South Beach Surfers']
+      ];
+      const podium=document.getElementById('podium'),grid=document.getElementById('rankingGrid');
+      const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightboxImage'),lbCap=document.getElementById('lbCaption');
+      let current=0;
+      function src(rank){return `assets/mspn/power-rankings/rank-${String(rank).padStart(2,'0')}.jpg`}
+      function card([rank,team],idx,compact=false){const b=document.createElement('button');b.type='button';b.className='rank-card';b.setAttribute('aria-label',`Open rank ${rank}, ${team}`);b.dataset.index=idx;b.style.padding='0';b.style.textAlign='left';b.style.color='inherit';b.innerHTML=`<span class="rank-badge">#${rank}</span><img loading="${rank<=6?'eager':'lazy'}" src="${src(rank)}" alt="MSPN Season 14 preseason power ranking number ${rank}: ${team}">${compact?'':`<div class="card-meta"><div class="rankline">MSPN Rank #${rank}</div><h3>${team}</h3></div>`}`;b.addEventListener('click',()=>open(idx));return b}
+      rankings.slice(0,3).forEach((r,i)=>podium.appendChild(card(r,i,true)));
+      rankings.slice(3).forEach((r,i)=>grid.appendChild(card(r,i+3,false)));
+      function open(i){current=(i+rankings.length)%rankings.length;const [rank,team]=rankings[current];lbImg.src=src(rank);lbImg.alt=`MSPN Season 14 preseason power ranking number ${rank}: ${team}`;lbCap.textContent=`#${rank} • ${team}`;lb.classList.add('open');document.body.style.overflow='hidden';document.getElementById('lbClose').focus()}
+      function close(){lb.classList.remove('open');document.body.style.overflow=''}
+      document.getElementById('lbClose').addEventListener('click',close);document.getElementById('lbPrev').addEventListener('click',()=>open(current-1));document.getElementById('lbNext').addEventListener('click',()=>open(current+1));
+      lb.addEventListener('click',e=>{if(e.target===lb)close()});document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')open(current-1);if(e.key==='ArrowRight')open(current+1)});
+    })();
+  </script>
+</body>
+</html>

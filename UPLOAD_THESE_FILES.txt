@@ -1,0 +1,13 @@
+AML MSPN POWER RANKINGS UPDATE
+
+Upload everything in this folder to the ROOT of your GitHub Pages repository, preserving the folders.
+
+REPLACE:
+- index.html
+
+ADD:
+- mspn.html
+- assets/mspn-logo.png
+- assets/mspn/power-rankings/rank-01.jpg through rank-32.jpg
+
+Do not upload the ZIP itself as the website file. Extract it first, then upload the contents.
