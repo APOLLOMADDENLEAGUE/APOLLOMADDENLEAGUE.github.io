@@ -82,7 +82,7 @@
       const podium=document.getElementById('podium'),grid=document.getElementById('rankingGrid');
       const lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightboxImage'),lbCap=document.getElementById('lbCaption');
       let current=0;
-      function src(rank){return `assets/mspn/power-rankings/rank-${String(rank).padStart(2,'0')}.jpg`}
+      function src(rank){return `assets/rank-${String(rank).padStart(2,'0')}.jpg`}
       function card([rank,team],idx,compact=false){const b=document.createElement('button');b.type='button';b.className='rank-card';b.setAttribute('aria-label',`Open rank ${rank}, ${team}`);b.dataset.index=idx;b.style.padding='0';b.style.textAlign='left';b.style.color='inherit';b.innerHTML=`<span class="rank-badge">#${rank}</span><img loading="${rank<=6?'eager':'lazy'}" src="${src(rank)}" alt="MSPN Season 14 preseason power ranking number ${rank}: ${team}">${compact?'':`<div class="card-meta"><div class="rankline">MSPN Rank #${rank}</div><h3>${team}</h3></div>`}`;b.addEventListener('click',()=>open(idx));return b}
       rankings.slice(0,3).forEach((r,i)=>podium.appendChild(card(r,i,true)));
       rankings.slice(3).forEach((r,i)=>grid.appendChild(card(r,i+3,false)));

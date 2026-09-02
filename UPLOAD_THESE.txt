@@ -1,0 +1,12 @@
+MSPN FLAT-ASSETS FIX
+
+Replace mspn.html in the ROOT of your repo.
+Upload every file inside this assets folder directly into your existing /assets folder.
+Do NOT create an mspn or power-rankings subfolder.
+
+Expected paths:
+/assets/mspn-logo.png
+/assets/rank-01.jpg
+/assets/rank-02.jpg
+...
+/assets/rank-32.jpg
