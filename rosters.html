@@ -19,7 +19,7 @@
     <p class="status" id="status">Loading live roster…</p>
     <section class="roster-list" id="roster-list"></section>
   </main>
-  <script src="aml-live.js?v=1"></script>
+  <script src="aml-live.js?v=2"></script>
   <script>
     (async()=>{
       const live=window.AML_LIVE, list=document.getElementById('roster-list'), status=document.getElementById('status');
@@ -27,24 +27,15 @@
       const params=new URLSearchParams(location.search); const initialTeam=params.get('teamId')||'';
       let players=[],teams=[];
       try{
-        const [t,r]=await Promise.all([live.api('/teams'),live.api(initialTeam?`/roster?teamId=${encodeURIComponent(initialTeam)}&limit=500`:'/players?limit=500')]);
+        const [t,r]=await Promise.all([live.api('/teams'),live.api(initialTeam?`/roster?teamId=${encodeURIComponent(initialTeam)}&limit=500`:'/players?limit=2000')]);
         teams=t.teams||[]; players=r.players||[];
         teams.sort((a,b)=>live.cleanTeamName(a.display_name).localeCompare(live.cleanTeamName(b.display_name))).forEach(team=>{const o=document.createElement('option');o.value=team.team_id;o.textContent=live.cleanTeamName(team.display_name);teamSelect.appendChild(o)});
         if(initialTeam) teamSelect.value=initialTeam;
-        [...new Set(players.map(p=>p.position).filter(Boolean))].sort().forEach(pos=>{const o=document.createElement('option');o.value=pos;o.textContent=pos;posSelect.appendChild(o)});
-        render();
+        fillPositions(); render();
       }catch(e){console.error(e);status.textContent='Live roster data is unavailable.';list.innerHTML='<div class="empty">Could not load roster data.</div>'}
-
-      async function reloadTeam(){
-        const id=teamSelect.value; status.textContent='Loading…';
-        try{const r=await live.api(id?`/roster?teamId=${encodeURIComponent(id)}&limit=500`:'/players?limit=500');players=r.players||[];render()}catch(e){console.error(e);status.textContent='Could not load roster.'}
-      }
-      function render(){
-        const q=search.value.trim().toLowerCase(),pos=posSelect.value;
-        const filtered=players.filter(p=>(!pos||p.position===pos)&&(!q||live.playerName(p).toLowerCase().includes(q)));
-        status.textContent=`${filtered.length} players shown`;
-        list.innerHTML=filtered.length?filtered.map(p=>`<a class="player-row" href="${live.playerUrl(p.roster_id)}"><strong class="ovr">${live.esc(p.player_best_ovr)}</strong><span class="player-name">${live.esc(live.playerName(p))}</span><span class="pos">${live.esc(p.position)}</span><span class="age">Age ${live.esc(p.age)}</span><span class="dev">${live.esc(live.devLabel(p.dev_trait))}</span><span class="team">${live.esc(live.cleanTeamName(p.team_name||p.team_nickname||''))}</span></a>`).join(''):'<div class="empty">No players match those filters.</div>';
-      }
+      function fillPositions(){const current=posSelect.value;posSelect.innerHTML='<option value="">All Positions</option>';[...new Set(players.map(p=>p.position).filter(Boolean))].sort().forEach(pos=>{const o=document.createElement('option');o.value=pos;o.textContent=pos;posSelect.appendChild(o)});if([...posSelect.options].some(o=>o.value===current))posSelect.value=current}
+      async function reloadTeam(){const id=teamSelect.value;status.textContent='Loading…';try{const r=await live.api(id?`/roster?teamId=${encodeURIComponent(id)}&limit=500`:'/players?limit=2000');players=r.players||[];fillPositions();render()}catch(e){console.error(e);status.textContent='Could not load roster.'}}
+      function render(){const q=search.value.trim().toLowerCase(),pos=posSelect.value;const filtered=players.filter(p=>(!pos||p.position===pos)&&(!q||live.playerName(p).toLowerCase().includes(q)));status.textContent=`${filtered.length} of ${players.length} players shown`;list.innerHTML=filtered.length?filtered.map(p=>`<a class="player-row" href="${live.playerUrl(p.roster_id)}"><strong class="ovr">${live.esc(p.player_best_ovr)}</strong><span class="player-name">${live.esc(live.playerName(p))}</span><span class="pos">${live.esc(p.position)}</span><span class="age">Age ${live.esc(p.age)}</span><span class="dev">${live.esc(live.devLabel(p.dev_trait))}</span><span class="team">${live.esc(live.cleanTeamName(p.team_name||p.team_nickname||''))}</span></a>`).join(''):'<div class="empty">No players match those filters.</div>'}
       teamSelect.addEventListener('change',reloadTeam);posSelect.addEventListener('change',render);search.addEventListener('input',render);
     })();
   </script>
