@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="premium.css?v=18" />
   <style>
-    .data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:760px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.sort-button{display:flex;align-items:center;gap:6px;width:100%;border:0;padding:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left;cursor:pointer}.sort-button:hover,.sort-button:focus-visible{color:#fff}.sort-arrow{display:inline-block;min-width:10px;color:#fff}.stat-table tbody tr:hover{background:rgba(255,255,255,.035)}.rank{color:#9fa4b3;width:34px}.empty{padding:24px}
+    .data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:760px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.sort-button{display:flex;align-items:center;gap:6px;width:100%;border:0;padding:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left;cursor:pointer}.sort-button:hover,.sort-button:focus-visible{color:#fff}.sort-arrow{display:inline-block;min-width:10px;color:#fff}.stat-link{color:#fff;font-weight:850;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)}.stat-link:hover,.stat-link:focus-visible{color:#ff63b7;border-color:#ff63b7}.stat-table tbody tr:hover{background:rgba(255,255,255,.035)}.rank{color:#9fa4b3;width:34px}.empty{padding:24px}
   </style>
 </head>
 <body class="aml-page">
@@ -82,6 +82,13 @@
         return typeof raw==='number'&&!Number.isInteger(raw)?Number(raw.toFixed(1)):raw;
       }
 
+      function cell(row,key){
+        const label=live.esc(value(row,key));
+        if(key==='fullName'&&row.rosterId)return `<a class="stat-link" href="${live.playerUrl(row.rosterId)}">${label}</a>`;
+        if(key==='teamName'&&row.teamId)return `<a class="stat-link" href="${live.teamUrl(row.teamId)}">${label}</a>`;
+        return label;
+      }
+
       function compareRows(a,b,key){
         const aValue=value(a,key),bValue=value(b,key);
         const aNumber=Number(aValue),bNumber=Number(bValue);
@@ -108,7 +115,7 @@
         const itemWeek=rows.map(row=>Number(row.weekIndex)).find(Number.isFinite);
         const shownWeek=Number.isFinite(itemWeek)?itemWeek+1:Number(entry.week_index)+1;
         status.textContent=`${category.toUpperCase()} • WEEK ${shownWeek} • ${rows.length} ROWS`;
-        table.innerHTML=`<table><thead><tr><th>#</th>${settings.columns.map(([key,label])=>`<th aria-sort="${sortKey===key?(sortDirection==='asc'?'ascending':'descending'):'none'}"><button class="sort-button" type="button" data-sort="${live.esc(key)}">${live.esc(label)} <span class="sort-arrow">${sortKey===key?(sortDirection==='asc'?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead><tbody>${rows.map((row,index)=>`<tr><td class="rank">${index+1}</td>${settings.columns.map(([key])=>`<td>${live.esc(value(row,key))}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+        table.innerHTML=`<table><thead><tr><th>#</th>${settings.columns.map(([key,label])=>`<th aria-sort="${sortKey===key?(sortDirection==='asc'?'ascending':'descending'):'none'}"><button class="sort-button" type="button" data-sort="${live.esc(key)}">${live.esc(label)} <span class="sort-arrow">${sortKey===key?(sortDirection==='asc'?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead><tbody>${rows.map((row,index)=>`<tr><td class="rank">${index+1}</td>${settings.columns.map(([key])=>`<td>${cell(row,key)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
         table.querySelectorAll('[data-sort]').forEach(button=>button.addEventListener('click',()=>changeSort(button.dataset.sort)));
       }
     })();
