@@ -12,7 +12,7 @@
   let games=[],weeks=[],activeWeek=0,teamName='';
   try{
     const [scheduleData,teamsData]=await Promise.all([live.api('/schedule'),live.api('/teams')]);
-    games=scheduleData.games||[];
+    games=(scheduleData.games||[]).filter(game=>Number(game.stage_index)===1);
     if(teamId){
       const team=(teamsData.teams||[]).find(item=>Number(item.team_id)===teamId);
       teamName=live.cleanTeamName(team?.display_name||team?.nick_name||'TEAM');
@@ -21,8 +21,8 @@
       document.getElementById('page-copy').textContent=`Season 14 schedule and results for ${teamName}.`;
       document.title=`${teamName} Schedule | Apollo Madden League`;
     }
-    weeks=[...new Set(games.map(game=>Number(game.week_index)||0))].sort((a,b)=>a-b);
-    activeWeek=weeks.includes(requestedWeek)?requestedWeek:(weeks[0]??0);
+    weeks=Array.from({length:18},(_,index)=>index);
+    activeWeek=weeks.includes(requestedWeek)?requestedWeek:0;
     nav.innerHTML=weeks.map(week=>`<button class="week-button${week===activeWeek?' active':''}" type="button" data-week="${week}">${live.weekLabel(week)}</button>`).join('');
     nav.querySelectorAll('[data-week]').forEach(button=>button.addEventListener('click',()=>{activeWeek=Number(button.dataset.week);nav.querySelectorAll('.week-button').forEach(item=>item.classList.toggle('active',item===button));const next=new URLSearchParams(location.search);next.set('week',String(activeWeek));history.replaceState(null,'',`${location.pathname}?${next}`);render();}));
     render();
@@ -31,7 +31,7 @@
     const weekGames=games.filter(game=>(Number(game.week_index)||0)===activeWeek);
     status.textContent=`${live.weekLabel(activeWeek)} • ${weekGames.length} ${teamId?'game':'games'}${teamName?` • ${teamName}`:''}`;
     root.innerHTML=`<section class="week-block"><h2 class="week-title">${live.weekLabel(activeWeek)}</h2><div class="games">${weekGames.map(game=>{const played=Number(game.status)>0||Number(game.away_score)>0||Number(game.home_score)>0;const tag=played?'a':'article';const href=played?` href="${live.gameUrl(game.schedule_id)}"`:'';return `<${tag} class="game"${href}><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(game.away_team_name||game.away_abbr))}</div><div class="meta">AWAY</div></div><div class="score">${played?`${live.esc(game.away_score)} - ${live.esc(game.home_score)}`:'VS'}${played?'<div class="meta box-score-note">VIEW BOX SCORE</div>':''}</div><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(game.home_team_name||game.home_abbr))}</div><div class="meta">HOME</div></div></${tag}>`;}).join('')}</div></section>`;
-    if(!weekGames.length)root.innerHTML='<div class="empty">No game found for this week.</div>';
+    if(!weekGames.length)root.innerHTML=`<div class="empty">${teamId?'This team’s':'Week '+(activeWeek+1)} matchup has not been imported from Madden yet.</div>`;
   }
 })();
 </script></body></html>
