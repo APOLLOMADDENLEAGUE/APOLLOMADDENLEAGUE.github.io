@@ -2662,3 +2662,7 @@ body.users-hub-page .users-hub-year{
     bottom:13px;
   }
 }
+
+
+/* Keep decorative background glows out of the document flow on every page. */
+.background-glow{position:fixed!important;pointer-events:none!important}
