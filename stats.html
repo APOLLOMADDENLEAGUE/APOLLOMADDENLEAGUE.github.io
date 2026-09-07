@@ -1,7 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="theme-color" content="#050507"/><title>AML Stats | Apollo Madden League</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="premium.css?v=18"/><style>.data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:720px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07)}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.empty{padding:24px}</style></head>
-<body class="aml-page"><main class="data-shell"><div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo"/><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div><section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>WEEKLY STATS</h1><p>Passing, rushing, receiving, defense, kicking and team stat exports. This page fills automatically when Madden has weekly stats available.</p></section><div class="cats" id="cats"></div><p class="status" id="status">Loading stat exports…</p><div class="stat-table" id="table"></div></main><script src="aml-live.js?v=1"></script><script>
-(async()=>{const live=window.AML_LIVE,cats=document.getElementById('cats'),status=document.getElementById('status'),table=document.getElementById('table');let exports=[];try{const d=await live.api('/weekly');exports=d.exports||[];const categories=[...new Set(exports.map(x=>x.category))];categories.forEach((c,i)=>{const b=document.createElement('button');b.textContent=c.toUpperCase();b.className=i===0?'active':'';b.onclick=()=>{[...cats.children].forEach(x=>x.classList.remove('active'));b.classList.add('active');render(c)};cats.appendChild(b)});if(categories.length)render(categories[0]);else{status.textContent='No weekly stat exports yet.';table.innerHTML='<div class="empty">Stats will appear after the first completed week export.</div>'}}catch(e){console.error(e);status.textContent='Stats are temporarily unavailable.';table.innerHTML='<div class="empty">Could not load weekly stats.</div>'}
-function render(cat){const x=exports.find(e=>e.category===cat);if(!x){return}if(!x.success||!Array.isArray(x.items)||!x.items.length){status.textContent=`${cat.toUpperCase()} • ${x.message||'No stats available for this week yet.'}`;table.innerHTML='<div class="empty">No player rows yet. Madden will populate this automatically after games are played and the weekly export succeeds.</div>';return}const rows=x.items;const preferred=['fullName','playerName','firstName','lastName','teamName','teamId','passYds','passTDs','rushYds','rushTDs','recYds','recTDs','receptions','sacks','defInts','soloTackles','fGMade','fGAtt'];let keys=preferred.filter(k=>k in rows[0]);if(keys.length<3)keys=Object.keys(rows[0]).filter(k=>['string','number','boolean'].includes(typeof rows[0][k])).slice(0,10);status.textContent=`${cat.toUpperCase()} • Week ${(Number(x.week_index)||0)+1} • ${rows.length} rows`;table.innerHTML=`<table><thead><tr>${keys.map(k=>`<th>${live.esc(k.replace(/([A-Z])/g,' $1').toUpperCase())}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${keys.map(k=>`<td>${live.esc(r[k]??'—')}</td>`).join('')}</tr>`).join('')}</tbody></table>`}}
-})();</script></body></html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="theme-color" content="#050507" />
+  <title>AML Stats | Apollo Madden League</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="premium.css?v=18" />
+  <style>
+    .data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:760px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.stat-table tbody tr:hover{background:rgba(255,255,255,.035)}.rank{color:#9fa4b3;width:34px}.empty{padding:24px}
+  </style>
+</head>
+<body class="aml-page">
+  <main class="data-shell">
+    <div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo" /><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div>
+    <section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>WEEKLY STATS</h1><p>Passing, rushing, receiving, defense, kicking, punting and team stats from the latest completed AML week.</p></section>
+    <div class="cats" id="cats"></div>
+    <p class="status" id="status">Loading the latest completed week…</p>
+    <div class="stat-table" id="table"></div>
+  </main>
+  <script src="aml-live.js?v=3"></script>
+  <script>
+    (async()=>{
+      const live=window.AML_LIVE;
+      const cats=document.getElementById('cats');
+      const status=document.getElementById('status');
+      const table=document.getElementById('table');
+      const order=['passing','rushing','receiving','defense','kicking','punting','team'];
+      const config={
+        passing:{sort:'passYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['passComp','COMP'],['passAtt','ATT'],['passYds','YDS'],['passTDs','TD'],['passInts','INT'],['passerRating','QBR']]},
+        rushing:{sort:'rushYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['rushAtt','ATT'],['rushYds','YDS'],['rushYdsPerAtt','AVG'],['rushTDs','TD'],['rushFum','FUM']]},
+        receiving:{sort:'recYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['recCatches','REC'],['recYds','YDS'],['recYdsPerCatch','AVG'],['recTDs','TD'],['recDrops','DROP']]},
+        defense:{sort:'defTotalTackles',columns:[['fullName','PLAYER'],['teamName','TEAM'],['defTotalTackles','TKL'],['defSacks','SACK'],['defInts','INT'],['defDeflections','PD'],['defForcedFum','FF'],['defFumRec','FR']]},
+        kicking:{sort:'kickPts',columns:[['fullName','PLAYER'],['teamName','TEAM'],['fGMade','FGM'],['fGAtt','FGA'],['fGLongest','LONG'],['xPMade','XPM'],['xPAtt','XPA'],['kickPts','PTS']]},
+        punting:{sort:'puntYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['puntAtt','PUNTS'],['puntYds','YDS'],['puntYdsPerAtt','AVG'],['puntLongest','LONG'],['puntsIn20','IN 20'],['puntTBs','TB']]},
+        team:{sort:'offTotalYds',columns:[['teamName','TEAM'],['offPtsPerGame','PTS'],['offTotalYds','OFF YDS'],['offPassYds','PASS YDS'],['offRushYds','RUSH YDS'],['defTotalYds','YDS ALLOWED'],['tODiff','TO DIFF']]}
+      };
+      let latest={};
+      let teamNames=new Map();
+      try{
+        const [weeklyData,teamsData]=await Promise.all([live.api('/weekly'),live.api('/teams')]);
+        (teamsData.teams||[]).forEach(t=>teamNames.set(Number(t.team_id),live.cleanTeamName(t.display_name||t.nick_name||t.abbr_name)));
+        (weeklyData.exports||[]).forEach(entry=>{
+          if(!entry.success||!Array.isArray(entry.items)||!entry.items.length)return;
+          const current=latest[entry.category];
+          if(!current||Number(entry.week_index)>Number(current.week_index))latest[entry.category]=entry;
+        });
+        const categories=order.filter(category=>latest[category]);
+        if(!categories.length)throw new Error('No completed weekly stat exports were returned.');
+        categories.forEach((category,index)=>{
+          const button=document.createElement('button');
+          button.type='button';
+          button.textContent=category.toUpperCase();
+          button.className=index===0?'active':'';
+          button.addEventListener('click',()=>{
+            [...cats.children].forEach(child=>child.classList.remove('active'));
+            button.classList.add('active');
+            render(category);
+          });
+          cats.appendChild(button);
+        });
+        render(categories[0]);
+      }catch(error){
+        console.error('AML weekly stats:',error);
+        status.textContent='Stats are temporarily unavailable.';
+        table.innerHTML='<div class="empty">The live feed could not load. Refresh the page in a moment.</div>';
+      }
+
+      function value(row,key){
+        if(key==='teamName')return teamNames.get(Number(row.teamId))||'—';
+        const raw=row[key];
+        if(raw===null||raw===undefined||raw==='')return '—';
+        return typeof raw==='number'&&!Number.isInteger(raw)?Number(raw.toFixed(1)):raw;
+      }
+
+      function render(category){
+        const entry=latest[category];
+        const settings=config[category];
+        const rows=entry.items.slice().sort((a,b)=>(Number(b[settings.sort])||0)-(Number(a[settings.sort])||0));
+        const itemWeek=rows.map(row=>Number(row.weekIndex)).find(Number.isFinite);
+        const shownWeek=Number.isFinite(itemWeek)?itemWeek+1:Number(entry.week_index)+1;
+        status.textContent=`${category.toUpperCase()} • WEEK ${shownWeek} • ${rows.length} ROWS`;
+        table.innerHTML=`<table><thead><tr><th>#</th>${settings.columns.map(([,label])=>`<th>${live.esc(label)}</th>`).join('')}</tr></thead><tbody>${rows.map((row,index)=>`<tr><td class="rank">${index+1}</td>${settings.columns.map(([key])=>`<td>${live.esc(value(row,key))}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+      }
+    })();
+  </script>
+</body>
+</html>
