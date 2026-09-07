@@ -21,6 +21,7 @@
   function scheduleUrl(teamId){return teamId?`schedule.html?teamId=${encodeURIComponent(teamId)}`:'schedule.html';}
   function playerUrl(rosterId){return `player.html?rosterId=${encodeURIComponent(rosterId)}`;}
   function teamUrl(teamId){const slug=TEAM_ID_TO_PAGE[Number(teamId)];return slug?`team-${slug}.html`:'teams.html';}
+  function gameUrl(scheduleId){return `game.html?scheduleId=${encodeURIComponent(scheduleId)}`;}
   function weekLabel(weekIndex){const n=Number(weekIndex);return Number.isFinite(n)?`Week ${n+1}`:'Week';}
-  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,DEV_TRAITS,api,esc,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,weekLabel});
+  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,DEV_TRAITS,api,esc,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,gameUrl,weekLabel});
 })();
