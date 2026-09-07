@@ -1,43 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#050507" />
-  <title>AML Schedule & Scores | Apollo Madden League</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="premium.css?v=18" />
-  <style>
-    .data-shell{width:min(1120px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.status{color:#9fa4b3;margin:20px 0}.week-block{margin:26px 0}.week-title{font-size:1.35rem;margin-bottom:12px}.games{display:grid;gap:10px}.game{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:18px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:rgba(255,255,255,.035)}.team-side:last-child{text-align:right}.team-name{font-weight:900}.score{font-size:1.5rem;font-weight:950;white-space:nowrap}.meta{font-size:.78rem;color:#aeb4c5;margin-top:4px}.empty{padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:16px}@media(max-width:650px){.game{grid-template-columns:1fr auto 1fr;gap:8px;padding:14px}.score{font-size:1.15rem}}
-  </style>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" /><meta name="theme-color" content="#050507" />
+  <title>AML Schedule & Scores | Apollo Madden League</title><link rel="stylesheet" href="styles.css" /><link rel="stylesheet" href="premium.css?v=18" />
+  <style>.data-shell{width:min(1120px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.status{color:#9fa4b3;margin:20px 0}.week-block{margin:26px 0}.week-title{font-size:1.35rem;margin-bottom:12px}.games{display:grid;gap:10px}.game{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:18px;border:1px solid rgba(255,255,255,.09);border-radius:18px;background:rgba(255,255,255,.035);color:#fff;text-decoration:none}.game[href]{cursor:pointer;transition:border-color .18s ease,background .18s ease,transform .18s ease}.game[href]:hover,.game[href]:focus-visible{border-color:rgba(255,99,183,.65);background:rgba(255,255,255,.065);transform:translateY(-1px)}.team-side:last-child{text-align:right}.team-name{font-weight:900}.score{font-size:1.5rem;font-weight:950;white-space:nowrap}.meta{font-size:.78rem;color:#aeb4c5;margin-top:4px}.box-score-note{color:#ff63b7}.empty{padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:16px}@media(max-width:650px){.game{grid-template-columns:1fr auto 1fr;gap:8px;padding:14px}.score{font-size:1.15rem}}</style>
 </head>
-<body class="aml-page">
-  <main class="data-shell">
-    <div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo"/><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div>
-    <section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>SCHEDULE &amp; SCORES</h1><p>Season 14 matchups and results from the latest Madden Companion export.</p></section>
-    <p class="status" id="status">Loading schedule…</p><div id="schedule"></div>
-  </main>
-  <script src="aml-live.js?v=1"></script>
-  <script>
-    (async()=>{
-      const live=window.AML_LIVE,root=document.getElementById('schedule'),status=document.getElementById('status');
-      const teamId=Number(new URLSearchParams(location.search).get('teamId')||0);
-      try{
-        const data=await live.api('/schedule');
-        let games=data.games||[];
-        if(teamId) games=games.filter(g=>Number(g.home_team_id)===teamId||Number(g.away_team_id)===teamId);
-        const groups=new Map(); games.forEach(g=>{const w=Number(g.week_index)||0;if(!groups.has(w))groups.set(w,[]);groups.get(w).push(g)});
-        root.innerHTML=''; [...groups.keys()].sort((a,b)=>a-b).forEach(week=>{
-          const wrap=document.createElement('section');wrap.className='week-block';
-          wrap.innerHTML=`<h2 class="week-title">${live.weekLabel(week)}</h2><div class="games">${groups.get(week).map(g=>{
-            const played=Number(g.status)>0||Number(g.away_score)>0||Number(g.home_score)>0;
-            return `<article class="game"><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(g.away_team_name||g.away_abbr))}</div><div class="meta">AWAY</div></div><div class="score">${played?`${live.esc(g.away_score)} - ${live.esc(g.home_score)}`:'VS'}</div><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(g.home_team_name||g.home_abbr))}</div><div class="meta">HOME</div></div></article>`}).join('')}</div>`;
-          root.appendChild(wrap);
-        });
-        status.textContent=`${games.length} games from latest export${teamId?' for selected team':''}.`;
-        if(!games.length)root.innerHTML='<div class="empty">No games found.</div>';
-      }catch(e){console.error(e);status.textContent='Live schedule is unavailable.';root.innerHTML='<div class="empty">Could not load schedule.</div>'}
-    })();
-  </script>
-</body>
-</html>
+<body class="aml-page"><main class="data-shell"><div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo" /><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div><section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>SCHEDULE &amp; SCORES</h1><p>Season 14 matchups and results from the latest Madden Companion export.</p></section><p class="status" id="status">Loading schedule…</p><div id="schedule"></div></main><script src="aml-live.js?v=5"></script><script>
+(async()=>{const live=window.AML_LIVE,root=document.getElementById('schedule'),status=document.getElementById('status');const teamId=Number(new URLSearchParams(location.search).get('teamId')||0);try{const data=await live.api('/schedule');let games=data.games||[];if(teamId)games=games.filter(g=>Number(g.home_team_id)===teamId||Number(g.away_team_id)===teamId);const groups=new Map();games.forEach(g=>{const w=Number(g.week_index)||0;if(!groups.has(w))groups.set(w,[]);groups.get(w).push(g)});root.innerHTML='';[...groups.keys()].sort((a,b)=>a-b).forEach(week=>{const wrap=document.createElement('section');wrap.className='week-block';wrap.innerHTML=`<h2 class="week-title">${live.weekLabel(week)}</h2><div class="games">${groups.get(week).map(g=>{const played=Number(g.status)>0||Number(g.away_score)>0||Number(g.home_score)>0;const tag=played?'a':'article';const href=played?` href="${live.gameUrl(g.schedule_id)}"`:'';return `<${tag} class="game"${href}><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(g.away_team_name||g.away_abbr))}</div><div class="meta">AWAY</div></div><div class="score">${played?`${live.esc(g.away_score)} - ${live.esc(g.home_score)}`:'VS'}${played?'<div class="meta box-score-note">VIEW BOX SCORE</div>':''}</div><div class="team-side"><div class="team-name">${live.esc(live.cleanTeamName(g.home_team_name||g.home_abbr))}</div><div class="meta">HOME</div></div></${tag}>`}).join('')}</div>`;root.appendChild(wrap)});status.textContent=`${games.length} games from latest export${teamId?' for selected team':''}.`;if(!games.length)root.innerHTML='<div class="empty">No games found.</div>'}catch(e){console.error(e);status.textContent='Live schedule is unavailable.';root.innerHTML='<div class="empty">Could not load schedule.</div>'}})();
+</script></body></html>
