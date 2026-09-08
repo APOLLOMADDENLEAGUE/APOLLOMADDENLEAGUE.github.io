@@ -14,9 +14,9 @@
 <body class="aml-page">
   <main class="data-shell">
     <div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo" /><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div>
-    <section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>WEEKLY STATS</h1><p>Passing, rushing, receiving, defense, kicking, punting and team stats from the latest completed AML week.</p></section>
+    <section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>SEASON STATS</h1><p>Cumulative Season 14 passing, rushing, receiving, defense, kicking, punting and team leaders.</p></section>
     <div class="cats" id="cats"></div>
-    <p class="status" id="status">Loading the latest completed week…</p>
+    <p class="status" id="status">Loading Season 14 totals…</p>
     <div class="stat-table" id="table"></div>
   </main>
   <script src="aml-live.js?v=3"></script>
@@ -36,7 +36,7 @@
         punting:{sort:'puntYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['puntAtt','PUNTS'],['puntYds','YDS'],['puntYdsPerAtt','AVG'],['puntLongest','LONG'],['puntsIn20','IN 20'],['puntTBs','TB']]},
         team:{sort:'offTotalYds',columns:[['teamName','TEAM'],['offPtsPerGame','PTS'],['offTotalYds','OFF YDS'],['offPassYds','PASS YDS'],['offRushYds','RUSH YDS'],['defTotalYds','YDS ALLOWED'],['tODiff','TO DIFF']]}
       };
-      let latest={};
+      let season={};
       let teamNames=new Map();
       let activeCategory='';
       let sortKey='';
@@ -44,13 +44,45 @@
       try{
         const [weeklyData,teamsData]=await Promise.all([live.api('/weekly'),live.api('/teams')]);
         (teamsData.teams||[]).forEach(t=>teamNames.set(Number(t.team_id),live.cleanTeamName(t.display_name||t.nick_name||t.abbr_name)));
+        const exportsByCategory={};
         (weeklyData.exports||[]).forEach(entry=>{
           if(!entry.success||!Array.isArray(entry.items)||!entry.items.length)return;
-          const current=latest[entry.category];
-          if(!current||Number(entry.week_index)>Number(current.week_index))latest[entry.category]=entry;
+          (exportsByCategory[entry.category]??=[]).push(...entry.items);
         });
-        const categories=order.filter(category=>latest[category]);
-        if(!categories.length)throw new Error('No completed weekly stat exports were returned.');
+        Object.entries(exportsByCategory).forEach(([category,items])=>{
+          const unique=[...new Map(items.map((row,index)=>[row.statId??`${row.scheduleId}-${row.rosterId??row.teamId}-${index}`,row])).values()];
+          const grouped=new Map();
+          unique.forEach(row=>{
+            const key=category==='team'?`team-${row.teamId}`:`player-${row.rosterId??row.fullName}`;
+            if(!grouped.has(key))grouped.set(key,{...row});
+            else{
+              const total=grouped.get(key);
+              Object.entries(row).forEach(([field,raw])=>{
+                if(typeof raw!=='number'||['statId','rosterId','teamId','scheduleId','weekIndex','stageIndex','seasonIndex','passCompPct','passerRating','passYdsPerAtt','passYdsPerGame','rushYdsPerAtt','recYdsPerCatch','puntYdsPerAtt','offPtsPerGame','fGLongest','puntLongest'].includes(field))return;
+                total[field]=Number(total[field]||0)+raw;
+              });
+              total.fGLongest=Math.max(Number(total.fGLongest||0),Number(row.fGLongest||0));
+              total.puntLongest=Math.max(Number(total.puntLongest||0),Number(row.puntLongest||0));
+            }
+          });
+          grouped.forEach(row=>{
+            row.rushYdsPerAtt=row.rushAtt?row.rushYds/row.rushAtt:0;
+            row.recYdsPerCatch=row.recCatches?row.recYds/row.recCatches:0;
+            row.puntYdsPerAtt=row.puntAtt?row.puntYds/row.puntAtt:0;
+            row.passCompPct=row.passAtt?row.passComp*100/row.passAtt:0;
+            row.passYdsPerAtt=row.passAtt?row.passYds/row.passAtt:0;
+            if(row.passAtt){
+              const a=Math.max(0,Math.min(2.375,(row.passComp/row.passAtt-.3)*5));
+              const b=Math.max(0,Math.min(2.375,(row.passYds/row.passAtt-3)*.25));
+              const c=Math.max(0,Math.min(2.375,(row.passTDs/row.passAtt)*20));
+              const d=Math.max(0,Math.min(2.375,2.375-(row.passInts/row.passAtt)*25));
+              row.passerRating=(a+b+c+d)/6*100;
+            }
+          });
+          season[category]=[...grouped.values()];
+        });
+        const categories=order.filter(category=>season[category]?.length);
+        if(!categories.length)throw new Error('No completed Season 14 stat exports were returned.');
         categories.forEach((category,index)=>{
           const button=document.createElement('button');
           button.type='button';
@@ -109,12 +141,9 @@
 
       function render(){
         const category=activeCategory;
-        const entry=latest[category];
         const settings=config[category];
-        const rows=entry.items.slice().sort((a,b)=>compareRows(a,b,sortKey));
-        const itemWeek=rows.map(row=>Number(row.weekIndex)).find(Number.isFinite);
-        const shownWeek=Number.isFinite(itemWeek)?itemWeek+1:Number(entry.week_index)+1;
-        status.textContent=`${category.toUpperCase()} • WEEK ${shownWeek} • ${rows.length} ROWS`;
+        const rows=season[category].slice().sort((a,b)=>compareRows(a,b,sortKey));
+        status.textContent=`${category.toUpperCase()} • SEASON 14 • ${rows.length} ROWS`;
         table.innerHTML=`<table><thead><tr><th>#</th>${settings.columns.map(([key,label])=>`<th aria-sort="${sortKey===key?(sortDirection==='asc'?'ascending':'descending'):'none'}"><button class="sort-button" type="button" data-sort="${live.esc(key)}">${live.esc(label)} <span class="sort-arrow">${sortKey===key?(sortDirection==='asc'?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead><tbody>${rows.map((row,index)=>`<tr><td class="rank">${index+1}</td>${settings.columns.map(([key])=>`<td>${cell(row,key)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
         table.querySelectorAll('[data-sort]').forEach(button=>button.addEventListener('click',()=>changeSort(button.dataset.sort)));
       }
