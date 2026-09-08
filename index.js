@@ -80,6 +80,7 @@ const commands = [
   new SlashCommandBuilder().setName('playoffs').setDescription('Show the current AFC and NFC playoff picture'),
   new SlashCommandBuilder().setName('power-rankings').setDescription('Show the MSPN Season 14 power rankings'),
   new SlashCommandBuilder().setName('create-game-channels').setDescription('Owner only: create every matchup channel for a week').addIntegerOption(o=>o.setName('week').setDescription('Week 1-18').setRequired(true).setMinValue(1).setMaxValue(18)),
+  new SlashCommandBuilder().setName('records').setDescription('Show AML records tracked since Season 14').addStringOption(o=>o.setName('type').setDescription('Record type').setRequired(true).addChoices({name:'Single Game',value:'game'},{name:'Season Records',value:'season'},{name:'Career Records',value:'career'})).addStringOption(o=>o.setName('category').setDescription('Stat category').setRequired(true).addChoices({name:'Passing',value:'passing'},{name:'Rushing',value:'rushing'},{name:'Receiving',value:'receiving'},{name:'Defense',value:'defense'},{name:'Kicking',value:'kicking'})),
 ].map(c=>c.toJSON());
 
 const client = new Client({intents:[GatewayIntentBits.Guilds]});
@@ -262,6 +263,13 @@ async function createGameChannels(interaction){
   return {content:`Created **${categoryName}** with ${made.length} matchup channels.${missing.length?`\nCould not find both team roles for: ${missing.join(', ')}`:''}`};
 }
 
+async function recordsReply(type,category){
+  const definitions={passing:[['passYds','Passing Yards','YDS'],['passTDs','Passing Touchdowns','TD']],rushing:[['rushYds','Rushing Yards','YDS'],['rushTDs','Rushing Touchdowns','TD']],receiving:[['recCatches','Receptions','REC'],['recYds','Receiving Yards','YDS'],['recTDs','Receiving Touchdowns','TD']],defense:[['defTotalTackles','Tackles','TKL'],['defSacks','Sacks','SACK'],['defInts','Interceptions','INT']],kicking:[['kickPts','Kicking Points','PTS'],['fGLongest','Longest Field Goal','YDS']]};
+  const data=await api('/weekly'),raw=(data.exports||[]).filter(e=>e.success&&e.category===category&&Array.isArray(e.items)).flatMap(e=>e.items),unique=[...new Map(raw.map((r,i)=>[r.statId??`${r.scheduleId}-${r.rosterId}-${i}`,r])).values()];
+  const lines=(definitions[category]||[]).map(([key,label,unit])=>{let rows=unique;if(type!=='game'){const grouped=new Map();rows.forEach(r=>{const season=14+n(r.seasonIndex),id=type==='season'?`${season}-${r.rosterId}`:String(r.rosterId),x=grouped.get(id)||{...r,[key]:0,season};x[key]=key==='fGLongest'?Math.max(n(x[key]),n(r[key])):n(x[key])+n(r[key]);grouped.set(id,x)});rows=[...grouped.values()]};const top=rows.sort((a,b)=>n(b[key])-n(a[key]))[0];const detail=type==='game'?`Week ${n(top?.weekIndex)+1}, Season ${14+n(top?.seasonIndex)}`:type==='season'?`Season ${top?.season}`:'Since Season 14';return `**${label}:** ${top?.fullName||'—'} — **${n(top?.[key])} ${unit}** (${detail})`;});
+  return {embeds:[baseEmbed(`${type==='game'?'Single-Game':type==='season'?'Season':'Career'} ${category[0].toUpperCase()+category.slice(1)} Records`).setDescription(lines.join('\n')).setURL(`${WEBSITE}/records.html`)]};
+}
+
 function statsMenu(){
   const menu=new StringSelectMenuBuilder().setCustomId('stats-category').setPlaceholder('Choose a stat category').addOptions(categoryChoices.map(c=>({label:c.name,value:c.value,description:`Show ${c.name.toLowerCase()} leaders`})));
   return new ActionRowBuilder().addComponents(menu);
@@ -312,6 +320,7 @@ client.on('interactionCreate',async interaction=>{
     if(interaction.commandName==='playoffs')return interaction.editReply(await playoffsReply());
     if(interaction.commandName==='power-rankings')return interaction.editReply(rankingsReply());
     if(interaction.commandName==='create-game-channels')return interaction.editReply(await createGameChannels(interaction));
+    if(interaction.commandName==='records')return interaction.editReply(await recordsReply(interaction.options.getString('type'),interaction.options.getString('category')));
     if(interaction.commandName==='game')return interaction.editReply(await gameReply(interaction.options.getString('game')));
     if(interaction.commandName==='team')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='leaders')return interaction.editReply(await leadersReply(interaction.options.getString('stat')));
