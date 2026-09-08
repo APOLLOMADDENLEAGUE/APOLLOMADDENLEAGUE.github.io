@@ -232,7 +232,7 @@ function rankingsReply(){return {embeds:[baseEmbed('MSPN Season 14 Power Ranking
 function roleForTeam(guild,teamId){
   const wanted=teamName(teamId).toLowerCase().replace(/[^a-z0-9]/g,'');
   const aliases={phoenix:['phoenixes'],k9:['kloudnine','cloudnine'],thunderbirds:['thunderbird'],roadrunners:['roadrunner'],lakehawks:['lakehawk'],omnitrix:['omnitrix','omnitrix']};
-  return guild.roles.cache.find(role=>{const name=role.name.toLowerCase().replace(/[^a-z0-9]/g,'');return name===wanted||(aliases[wanted]||[]).includes(name);});
+  return guild.roles.cache.find(role=>{const name=role.name.toLowerCase().replace(/[^a-z0-9]/g,'');return name===wanted||name.endsWith(wanted)||(aliases[wanted]||[]).some(alias=>name===alias||name.endsWith(alias));});
 }
 
 async function createGameChannels(interaction){
