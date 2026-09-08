@@ -275,6 +275,13 @@ client.on('interactionCreate',async interaction=>{
     if(interaction.commandName==='user')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='playoffs')return interaction.editReply(await playoffsReply());
     if(interaction.commandName==='power-rankings')return interaction.editReply(rankingsReply());
+    if(interaction.commandName==='game')return interaction.editReply(await gameReply(interaction.options.getString('game')));
+    if(interaction.commandName==='team')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
+    if(interaction.commandName==='leaders')return interaction.editReply(await leadersReply(interaction.options.getString('stat')));
+    if(interaction.commandName==='compare')return interaction.editReply(await compareReply(interaction.options.getString('player1'),interaction.options.getString('player2')));
+    if(interaction.commandName==='user')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
+    if(interaction.commandName==='playoffs')return interaction.editReply(await playoffsReply());
+    if(interaction.commandName==='power-rankings')return interaction.editReply(rankingsReply());
     if(interaction.commandName==='help')return interaction.editReply({embeds:[baseEmbed('AML Bot Commands').setDescription('`/stats` Stat leaders\n`/roster` Team roster\n`/standings` League standings\n`/scores` Weekly scores\n`/schedule` Team schedule\n`/player` Player profile\n`/rivalries` Rivalry records')]});
   }catch(error){
     console.error(error);
