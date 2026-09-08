@@ -100,7 +100,7 @@ window.AML_TEAM_DATA = {
   },
   "guardians": {
     "rebranded": "No",
-    "owner": "Fly",
+    "owner": "Carson",
     "regularSeasonRecord": "14-20",
     "divisionTitles": "1",
     "playoffAppearances": "1",

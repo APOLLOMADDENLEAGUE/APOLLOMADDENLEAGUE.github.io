@@ -35,7 +35,7 @@ window.scrollTo(0,0);
   });
 
   const script = document.createElement('script');
-  script.src = 'aml-live.js?v=1';
+  script.src = 'aml-live.js?v=6';
   script.onload = async () => {
     const live = window.AML_LIVE;
     const teamId = live?.teamIdForSlug(slug);
@@ -77,7 +77,7 @@ window.scrollTo(0,0);
       section.querySelector('[data-live-status]').textContent = 'LIVE DATA';
       section.querySelector('[data-live-record]').textContent = live.currentRecord(standing);
       section.querySelector('[data-live-ovr]').textContent = maddenTeam?.ovr_rating ?? standing?.team_ovr ?? '—';
-      section.querySelector('[data-live-user]').textContent = maddenTeam?.user_name || 'CPU / OPEN';
+      section.querySelector('[data-live-user]').textContent = live.userName(maddenTeam?.team_id, maddenTeam?.user_name || 'CPU / OPEN');
       section.querySelector('[data-live-division]').textContent = maddenTeam?.div_name || standing?.division_name || '—';
       section.querySelector('[data-live-top]').textContent = players.length
         ? players.map(p => `${live.playerName(p)} (${p.player_best_ovr} OVR)`).join(' • ')

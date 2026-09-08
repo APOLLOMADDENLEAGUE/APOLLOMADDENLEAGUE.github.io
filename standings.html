@@ -18,7 +18,7 @@
     <p class="live-note" id="standings-status">Loading live standings…</p>
     <section class="standings-grid" id="standings-grid"><div class="loading-card">Connecting to AML live data…</div></section>
   </main>
-  <script src="aml-live.js?v=1"></script>
+  <script src="aml-live.js?v=6"></script>
   <script>
     (async()=>{
       const grid=document.getElementById('standings-grid');
@@ -38,7 +38,7 @@
           const rows=(groups.get(div)||[]).sort((a,b)=>(b.total_wins-a.total_wins)||(a.total_losses-b.total_losses)||(b.net_pts-a.net_pts));
           const card=document.createElement('article');
           card.className='standing-card';
-          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(s.user_name||'CPU')}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
+          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
           grid.appendChild(card);
         });
         const week=Math.max(...data.standings.map(s=>Number(s.week_index)||0));
