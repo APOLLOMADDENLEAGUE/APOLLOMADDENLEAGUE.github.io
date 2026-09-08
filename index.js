@@ -2,12 +2,14 @@ import http from 'node:http';
 import {
   ActionRowBuilder,
   Client,
+  ChannelType,
   EmbedBuilder,
   GatewayIntentBits,
   REST,
   Routes,
   StringSelectMenuBuilder,
   SlashCommandBuilder,
+  PermissionFlagsBits,
 } from 'discord.js';
 
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -77,6 +79,7 @@ const commands = [
   new SlashCommandBuilder().setName('user').setDescription('Show an AML owner and their current team').addStringOption(o=>o.setName('team').setDescription("Owner's team").setRequired(true).setAutocomplete(true)),
   new SlashCommandBuilder().setName('playoffs').setDescription('Show the current AFC and NFC playoff picture'),
   new SlashCommandBuilder().setName('power-rankings').setDescription('Show the MSPN Season 14 power rankings'),
+  new SlashCommandBuilder().setName('create-game-channels').setDescription('Owner only: create every matchup channel for a week').addIntegerOption(o=>o.setName('week').setDescription('Week 1-18').setRequired(true).setMinValue(1).setMaxValue(18)),
 ].map(c=>c.toJSON());
 
 const client = new Client({intents:[GatewayIntentBits.Guilds]});
@@ -226,6 +229,39 @@ async function playoffsReply(){const d=await api('/standings'),rows=d.standings|
 const rankings=['Speed Racers','Apollo','Omnitrix','Phoenix','Voodoo','Flamingos','Order','K9','Sorcerers','Stingers','Kush','Supermen','Overdrive','Griffins','Blizzards','Volts','Falcons','Ocelots','Metros','Minions','Mob','Lake Hawks','Sharks','Dragons','Stars','Empire','Black Cats','Thunder Birds','Road Runners','Ducks','Guardians','Surfers'];
 function rankingsReply(){return {embeds:[baseEmbed('MSPN Season 14 Power Rankings').setDescription(rankings.map((t,i)=>`**${i+1}.** ${t}`).join('\n')).setURL(`${WEBSITE}/mspn.html`)]};}
 
+function roleForTeam(guild,teamId){
+  const wanted=teamName(teamId).toLowerCase().replace(/[^a-z0-9]/g,'');
+  const aliases={phoenix:['phoenixes'],k9:['kloudnine','cloudnine'],thunderbirds:['thunderbird'],roadrunners:['roadrunner'],lakehawks:['lakehawk'],omnitrix:['omnitrix','omnitrix']};
+  return guild.roles.cache.find(role=>{const name=role.name.toLowerCase().replace(/[^a-z0-9]/g,'');return name===wanted||(aliases[wanted]||[]).includes(name);});
+}
+
+async function createGameChannels(interaction){
+  const guild=interaction.guild;
+  if(!guild)throw new Error('This command only works inside the AML server.');
+  if(interaction.user.id!==guild.ownerId)return {content:'Only the AML server owner can use this command.'};
+  const me=guild.members.me||await guild.members.fetchMe();
+  if(!me.permissions.has(PermissionFlagsBits.ManageChannels))return {content:'The AML Bot needs the **Manage Channels** permission first.'};
+  const week=interaction.options.getInteger('week',true);
+  const games=(await scheduleData()).filter(g=>n(g.stage_index)===1&&n(g.week_index)+1===week);
+  if(!games.length)return {content:`No Week ${week} games are in the imported schedule yet.`};
+  await guild.roles.fetch();await guild.channels.fetch();
+  const categoryName=`WEEK ${week}`;
+  let category=guild.channels.cache.find(c=>c.type===ChannelType.GuildCategory&&c.name.toUpperCase()===categoryName);
+  if(!category)category=await guild.channels.create({name:categoryName,type:ChannelType.GuildCategory,position:guild.channels.cache.size,reason:`AML Week ${week} matchup channels`});
+  const made=[],missing=[];
+  for(const game of games){
+    const away=teamName(game.away_team_id,game.away_team_name),home=teamName(game.home_team_id,game.home_team_name);
+    const channelName=`${away}-vs-${home}`.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100);
+    let channel=guild.channels.cache.find(c=>c.parentId===category.id&&c.name===channelName);
+    if(!channel)channel=await guild.channels.create({name:channelName,type:ChannelType.GuildText,parent:category.id,reason:`AML Week ${week}: ${away} vs ${home}`});
+    const roles=[roleForTeam(guild,game.away_team_id),roleForTeam(guild,game.home_team_id)].filter(Boolean);
+    if(roles.length<2)missing.push(`${away} vs ${home}`);
+    await channel.send({content:`${roles.map(r=>`<@&${r.id}>`).join(' ')} — your **Week ${week}** matchup is **${away} vs ${home}**.`,allowedMentions:{roles:roles.map(r=>r.id)}});
+    made.push(`<#${channel.id}>`);
+  }
+  return {content:`Created **${categoryName}** with ${made.length} matchup channels.${missing.length?`\nCould not find both team roles for: ${missing.join(', ')}`:''}`};
+}
+
 function statsMenu(){
   const menu=new StringSelectMenuBuilder().setCustomId('stats-category').setPlaceholder('Choose a stat category').addOptions(categoryChoices.map(c=>({label:c.name,value:c.value,description:`Show ${c.name.toLowerCase()} leaders`})));
   return new ActionRowBuilder().addComponents(menu);
@@ -275,6 +311,7 @@ client.on('interactionCreate',async interaction=>{
     if(interaction.commandName==='user')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='playoffs')return interaction.editReply(await playoffsReply());
     if(interaction.commandName==='power-rankings')return interaction.editReply(rankingsReply());
+    if(interaction.commandName==='create-game-channels')return interaction.editReply(await createGameChannels(interaction));
     if(interaction.commandName==='game')return interaction.editReply(await gameReply(interaction.options.getString('game')));
     if(interaction.commandName==='team')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='leaders')return interaction.editReply(await leadersReply(interaction.options.getString('stat')));
