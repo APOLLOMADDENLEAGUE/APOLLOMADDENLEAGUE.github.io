@@ -101,18 +101,30 @@ async function registerCommands(){
   console.log(`Registered ${commands.length} AML commands ${GUILD_ID?'in guild':'globally'}.`);
 }
 
-async function latestStats(category){
+async function seasonStats(category){
   const data=await api('/weekly');
-  return (data.exports||[]).filter(e=>e.success&&e.category===category&&Array.isArray(e.items)&&e.items.length).sort((a,b)=>n(b.week_index)-n(a.week_index))[0];
+  const exports=(data.exports||[]).filter(e=>e.success&&e.category===category&&Array.isArray(e.items));
+  const rows=exports.flatMap(e=>e.items);
+  const unique=[...new Map(rows.map((r,i)=>[r.statId??`${r.scheduleId}-${r.rosterId??r.teamId}-${i}`,r])).values()];
+  const grouped=new Map();
+  for(const row of unique){
+    const key=category==='team'?`team-${row.teamId}`:`player-${row.rosterId??row.fullName}`;
+    if(!grouped.has(key))grouped.set(key,{...row});
+    else{
+      const total=grouped.get(key);
+      for(const [field,value] of Object.entries(row))if(typeof value==='number'&&!['statId','rosterId','teamId','scheduleId','weekIndex','stageIndex','seasonIndex'].includes(field))total[field]=n(total[field])+value;
+    }
+  }
+  return [...grouped.values()];
 }
 
 async function statsReply(category){
   const cfg=statConfig[category]||statConfig.passing;
-  const entry=await latestStats(category);
-  if(!entry) return {embeds:[baseEmbed(cfg.title).setDescription('No completed weekly stats have been imported yet.')]};
-  const rows=entry.items.slice().sort((a,b)=>n(b[cfg.sort])-n(a[cfg.sort])).slice(0,10);
+  const seasonRows=await seasonStats(category);
+  if(!seasonRows.length) return {embeds:[baseEmbed(cfg.title).setDescription('No completed weekly stats have been imported yet.')]};
+  const rows=seasonRows.sort((a,b)=>n(b[cfg.sort])-n(a[cfg.sort])).slice(0,10);
   const body=rows.map((r,i)=>`**${i+1}.** ${cfg.line(r)}`).join('\n');
-  return {embeds:[baseEmbed(`${cfg.title} • ${weekLabel(entry.week_index)}`).setDescription(trim(body)).setURL(`${WEBSITE}/stats.html`)]};
+  return {embeds:[baseEmbed(`${cfg.title} • Season 14`).setDescription(trim(body)).setURL(`${WEBSITE}/stats.html`)]};
 }
 
 async function rosterReply(teamId){
