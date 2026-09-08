@@ -70,6 +70,13 @@ const commands = [
     .addStringOption(o=>o.setName('name').setDescription('Player name').setRequired(true).setAutocomplete(true)),
   new SlashCommandBuilder().setName('rivalries').setDescription('Show all Season 14 rivalry records'),
   new SlashCommandBuilder().setName('help').setDescription('Show AML bot commands'),
+  new SlashCommandBuilder().setName('game').setDescription('Show a complete AML game box score').addStringOption(o=>o.setName('game').setDescription('Select a matchup').setRequired(true).setAutocomplete(true)),
+  new SlashCommandBuilder().setName('team').setDescription('Show an AML team profile').addStringOption(o=>o.setName('team').setDescription('AML team').setRequired(true).setAutocomplete(true)),
+  new SlashCommandBuilder().setName('leaders').setDescription('Rank players by an exact stat').addStringOption(o=>o.setName('stat').setDescription('Statistic').setRequired(true).addChoices({name:'Passing TDs',value:'passTDs'},{name:'Passing Interceptions',value:'passInts'},{name:'Rushing TDs',value:'rushTDs'},{name:'Receptions',value:'recCatches'},{name:'Receiving TDs',value:'recTDs'},{name:'Tackles',value:'defTotalTackles'},{name:'Sacks',value:'defSacks'},{name:'Defensive Interceptions',value:'defInts'},{name:'Forced Fumbles',value:'defForcedFum'})),
+  new SlashCommandBuilder().setName('compare').setDescription('Compare two AML players').addStringOption(o=>o.setName('player1').setDescription('First player').setRequired(true).setAutocomplete(true)).addStringOption(o=>o.setName('player2').setDescription('Second player').setRequired(true).setAutocomplete(true)),
+  new SlashCommandBuilder().setName('user').setDescription('Show an AML owner and their current team').addStringOption(o=>o.setName('team').setDescription("Owner's team").setRequired(true).setAutocomplete(true)),
+  new SlashCommandBuilder().setName('playoffs').setDescription('Show the current AFC and NFC playoff picture'),
+  new SlashCommandBuilder().setName('power-rankings').setDescription('Show the MSPN Season 14 power rankings'),
 ].map(c=>c.toJSON());
 
 const client = new Client({intents:[GatewayIntentBits.Guilds]});
@@ -188,13 +195,44 @@ async function rivalriesReply(){
   return {embeds:[baseEmbed('AML Rivalries • Season 14').setDescription(body).setURL(`${WEBSITE}/rivalries.html`)]};
 }
 
+async function gameChoices(query){
+  const q=String(query).toLowerCase();
+  return (await scheduleData()).filter(g=>n(g.status)>1||n(g.away_score)>0||n(g.home_score)>0).sort((a,b)=>n(b.week_index)-n(a.week_index)).map(g=>({name:`Week ${n(g.week_index)+1}: ${teamName(g.away_team_id,g.away_team_name)} ${n(g.away_score)}-${n(g.home_score)} ${teamName(g.home_team_id,g.home_team_name)}`.slice(0,100),value:String(g.schedule_id)})).filter(x=>x.name.toLowerCase().includes(q)).slice(0,25);
+}
+
+async function gameReply(id){
+  const d=await api(`/game/${id}`),g=d.game,stats=d.stats||[];
+  const title=`${teamName(g.away_team_id,g.away_team_name)} ${n(g.away_score)}–${n(g.home_score)} ${teamName(g.home_team_id,g.home_team_name)}`;
+  const leaders=category=>stats.filter(x=>x.category===category).map(x=>x.stats).sort((a,b)=>n(b[statConfig[category]?.sort])-n(a[statConfig[category]?.sort])).slice(0,3).map(r=>statConfig[category].line(r)).join('\n');
+  const body=['**Passing**',leaders('passing'),'**Rushing**',leaders('rushing'),'**Receiving**',leaders('receiving'),'**Defense**',leaders('defense')].filter(Boolean).join('\n');
+  return {embeds:[baseEmbed(`FINAL • Week ${n(g.week_index)+1}`).setDescription(`**${title}**\n\n${body}`).setURL(`${WEBSITE}/game.html?scheduleId=${id}`)]};
+}
+
+async function teamReply(id){
+  const [sd,rd,gd]=await Promise.all([api('/standings'),api(`/roster?teamId=${id}&limit=500`),api('/schedule')]);
+  const s=(sd.standings||[]).find(x=>n(x.team_id)===id)||{},roster=(rd.players||[]).sort((a,b)=>n(b.player_best_ovr)-n(a.player_best_ovr));
+  const recent=(gd.games||[]).filter(g=>(n(g.home_team_id)===id||n(g.away_team_id)===id)&&(n(g.status)>1||n(g.away_score)>0||n(g.home_score)>0)).sort((a,b)=>n(b.week_index)-n(a.week_index)).slice(0,3);
+  const body=[`Owner: **${username(s)}**`,`Record: **${n(s.total_wins)}-${n(s.total_losses)}**`,`Division: **${s.division_name||s.div_name||'—'}**`,'','**Top Players**',...roster.slice(0,5).map(p=>`${p.first_name} ${p.last_name} • ${p.position} • ${n(p.player_best_ovr)} OVR`),'','**Recent Games**',...recent.map(g=>`Week ${n(g.week_index)+1}: ${teamName(g.away_team_id)} ${n(g.away_score)}–${n(g.home_score)} ${teamName(g.home_team_id)}`)].join('\n');
+  return {embeds:[baseEmbed(`${teamName(id)} Team Profile`).setDescription(trim(body)).setURL(`${WEBSITE}/schedule.html?teamId=${id}`)]};
+}
+
+const exactStats={passTDs:['passing','Passing Touchdowns','TD'],passInts:['passing','Passing Interceptions','INT'],rushTDs:['rushing','Rushing Touchdowns','TD'],recCatches:['receiving','Receptions','REC'],recTDs:['receiving','Receiving Touchdowns','TD'],defTotalTackles:['defense','Total Tackles','TKL'],defSacks:['defense','Sacks','SACK'],defInts:['defense','Defensive Interceptions','INT'],defForcedFum:['defense','Forced Fumbles','FF']};
+async function leadersReply(key){const [category,title,label]=exactStats[key];const rows=(await seasonStats(category)).sort((a,b)=>n(b[key])-n(a[key])).slice(0,10);return {embeds:[baseEmbed(`${title} Leaders • Season 14`).setDescription(rows.map((r,i)=>`**${i+1}.** ${r.fullName} — **${n(r[key])} ${label}**`).join('\n'))]};}
+
+async function compareReply(a,b){const players=await getPlayers(),p1=players.find(p=>String(p.roster_id)===a),p2=players.find(p=>String(p.roster_id)===b);const all=await Promise.all(Object.keys(statConfig).filter(x=>x!=='team').map(seasonStats));const flat=all.flat();const line=p=>{const rows=flat.filter(r=>n(r.rosterId)===n(p.roster_id));const sum=k=>rows.reduce((v,r)=>v+n(r[k]),0);return `**${p.first_name} ${p.last_name}** • ${p.position} • ${n(p.player_best_ovr)} OVR\nPass: ${sum('passYds')} YDS, ${sum('passTDs')} TD | Rush: ${sum('rushYds')} YDS, ${sum('rushTDs')} TD | Rec: ${sum('recYds')} YDS, ${sum('recTDs')} TD | DEF: ${sum('defTotalTackles')} TKL, ${sum('defSacks')} SACK, ${sum('defInts')} INT`;};return {embeds:[baseEmbed('Player Comparison • Season 14').setDescription(`${line(p1)}\n\n**VS**\n\n${line(p2)}`)]};}
+
+async function playoffsReply(){const d=await api('/standings'),rows=d.standings||[];const side=c=>rows.filter(r=>String(r.division_name||r.div_name).startsWith(c)).sort((a,b)=>n(b.win_pct)-n(a.win_pct)||n(b.total_wins)-n(a.total_wins)).slice(0,7).map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name)}** ${n(r.total_wins)}-${n(r.total_losses)}`).join('\n');return {embeds:[baseEmbed('Season 14 Playoff Picture').addFields({name:'AFC',value:side('AFC')||'No data',inline:true},{name:'NFC',value:side('NFC')||'No data',inline:true})]};}
+
+const rankings=['Speed Racers','Apollo','Omnitrix','Phoenix','Voodoo','Flamingos','Order','K9','Sorcerers','Stingers','Kush','Supermen','Overdrive','Griffins','Blizzards','Volts','Falcons','Ocelots','Metros','Minions','Mob','Lake Hawks','Sharks','Dragons','Stars','Empire','Black Cats','Thunder Birds','Road Runners','Ducks','Guardians','Surfers'];
+function rankingsReply(){return {embeds:[baseEmbed('MSPN Season 14 Power Rankings').setDescription(rankings.map((t,i)=>`**${i+1}.** ${t}`).join('\n')).setURL(`${WEBSITE}/mspn.html`)]};}
+
 function statsMenu(){
   const menu=new StringSelectMenuBuilder().setCustomId('stats-category').setPlaceholder('Choose a stat category').addOptions(categoryChoices.map(c=>({label:c.name,value:c.value,description:`Show ${c.name.toLowerCase()} leaders`})));
   return new ActionRowBuilder().addComponents(menu);
 }
 
 function standingsMenu(){
-  const menu=new StringSelectMenuBuilder().setCustomId('standings-division').setPlaceholder('Choose a conference or division').addOptions(divisionChoices.map(c=>({label:c.name,value:c.value,description:`Show the ${c.name} standings`})));
+  const menu=new StringSelectMenuBuilder().setCustomId('standings-division').setPlaceholder('Choose a division').addOptions(divisionChoices.map(c=>({label:c.name,value:c.value,description:`Show the ${c.name} standings`})));
   return new ActionRowBuilder().addComponents(menu);
 }
 
@@ -203,8 +241,9 @@ client.on('interactionCreate',async interaction=>{
   try{
     if(interaction.isAutocomplete()){
       const q=interaction.options.getFocused();
-      if(interaction.commandName==='roster'||interaction.commandName==='schedule')return interaction.respond(teamChoice(q));
-      if(interaction.commandName==='player'){
+      if(['roster','schedule','team','user'].includes(interaction.commandName))return interaction.respond(teamChoice(q));
+      if(interaction.commandName==='game')return interaction.respond(await gameChoices(q));
+      if(interaction.commandName==='player'||interaction.commandName==='compare'){
         const players=await getPlayers();const needle=String(q).toLowerCase();
         return interaction.respond(players.filter(p=>`${p.first_name||''} ${p.last_name||''}`.toLowerCase().includes(needle)).slice(0,25).map(p=>({name:`${p.first_name||''} ${p.last_name||''} (${p.position||'—'}, ${n(p.player_best_ovr)} OVR)`.slice(0,100),value:String(p.roster_id)})));
       }
@@ -221,7 +260,7 @@ client.on('interactionCreate',async interaction=>{
       if(!category)return interaction.reply({content:'Choose the stats you want to see:',components:[statsMenu()]});
       await interaction.deferReply();return interaction.editReply(await statsReply(category));
     }
-    if(interaction.commandName==='standings'&&!interaction.options.getString('division'))return interaction.reply({content:'Choose the conference or division you want to see:',components:[standingsMenu()]});
+    if(interaction.commandName==='standings'&&!interaction.options.getString('division'))return interaction.reply({content:'Choose the division you want to see:',components:[standingsMenu()]});
     await interaction.deferReply();
     if(interaction.commandName==='roster')return interaction.editReply(await rosterReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='standings')return interaction.editReply(await standingsReply(interaction.options.getString('division')));
@@ -229,6 +268,13 @@ client.on('interactionCreate',async interaction=>{
     if(interaction.commandName==='schedule')return interaction.editReply(await scheduleReply(n(interaction.options.getString('team')),interaction.options.getInteger('week')));
     if(interaction.commandName==='player')return interaction.editReply(await playerReply(interaction.options.getString('name')));
     if(interaction.commandName==='rivalries')return interaction.editReply(await rivalriesReply());
+    if(interaction.commandName==='game')return interaction.editReply(await gameReply(interaction.options.getString('game')));
+    if(interaction.commandName==='team')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
+    if(interaction.commandName==='leaders')return interaction.editReply(await leadersReply(interaction.options.getString('stat')));
+    if(interaction.commandName==='compare')return interaction.editReply(await compareReply(interaction.options.getString('player1'),interaction.options.getString('player2')));
+    if(interaction.commandName==='user')return interaction.editReply(await teamReply(n(interaction.options.getString('team'))));
+    if(interaction.commandName==='playoffs')return interaction.editReply(await playoffsReply());
+    if(interaction.commandName==='power-rankings')return interaction.editReply(rankingsReply());
     if(interaction.commandName==='help')return interaction.editReply({embeds:[baseEmbed('AML Bot Commands').setDescription('`/stats` Stat leaders\n`/roster` Team roster\n`/standings` League standings\n`/scores` Weekly scores\n`/schedule` Team schedule\n`/player` Player profile\n`/rivalries` Rivalry records')]});
   }catch(error){
     console.error(error);
