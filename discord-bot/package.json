@@ -1,0 +1,14 @@
+{
+  "name": "aml-discord-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Apollo Madden League Discord stats bot",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "check": "node --check index.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": { "discord.js": "^14.22.1" }
+}
