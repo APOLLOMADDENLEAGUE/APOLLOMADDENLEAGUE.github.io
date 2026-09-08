@@ -52,7 +52,7 @@ const statConfig = {
 };
 
 const categoryChoices = Object.keys(statConfig).map(name=>({name:name[0].toUpperCase()+name.slice(1),value:name}));
-const divisionChoices = ['AFC North','AFC South','AFC East','AFC West','NFC North','NFC South','NFC East','NFC West'].map(value=>({name:value,value}));
+const divisionChoices = ['AFC','NFC','AFC North','AFC South','AFC East','AFC West','NFC North','NFC South','NFC East','NFC West'].map(value=>({name:value,value}));
 
 const commands = [
   new SlashCommandBuilder().setName('stats').setDescription('Show the latest AML stat leaders')
@@ -138,7 +138,10 @@ async function rosterReply(teamId){
 async function standingsReply(division){
   const data=await api('/standings');
   let rows=(data.standings||[]).slice();
-  if(division) rows=rows.filter(r=>String(r.division_name||r.div_name).toLowerCase()===division.toLowerCase());
+  if(division){
+    const selected=division.toLowerCase();
+    rows=rows.filter(r=>{const name=String(r.division_name||r.div_name).toLowerCase();return selected==='afc'||selected==='nfc'?name.startsWith(selected):name===selected;});
+  }
   rows.sort((a,b)=>n(b.win_pct)-n(a.win_pct)||n(b.total_wins)-n(a.total_wins));
   const body=rows.map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name||r.team_name)}** — ${n(r.total_wins)}-${n(r.total_losses)}${n(r.total_ties)?`-${n(r.total_ties)}`:''} • ${username(r)}`).join('\n');
   return {embeds:[baseEmbed(division?`${division} Standings`:'Season 14 Standings').setDescription(trim(body||'No standings found.')).setURL(`${WEBSITE}/standings.html`)]};
@@ -190,6 +193,11 @@ function statsMenu(){
   return new ActionRowBuilder().addComponents(menu);
 }
 
+function standingsMenu(){
+  const menu=new StringSelectMenuBuilder().setCustomId('standings-division').setPlaceholder('Choose a conference or division').addOptions(divisionChoices.map(c=>({label:c.name,value:c.value,description:`Show the ${c.name} standings`})));
+  return new ActionRowBuilder().addComponents(menu);
+}
+
 client.once('ready',()=>console.log(`AML Bot online as ${client.user.tag}`));
 client.on('interactionCreate',async interaction=>{
   try{
@@ -204,12 +212,16 @@ client.on('interactionCreate',async interaction=>{
     if(interaction.isStringSelectMenu()&&interaction.customId==='stats-category'){
       await interaction.deferUpdate();return interaction.editReply(await statsReply(interaction.values[0]));
     }
+    if(interaction.isStringSelectMenu()&&interaction.customId==='standings-division'){
+      await interaction.deferUpdate();return interaction.editReply({...await standingsReply(interaction.values[0]),components:[standingsMenu()]});
+    }
     if(!interaction.isChatInputCommand())return;
     if(interaction.commandName==='stats'){
       const category=interaction.options.getString('category');
       if(!category)return interaction.reply({content:'Choose the stats you want to see:',components:[statsMenu()]});
       await interaction.deferReply();return interaction.editReply(await statsReply(category));
     }
+    if(interaction.commandName==='standings'&&!interaction.options.getString('division'))return interaction.reply({content:'Choose the conference or division you want to see:',components:[standingsMenu()]});
     await interaction.deferReply();
     if(interaction.commandName==='roster')return interaction.editReply(await rosterReply(n(interaction.options.getString('team'))));
     if(interaction.commandName==='standings')return interaction.editReply(await standingsReply(interaction.options.getString('division')));
