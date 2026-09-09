@@ -260,7 +260,7 @@ async function createGameChannels(interaction){
     if(roles.length<2)missing.push(`${away} vs ${home}`);
     const rivalry=isRivalryGame(game.away_team_id,game.home_team_id);
     if(rivalry)rivalries.push(`${away} vs ${home}`);
-    await channel.send({content:`${rivalry?'🔥 **AML RIVALRY GAME** 🔥\n':''}${roles.map(r=>`<@&${r.id}>`).join(' ')} — your **Week ${week}** matchup is **${away} vs ${home}**.${rivalry?' Rivalry bragging rights are on the line.':''}`,allowedMentions:{roles:roles.map(r=>r.id)}});
+    await channel.send({content:`${rivalry?'🔥 **AML RIVALRY GAME — $50K AML CASH ON THE LINE** 🔥\n':''}${roles.map(r=>`<@&${r.id}>`).join(' ')} — your **Week ${week}** matchup is **${away} vs ${home}**.${rivalry?' Rivalry bragging rights and **$50K AML cash** are on the line.':''}`,allowedMentions:{roles:roles.map(r=>r.id)}});
     made.push(`<#${channel.id}>`);
   }
   return {content:`Created **${categoryName}** with ${made.length} matchup channels.${rivalries.length?`\n🔥 Rivalry game${rivalries.length===1?'':'s'}: ${rivalries.join(', ')}`:''}${missing.length?`\nCould not find both team roles for: ${missing.join(', ')}`:''}`};
