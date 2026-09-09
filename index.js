@@ -42,6 +42,7 @@ const rivalryPairs = [
   [777781249,777781282],[777781271,777781270],[777781254,777781272],[777781277,777781265],
   [777781267,777781262],[777781264,777781261],[777781278,777781255],[777781248,777781275],
 ];
+const isRivalryGame=(teamA,teamB)=>rivalryPairs.some(([a,b])=>(a===n(teamA)&&b===n(teamB))||(a===n(teamB)&&b===n(teamA)));
 
 const statConfig = {
   passing:{title:'Passing Leaders',sort:'passYds',line:r=>`${r.fullName} — **${n(r.passYds)} YDS** | ${n(r.passTDs)} TD | ${n(r.passInts)} INT`},
@@ -249,7 +250,7 @@ async function createGameChannels(interaction){
   const categoryName=`WEEK ${week}`;
   let category=guild.channels.cache.find(c=>c.type===ChannelType.GuildCategory&&c.name.toUpperCase()===categoryName);
   if(!category)category=await guild.channels.create({name:categoryName,type:ChannelType.GuildCategory,position:guild.channels.cache.size,reason:`AML Week ${week} matchup channels`});
-  const made=[],missing=[];
+  const made=[],missing=[],rivalries=[];
   for(const game of games){
     const away=teamName(game.away_team_id,game.away_team_name),home=teamName(game.home_team_id,game.home_team_name);
     const channelName=`${away}-vs-${home}`.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100);
@@ -257,10 +258,12 @@ async function createGameChannels(interaction){
     if(!channel)channel=await guild.channels.create({name:channelName,type:ChannelType.GuildText,parent:category.id,reason:`AML Week ${week}: ${away} vs ${home}`});
     const roles=[roleForTeam(guild,game.away_team_id),roleForTeam(guild,game.home_team_id)].filter(Boolean);
     if(roles.length<2)missing.push(`${away} vs ${home}`);
-    await channel.send({content:`${roles.map(r=>`<@&${r.id}>`).join(' ')} — your **Week ${week}** matchup is **${away} vs ${home}**.`,allowedMentions:{roles:roles.map(r=>r.id)}});
+    const rivalry=isRivalryGame(game.away_team_id,game.home_team_id);
+    if(rivalry)rivalries.push(`${away} vs ${home}`);
+    await channel.send({content:`${rivalry?'🔥 **AML RIVALRY GAME** 🔥\n':''}${roles.map(r=>`<@&${r.id}>`).join(' ')} — your **Week ${week}** matchup is **${away} vs ${home}**.${rivalry?' Rivalry bragging rights are on the line.':''}`,allowedMentions:{roles:roles.map(r=>r.id)}});
     made.push(`<#${channel.id}>`);
   }
-  return {content:`Created **${categoryName}** with ${made.length} matchup channels.${missing.length?`\nCould not find both team roles for: ${missing.join(', ')}`:''}`};
+  return {content:`Created **${categoryName}** with ${made.length} matchup channels.${rivalries.length?`\n🔥 Rivalry game${rivalries.length===1?'':'s'}: ${rivalries.join(', ')}`:''}${missing.length?`\nCould not find both team roles for: ${missing.join(', ')}`:''}`};
 }
 
 async function recordsReply(type,category){
