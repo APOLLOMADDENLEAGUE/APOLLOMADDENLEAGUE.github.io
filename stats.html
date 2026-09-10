@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="premium.css?v=28" />
   <style>
-    .data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:760px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.sort-button{display:flex;align-items:center;gap:6px;width:100%;border:0;padding:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left;cursor:pointer}.sort-button:hover,.sort-button:focus-visible{color:#fff}.sort-arrow{display:inline-block;min-width:10px;color:#fff}.stat-link{color:#fff;font-weight:850;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)}.stat-link:hover,.stat-link:focus-visible{color:#ff63b7;border-color:#ff63b7}.stat-table tbody tr:hover{background:rgba(255,255,255,.035)}.rank{color:#9fa4b3;width:34px}.empty{padding:24px}
+    .data-shell{width:min(1180px,calc(100% - 24px));margin:0 auto;padding:34px 0 70px}.data-hero h1{font-size:clamp(3rem,8vw,6rem);margin:8px 0 12px;line-height:.92}.cats{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}.cats button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.cats button.active{background:#fff;color:#07080c}.status{color:#9fa4b3;margin:18px 0}.stat-table{overflow:auto;border:1px solid rgba(255,255,255,.09);border-radius:18px}.stat-table table{width:100%;border-collapse:collapse;min-width:760px}.stat-table th,.stat-table td{text-align:left;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.07);white-space:nowrap}.stat-table th{font-size:.72rem;letter-spacing:.08em;color:#9fa4b3}.sort-button{display:flex;align-items:center;gap:6px;width:100%;border:0;padding:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-align:left;cursor:pointer}.sort-button:hover,.sort-button:focus-visible{color:#fff}.sort-arrow{display:inline-block;min-width:10px;color:#fff}.stat-link{color:#fff;font-weight:850;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)}.stat-link:hover,.stat-link:focus-visible{color:#ff63b7;border-color:#ff63b7}.stat-table tbody tr:hover{background:rgba(255,255,255,.035)}.rank{color:#9fa4b3;width:34px}.empty{padding:24px}.view-controls,.weeks{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.view-controls{margin:6px 0 14px}.view-controls button,.weeks button{border:1px solid rgba(255,255,255,.12);background:#11131a;color:#fff;border-radius:999px;padding:10px 14px;font-weight:850;cursor:pointer}.view-controls button.active,.weeks button.active{background:linear-gradient(135deg,#ff2bbf,#55c7ff);color:#050507;border-color:transparent}.weeks{margin:0 0 16px}.weeks[hidden]{display:none}
   </style>
 </head>
 <body class="aml-page">
@@ -16,6 +16,11 @@
     <div class="topbar"><img class="mini-logo" src="assets/aml-logo.png" alt="AML logo" /><a class="home-link" href="current-league.html">← CURRENT LEAGUE</a></div>
     <section class="data-hero"><span class="eyebrow">LIVE MADDEN 27 DATA</span><h1>SEASON STATS</h1><p>Cumulative Season 14 passing, rushing, receiving, defense, kicking, punting and team leaders.</p></section>
     <div class="cats" id="cats"></div>
+    <div class="view-controls" id="view-controls">
+      <button type="button" class="active" data-view="season">SEASON TOTALS</button>
+      <button type="button" data-view="weekly">WEEKLY LEADERS</button>
+    </div>
+    <div class="weeks" id="weeks" hidden></div>
     <p class="status" id="status">Loading Season 14 totals…</p>
     <div class="stat-table" id="table"></div>
   </main>
@@ -26,6 +31,8 @@
       const cats=document.getElementById('cats');
       const status=document.getElementById('status');
       const table=document.getElementById('table');
+      const viewControls=document.getElementById('view-controls');
+      const weeks=document.getElementById('weeks');
       const order=['passing','rushing','receiving','defense','kicking','punting','team'];
       const config={
         passing:{sort:'passYds',columns:[['fullName','PLAYER'],['teamName','TEAM'],['passComp','COMP'],['passAtt','ATT'],['passYds','YDS'],['passTDs','TD'],['passInts','INT'],['passerRating','QBR']]},
@@ -37,10 +44,13 @@
         team:{sort:'offTotalYds',columns:[['teamName','TEAM'],['offPtsPerGame','PTS'],['offTotalYds','OFF YDS'],['offPassYds','PASS YDS'],['offRushYds','RUSH YDS'],['defTotalYds','YDS ALLOWED'],['tODiff','TO DIFF']]}
       };
       let season={};
+      let weekly={};
       let teamNames=new Map();
       let activeCategory='';
       let sortKey='';
       let sortDirection='desc';
+      let viewMode='season';
+      let activeWeek=1;
       try{
         const [weeklyData,teamsData]=await Promise.all([live.api('/weekly'),live.api('/teams')]);
         (teamsData.teams||[]).forEach(t=>teamNames.set(Number(t.team_id),live.cleanTeamName(t.display_name||t.nick_name||t.abbr_name)));
@@ -51,6 +61,11 @@
         });
         Object.entries(exportsByCategory).forEach(([category,items])=>{
           const unique=[...new Map(items.map((row,index)=>[row.statId??`${row.scheduleId}-${row.rosterId??row.teamId}-${index}`,row])).values()];
+          weekly[category]={};
+          unique.forEach(row=>{
+            const week=Number(row.weekIndex)+1;
+            if(Number.isFinite(week)&&(weekly[category][week]??=[]))weekly[category][week].push({...row});
+          });
           const grouped=new Map();
           unique.forEach(row=>{
             const key=category==='team'?`team-${row.teamId}`:`player-${row.rosterId??row.fullName}`;
@@ -94,12 +109,23 @@
             activeCategory=category;
             sortKey=config[category].sort;
             sortDirection='desc';
+            ensureActiveWeek();
+            renderWeeks();
             render();
           });
           cats.appendChild(button);
         });
         activeCategory=categories[0];
         sortKey=config[activeCategory].sort;
+        ensureActiveWeek();
+        viewControls.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
+          viewMode=button.dataset.view;
+          viewControls.querySelectorAll('[data-view]').forEach(item=>item.classList.toggle('active',item===button));
+          weeks.hidden=viewMode!=='weekly';
+          renderWeeks();
+          render();
+        }));
+        renderWeeks();
         render();
       }catch(error){
         console.error('AML weekly stats:',error);
@@ -139,11 +165,33 @@
         render();
       }
 
+      function availableWeeks(){
+        return Object.keys(weekly[activeCategory]||{}).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);
+      }
+
+      function ensureActiveWeek(){
+        const choices=availableWeeks();
+        if(!choices.includes(activeWeek))activeWeek=choices.at(-1)||1;
+      }
+
+      function renderWeeks(){
+        ensureActiveWeek();
+        weeks.innerHTML=availableWeeks().map(week=>`<button type="button" class="${week===activeWeek?'active':''}" data-week="${week}">WEEK ${week}</button>`).join('');
+        weeks.querySelectorAll('[data-week]').forEach(button=>button.addEventListener('click',()=>{
+          activeWeek=Number(button.dataset.week);
+          renderWeeks();
+          render();
+        }));
+      }
+
       function render(){
         const category=activeCategory;
         const settings=config[category];
-        const rows=season[category].slice().sort((a,b)=>compareRows(a,b,sortKey));
-        status.textContent=`${category.toUpperCase()} • SEASON 14 • ${rows.length} ROWS`;
+        const source=viewMode==='weekly'?(weekly[category]?.[activeWeek]||[]):season[category];
+        const rows=source.slice().sort((a,b)=>compareRows(a,b,sortKey));
+        status.textContent=viewMode==='weekly'
+          ?`${category.toUpperCase()} • WEEK ${activeWeek} LEADERS • ${rows.length} ROWS`
+          :`${category.toUpperCase()} • SEASON 14 TOTALS • ${rows.length} ROWS`;
         table.innerHTML=`<table><thead><tr><th>#</th>${settings.columns.map(([key,label])=>`<th aria-sort="${sortKey===key?(sortDirection==='asc'?'ascending':'descending'):'none'}"><button class="sort-button" type="button" data-sort="${live.esc(key)}">${live.esc(label)} <span class="sort-arrow">${sortKey===key?(sortDirection==='asc'?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead><tbody>${rows.map((row,index)=>`<tr><td class="rank">${index+1}</td>${settings.columns.map(([key])=>`<td>${cell(row,key)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
         table.querySelectorAll('[data-sort]').forEach(button=>button.addEventListener('click',()=>changeSort(button.dataset.sort)));
       }
