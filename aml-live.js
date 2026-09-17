@@ -6,6 +6,19 @@
   const TEAM_ID_TO_PAGE = Object.freeze({
     777781280:'apollo',777781253:'black-cats',777781251:'blizzards',777781282:'dragons',777781276:'ducks',777781271:'empire',777781265:'falcons',777781254:'flamingos',777781278:'griffins',777781252:'guardians',777781267:'kloud-nine',777781264:'kush',777781274:'lake-hawks',777781255:'metros',777781275:'minions',777781250:'mob',777781248:'ocelots',777781272:'omnitrix',777781273:'order',777781269:'overdrive',777781262:'pheonixes',777781249:'rhode-runners',777781259:'sharks',777781263:'sorcerers',777781260:'speed-racers',777781270:'stars',777781281:'stingers',777781261:'supermen',777781279:'surfers',777781258:'thunder-birds',777781268:'volts',777781277:'vodoo'
   });
+  // Madden generated a second set of franchise IDs during the Week 7 league-info
+  // export. Keep one stable AML identity so old roster data and new standings/
+  // schedule data join to the same 32 franchises.
+  const TEAM_ID_ALIASES = Object.freeze({
+    776994816:777781248,776994817:777781249,776994818:777781250,776994819:777781251,
+    776994820:777781252,776994821:777781253,776994822:777781254,776994823:777781255,
+    776994826:777781258,776994827:777781259,776994828:777781260,776994829:777781261,
+    776994830:777781262,776994831:777781263,776994832:777781264,776994833:777781265,
+    776994835:777781267,776994836:777781268,776994837:777781269,776994838:777781270,
+    776994839:777781271,776994840:777781272,776994841:777781273,776994842:777781274,
+    776994843:777781275,776994844:777781276,776994845:777781277,776994846:777781278,
+    776994847:777781279,776994848:777781280,776994849:777781281,776994850:777781282
+  });
   const DEV_TRAITS=Object.freeze({0:'NORMAL',1:'STAR',2:'SUPERSTAR',3:'X-FACTOR'});
   const USER_OVERRIDES=Object.freeze({777781252:'Carson'});
   const NAME_FIXES=Object.freeze({BlackCats:'Black Cats',SpeedRacers:'Speed Racers',OverDrive:'Overdrive',LakeHawks:'Lake Hawks',ThunderBirds:'Thunder Birds',RoadRunners:'Road Runners','Sorcerers ':'Sorcerers'});
@@ -17,7 +30,32 @@
   function formatHeight(inches){const n=Number(inches);if(!Number.isFinite(n)||n<=0)return '—';return `${Math.floor(n/12)}'${n%12}"`;}
   function addRecords(baseRecord,standing){const parts=String(baseRecord||'0-0').split('-').map(v=>Number(v)||0);const wins=(parts[0]||0)+(Number(standing?.total_wins)||0);const losses=(parts[1]||0)+(Number(standing?.total_losses)||0);const ties=(parts[2]||0)+(Number(standing?.total_ties)||0);return ties?`${wins}-${losses}-${ties}`:`${wins}-${losses}`;}
   function currentRecord(standing){if(!standing)return '0-0';const w=Number(standing.total_wins)||0,l=Number(standing.total_losses)||0,t=Number(standing.total_ties)||0;return t?`${w}-${l}-${t}`:`${w}-${l}`;}
-  async function api(path){const response=await fetch(`${API_BASE}${path}`,{method:'GET',mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});const data=await response.json().catch(()=>({}));if(!response.ok||data?.ok===false)throw new Error(data?.error||`AML data request failed (${response.status})`);return data;}
+  function canonicalTeamId(value){const id=Number(value);return TEAM_ID_ALIASES[id]||id;}
+  function normalizeIds(value){
+    if(Array.isArray(value))return value.map(normalizeIds);
+    if(!value||typeof value!=='object')return value;
+    const row={};
+    for(const [key,item] of Object.entries(value))row[key]=normalizeIds(item);
+    for(const key of ['team_id','teamId','away_team_id','home_team_id'])if(row[key]!=null)row[key]=canonicalTeamId(row[key]);
+    return row;
+  }
+  function latestTeamRows(rows){
+    const byTeam=new Map();
+    rows.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))).forEach(row=>{
+      const id=canonicalTeamId(row.team_id);
+      if(!byTeam.has(id))byTeam.set(id,{...row,team_id:id});
+    });
+    return [...byTeam.values()];
+  }
+  function normalizePayload(payload){
+    const data=normalizeIds(payload);
+    if(Array.isArray(data.teams))data.teams=latestTeamRows(data.teams);
+    if(Array.isArray(data.standings))data.standings=latestTeamRows(data.standings);
+    if(Array.isArray(data.teams))data.count=data.teams.length;
+    else if(Array.isArray(data.standings))data.count=data.standings.length;
+    return data;
+  }
+  async function api(path){const response=await fetch(`${API_BASE}${path}`,{method:'GET',mode:'cors',cache:'no-store',headers:{Accept:'application/json'}});const raw=await response.json().catch(()=>({}));if(!response.ok||raw?.ok===false)throw new Error(raw?.error||`AML data request failed (${response.status})`);return normalizePayload(raw);}
   function teamIdForSlug(slug){return TEAM_SLUG_TO_ID[String(slug||'').toLowerCase()]||null;}
   function rosterUrl(teamId){return `rosters.html?teamId=${encodeURIComponent(teamId)}`;}
   function scheduleUrl(teamId){return teamId?`schedule.html?teamId=${encodeURIComponent(teamId)}`:'schedule.html';}
@@ -25,5 +63,5 @@
   function teamUrl(teamId){const slug=TEAM_ID_TO_PAGE[Number(teamId)];return slug?`team-${slug}.html`:'teams.html';}
   function gameUrl(scheduleId){return `game.html?scheduleId=${encodeURIComponent(scheduleId)}`;}
   function weekLabel(weekIndex){const n=Number(weekIndex);return Number.isFinite(n)?`Week ${n+1}`:'Week';}
-  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,DEV_TRAITS,api,esc,userName,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,gameUrl,weekLabel});
+  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,TEAM_ID_ALIASES,DEV_TRAITS,api,esc,userName,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,gameUrl,weekLabel});
 })();
