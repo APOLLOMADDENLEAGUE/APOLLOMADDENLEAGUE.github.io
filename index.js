@@ -231,10 +231,20 @@ async function playoffsReply(){const d=await api('/standings'),rows=d.standings|
 const rankings=['Speed Racers','Apollo','Omnitrix','Phoenix','Voodoo','Flamingos','Order','K9','Sorcerers','Stingers','Kush','Supermen','Overdrive','Griffins','Blizzards','Volts','Falcons','Ocelots','Metros','Minions','Mob','Lake Hawks','Sharks','Dragons','Stars','Empire','Black Cats','Thunder Birds','Road Runners','Ducks','Guardians','Surfers'];
 function rankingsReply(){return {embeds:[baseEmbed('MSPN Season 14 Power Rankings').setDescription(rankings.map((t,i)=>`**${i+1}.** ${t}`).join('\n')).setURL(`${WEBSITE}/mspn.html`)]};}
 
-function roleForTeam(guild,teamId){
-  const wanted=teamName(teamId).toLowerCase().replace(/[^a-z0-9]/g,'');
-  const aliases={phoenix:['phoenixes'],k9:['kloudnine','cloudnine'],thunderbirds:['thunderbird'],roadrunners:['roadrunner'],lakehawks:['lakehawk'],omnitrix:['omnitrix','omnitrix']};
-  return guild.roles.cache.find(role=>{const name=role.name.toLowerCase().replace(/[^a-z0-9]/g,'');return name===wanted||name.endsWith(wanted)||(aliases[wanted]||[]).some(alias=>name===alias||name.endsWith(alias));});
+function normalizeRoleName(value){return String(value??'').toLowerCase().replace(/[^a-z0-9]/g,'');}
+function roleForTeam(guild,teamId,team){
+  const nickname=normalizeRoleName(teamName(teamId,team?.display_name||team?.nick_name));
+  const city=normalizeRoleName(team?.city_name);
+  const fullName=`${city}${nickname}`;
+  const aliases={
+    phoenix:['phoenixes'],k9:['kloudnine','cloudnine'],thunderbirds:['thunderbird'],
+    roadrunners:['roadrunner'],lakehawks:['lakehawk'],omnitrix:['omnitrix'],
+  };
+  const candidates=[fullName,nickname,...(aliases[nickname]||[]),...(aliases[nickname]||[]).map(alias=>`${city}${alias}`)].filter(Boolean);
+  const roles=[...guild.roles.cache.values()].filter(role=>role.name!=='@everyone');
+  return roles.find(role=>normalizeRoleName(role.name)===fullName)
+    ||roles.find(role=>candidates.includes(normalizeRoleName(role.name)))
+    ||roles.find(role=>candidates.some(candidate=>normalizeRoleName(role.name).includes(candidate)));
 }
 
 async function createGameChannels(interaction){
@@ -244,7 +254,9 @@ async function createGameChannels(interaction){
   const me=guild.members.me||await guild.members.fetchMe();
   if(!me.permissions.has(PermissionFlagsBits.ManageChannels))return {content:'The AML Bot needs the **Manage Channels** permission first.'};
   const week=interaction.options.getInteger('week',true);
-  const games=(await scheduleData()).filter(g=>n(g.stage_index)===1&&n(g.week_index)+1===week);
+  const [schedule,teamData]=await Promise.all([scheduleData(),api('/teams')]);
+  const games=schedule.filter(g=>n(g.stage_index)===1&&n(g.week_index)+1===week);
+  const liveTeams=new Map((teamData.teams||[]).map(team=>[n(team.team_id),team]));
   if(!games.length)return {content:`No Week ${week} games are in the imported schedule yet.`};
   await guild.roles.fetch();await guild.channels.fetch();
   const categoryName=`WEEK ${week}`;
@@ -256,7 +268,10 @@ async function createGameChannels(interaction){
     const channelName=`${away}-vs-${home}`.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,100);
     let channel=guild.channels.cache.find(c=>c.parentId===category.id&&c.name===channelName);
     if(!channel)channel=await guild.channels.create({name:channelName,type:ChannelType.GuildText,parent:category.id,reason:`AML Week ${week}: ${away} vs ${home}`});
-    const roles=[roleForTeam(guild,game.away_team_id),roleForTeam(guild,game.home_team_id)].filter(Boolean);
+    const roles=[
+      roleForTeam(guild,game.away_team_id,liveTeams.get(n(game.away_team_id))),
+      roleForTeam(guild,game.home_team_id,liveTeams.get(n(game.home_team_id))),
+    ].filter(Boolean);
     if(roles.length<2)missing.push(`${away} vs ${home}`);
     const rivalry=isRivalryGame(game.away_team_id,game.home_team_id);
     if(rivalry)rivalries.push(`${away} vs ${home}`);
