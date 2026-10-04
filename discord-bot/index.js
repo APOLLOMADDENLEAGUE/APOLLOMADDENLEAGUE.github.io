@@ -34,7 +34,7 @@ const teams = [
   ['Surfers',777781279],['Thunder Birds',777781258],['Volts',777781268],['Voodoo',777781277],
 ].map(([name,id])=>({name,id}));
 const teamById = new Map(teams.map(t=>[t.id,t]));
-const userOverrides = new Map([[777781252,'Carson']]);
+const userOverrides = new Map([[777781252,'Carson'],[777781271,'Shady'],[777781260,'YFI']]);
 const rivalryPairs = [
   [777781250,777781279],[777781276,777781253],[777781260,777781280],[777781281,777781268],
   [777781251,777781269],[777781263,777781273],[777781252,777781259],[777781274,777781258],

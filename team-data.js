@@ -56,7 +56,7 @@ window.AML_TEAM_DATA = {
   },
   "empire": {
     "rebranded": "No",
-    "owner": "Echo",
+    "owner": "Shady",
     "regularSeasonRecord": "14-19-1",
     "divisionTitles": "0",
     "playoffAppearances": "0",
@@ -265,7 +265,7 @@ window.AML_TEAM_DATA = {
   },
   "speed-racers": {
     "rebranded": "No",
-    "owner": "ColeWorld",
+    "owner": "YFI",
     "regularSeasonRecord": "30-4",
     "divisionTitles": "1",
     "playoffAppearances": "2",

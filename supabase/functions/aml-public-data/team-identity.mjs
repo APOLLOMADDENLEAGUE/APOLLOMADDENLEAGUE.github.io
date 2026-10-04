@@ -22,6 +22,7 @@ const knownAliases = [
 const nameKey = value => String(value ?? '').toLowerCase().replace(/[^a-z0-9]/g, '');
 const stableByName = new Map(stableTeams.map(([id, name]) => [nameKey(name), id]));
 const teamIdKeys = new Set(['team_id', 'teamId', 'away_team_id', 'home_team_id', 'awayTeamId', 'homeTeamId']);
+const ownerOverrides = new Map([[777781271, 'Shady'], [777781260, 'YFI']]);
 
 export function createTeamIdentity(teamRows = []) {
   const aliases = new Map([...knownAliases, ...stableTeams.map(([id]) => [id, id])]);
@@ -48,7 +49,10 @@ export function createTeamIdentity(teamRows = []) {
     const timestamp = row => String(row.source_received_at || row.updated_at || '');
     for (const row of [...rows].sort((a, b) => timestamp(b).localeCompare(timestamp(a)))) {
       const id = canonicalTeamId(row.team_id);
-      if (!byTeam.has(id)) byTeam.set(id, { ...row, team_id: id });
+      if (!byTeam.has(id)) byTeam.set(id, {
+        ...row, team_id: id,
+        ...(ownerOverrides.has(id) ? { user_name: ownerOverrides.get(id) } : {}),
+      });
     }
     return [...byTeam.values()];
   }

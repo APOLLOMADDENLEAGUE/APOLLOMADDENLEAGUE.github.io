@@ -35,7 +35,7 @@
         const order=['AFC North','AFC South','AFC East','AFC West','NFC North','NFC South','NFC East','NFC West'];
         grid.innerHTML='';
         order.forEach(div=>{
-          const rows=(groups.get(div)||[]).sort((a,b)=>(b.total_wins-a.total_wins)||(a.total_losses-b.total_losses)||(b.net_pts-a.net_pts));
+          const rows=(groups.get(div)||[]).sort((a,b)=>Number(a.seed)-Number(b.seed));
           const card=document.createElement('article');
           card.className='standing-card';
           card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;

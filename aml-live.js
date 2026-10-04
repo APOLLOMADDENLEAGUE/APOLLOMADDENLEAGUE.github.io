@@ -20,7 +20,7 @@
     776994847:777781279,776994848:777781280,776994849:777781281,776994850:777781282
   });
   const DEV_TRAITS=Object.freeze({0:'NORMAL',1:'STAR',2:'SUPERSTAR',3:'X-FACTOR'});
-  const USER_OVERRIDES=Object.freeze({777781252:'Carson'});
+  const USER_OVERRIDES=Object.freeze({777781252:'Carson',777781271:'Shady',777781260:'YFI'});
   const NAME_FIXES=Object.freeze({BlackCats:'Black Cats',SpeedRacers:'Speed Racers',OverDrive:'Overdrive',LakeHawks:'Lake Hawks',ThunderBirds:'Thunder Birds',RoadRunners:'Road Runners','Sorcerers ':'Sorcerers'});
   function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
   function userName(teamId,fallback){return USER_OVERRIDES[Number(teamId)]||fallback||'CPU';}
