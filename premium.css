@@ -2666,3 +2666,24 @@ body.users-hub-page .users-hub-year{
 
 /* Keep decorative background glows out of the document flow on every page. */
 .background-glow{position:fixed!important;pointer-events:none!important}
+
+/* AML SEASON 14 COMPLETE REDESIGN SYSTEM */
+:root{--ink:#f7fbff;--muted-2:#aebdce;--panel-border:rgba(255,255,255,.14);--panel-highlight:rgba(255,255,255,.06);--pink:#f4a5c7;--blue:#9bdcf2;--season-dark:#0e1728}
+html,body{background:radial-gradient(circle at 8% 0%,rgba(244,165,199,.18),transparent 28%),radial-gradient(circle at 92% 12%,rgba(155,220,242,.17),transparent 28%),#0e1728!important}
+body::before{background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:48px 48px;opacity:.42}
+.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top,.rivalries-top,.sitebar{background:rgba(14,23,40,.78)!important;border-color:rgba(255,255,255,.14)!important;border-radius:6px!important;box-shadow:0 18px 55px rgba(0,0,0,.22)!important}
+.topbar a,.champ-top a,.mvp-top a,.teams-top a,.team-top a,.archive-top a,.seasons-top a,.back,.home-link{border-radius:3px!important;background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.15)!important}
+.eyebrow,.champion-kicker,.mvp-kicker,.section-kicker,.kicker{color:var(--blue)!important}
+.eyebrow::before,.champion-kicker::before,.mvp-kicker::before{background:linear-gradient(90deg,var(--pink),var(--blue))!important}
+.history-card,.season-tile,.standing-card,.data-card,.panel,.profile-card,.rivalry-card,.record-card,.team-card,.user-card,.current-card,.league-card,.stat-table,.data-table,.table-wrap{border-radius:5px!important;background:linear-gradient(135deg,rgba(244,165,199,.08),rgba(155,220,242,.025) 55%,rgba(255,255,255,.025))!important;border-color:rgba(255,255,255,.14)!important;box-shadow:0 18px 55px rgba(0,0,0,.2)!important}
+.history-card:hover,.season-tile:hover,.standing-card:hover,.team-card:hover,.user-card:hover,.current-card:hover{border-color:rgba(244,165,199,.48)!important;transform:translateY(-3px)}
+.history-hero,.champ-hero,.mvp-hero,.teams-hero,.league-sub-hero,.data-hero,.rivalries-hero{border-bottom:1px solid rgba(255,255,255,.14)!important}
+.history-hero h1,.champ-hero h1,.mvp-hero h1,.teams-hero h1,.league-sub-hero h1,.data-hero h1,.rivalries-hero h1,.archive-title,.seasons-title{background:linear-gradient(100deg,#fff 15%,var(--pink) 62%,var(--blue) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
+.open-link,.panel-link,.stat-link{color:var(--blue)!important;border-color:rgba(155,220,242,.35)!important}
+button,.cats button,.view-controls button,.weeks button,.filter-button,.tab-button{border-color:rgba(255,255,255,.15)!important;background:rgba(255,255,255,.05)!important;color:#f7fbff!important}
+button.active,.cats button.active,.view-controls button.active,.weeks button.active,.filter-button.active,.tab-button.active{background:linear-gradient(100deg,var(--pink),var(--blue))!important;color:#0e1728!important;border-color:transparent!important}
+.stat-table th,.stat-table td,.data-table th,.data-table td{border-color:rgba(255,255,255,.1)!important}
+.stat-table tbody tr:hover,.data-table tbody tr:hover{background:rgba(244,165,199,.08)!important}
+input,select,textarea{background:rgba(7,13,25,.74)!important;border-color:rgba(255,255,255,.15)!important;color:#fff!important}
+.site-footer,.footer{border-color:rgba(255,255,255,.14)!important;color:var(--muted-2)!important}
+@media(max-width:760px){.topbar,.champ-top,.mvp-top,.teams-top,.team-top,.archive-top,.seasons-top{border-radius:4px!important}.history-card,.season-tile,.standing-card,.rivalry-card{border-radius:4px!important}}
