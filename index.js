@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { createTeamIdentity } from './team-identity.mjs';
 import {
   ActionRowBuilder,
   Client,
@@ -86,18 +87,19 @@ const commands = [
 
 const client = new Client({intents:[GatewayIntentBits.Guilds]});
 let playerCache = {expires:0,items:[]};
+const identity = createTeamIdentity();
 
 async function api(path){
   const response=await fetch(`${API_BASE}${path}`,{headers:{accept:'application/json'}});
   const data=await response.json().catch(()=>({}));
   if(!response.ok||data.ok===false) throw new Error(data.error||`AML API ${response.status}`);
-  return data;
+  return identity.normalizePayload(data);
 }
 
 function n(value){const x=Number(value);return Number.isFinite(x)?x:0;}
 function clean(value){return String(value??'').trim().replace(/([a-z])([A-Z])/g,'$1 $2');}
-function teamName(teamId,fallback){return teamById.get(Number(teamId))?.name||clean(fallback)||'Unknown Team';}
-function username(row){return userOverrides.get(Number(row.team_id))||row.user_name||'CPU';}
+function teamName(teamId,fallback){return teamById.get(identity.canonicalTeamId(teamId))?.name||clean(fallback)||'Unknown Team';}
+function username(row){return userOverrides.get(identity.canonicalTeamId(row.team_id))||row.user_name||'CPU';}
 function weekLabel(index){return `Week ${n(index)+1}`;}
 function baseEmbed(title){return new EmbedBuilder().setColor(PINK).setTitle(title).setFooter({text:'Apollo Madden League • Live Madden 27 Data'}).setTimestamp();}
 function trim(text,max=4000){return text.length>max?`${text.slice(0,max-1)}…`:text;}
@@ -226,7 +228,21 @@ async function leadersReply(key){const [category,title,label]=exactStats[key];co
 
 async function compareReply(a,b){const players=await getPlayers(),p1=players.find(p=>String(p.roster_id)===a),p2=players.find(p=>String(p.roster_id)===b);const all=await Promise.all(Object.keys(statConfig).filter(x=>x!=='team').map(seasonStats));const flat=all.flat();const line=p=>{const rows=flat.filter(r=>n(r.rosterId)===n(p.roster_id));const sum=k=>rows.reduce((v,r)=>v+n(r[k]),0);return `**${p.first_name} ${p.last_name}** • ${p.position} • ${n(p.player_best_ovr)} OVR\nPass: ${sum('passYds')} YDS, ${sum('passTDs')} TD | Rush: ${sum('rushYds')} YDS, ${sum('rushTDs')} TD | Rec: ${sum('recYds')} YDS, ${sum('recTDs')} TD | DEF: ${sum('defTotalTackles')} TKL, ${sum('defSacks')} SACK, ${sum('defInts')} INT, ${sum('defTDs')} TD`;};return {embeds:[baseEmbed('Player Comparison • Season 14').setDescription(`${line(p1)}\n\n**VS**\n\n${line(p2)}`)]};}
 
-async function playoffsReply(){const d=await api('/standings'),rows=d.standings||[];const side=c=>rows.filter(r=>String(r.division_name||r.div_name).startsWith(c)).sort((a,b)=>n(b.win_pct)-n(a.win_pct)||n(b.total_wins)-n(a.total_wins)).slice(0,7).map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name)}** ${n(r.total_wins)}-${n(r.total_losses)}`).join('\n');return {embeds:[baseEmbed('Season 14 Playoff Picture').addFields({name:'AFC',value:side('AFC')||'No data',inline:true},{name:'NFC',value:side('NFC')||'No data',inline:true})]};}
+async function playoffsReply(){
+  const data=await api('/standings');
+  const pct=r=>{const games=n(r.total_wins)+n(r.total_losses)+n(r.total_ties);return games?(n(r.total_wins)+n(r.total_ties)/2)/games:0;};
+  const sort=(a,b)=>pct(b)-pct(a)||n(b.net_pts)-n(a.net_pts);
+  const side=conference=>{
+    const rows=(data.standings||[]).filter(r=>String(r.division_name||r.div_name).startsWith(conference));
+    const divisions=new Map();
+    for(const row of rows){const division=row.division_name||row.div_name;if(!divisions.has(division))divisions.set(division,[]);divisions.get(division).push(row);}
+    const leaders=[...divisions.values()].map(group=>group.sort(sort)[0]).sort(sort);
+    const used=new Set(leaders.map(row=>row.team_id));
+    const wildcards=rows.filter(row=>!used.has(row.team_id)).sort(sort).slice(0,3);
+    return [...leaders,...wildcards].map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name)}** ${n(r.total_wins)}-${n(r.total_losses)}${n(r.total_ties)?`-${n(r.total_ties)}`:''}`).join('\n');
+  };
+  return {embeds:[baseEmbed('Season 14 Playoff Picture').addFields({name:'AFC',value:side('AFC')||'No data',inline:true},{name:'NFC',value:side('NFC')||'No data',inline:true})]};
+}
 
 const rankings=['Speed Racers','Apollo','Omnitrix','Phoenix','Voodoo','Flamingos','Order','K9','Sorcerers','Stingers','Kush','Supermen','Overdrive','Griffins','Blizzards','Volts','Falcons','Ocelots','Metros','Minions','Mob','Lake Hawks','Sharks','Dragons','Stars','Empire','Black Cats','Thunder Birds','Road Runners','Ducks','Guardians','Surfers'];
 function rankingsReply(){return {embeds:[baseEmbed('MSPN Season 14 Power Rankings').setDescription(rankings.map((t,i)=>`**${i+1}.** ${t}`).join('\n')).setURL(`${WEBSITE}/mspn.html`)]};}
