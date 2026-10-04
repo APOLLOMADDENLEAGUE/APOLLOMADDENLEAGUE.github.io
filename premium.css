@@ -2890,3 +2890,10 @@ body.aml-page.team-page .aml-live-team .panel-link{
   color:color-mix(in srgb,var(--team-accent-2) 70%,#fff)!important;
   border-color:color-mix(in srgb,var(--team-accent-2) 42%,rgba(255,255,255,.2))!important;
 }
+
+
+/* Keep each franchise's inline palette authoritative over the generic fallback. */
+body.aml-page.team-page .team-shell{
+  --team-accent:inherit!important;
+  --team-accent-2:inherit!important;
+}
