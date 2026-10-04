@@ -1,5 +1,6 @@
 import http from 'node:http';
 import { createTeamIdentity } from './team-identity.mjs';
+import { conferenceSeeds } from './playoff-seeding.mjs';
 import {
   ActionRowBuilder,
   Client,
@@ -36,7 +37,7 @@ const teams = [
   ['Surfers',777781279],['Thunder Birds',777781258],['Volts',777781268],['Voodoo',777781277],
 ].map(([name,id])=>({name,id}));
 const teamById = new Map(teams.map(t=>[t.id,t]));
-const userOverrides = new Map([[777781252,'Carson']]);
+const userOverrides = new Map([[777781252,'Carson'],[777781271,'Shady'],[777781260,'YFI']]);
 const rivalryPairs = [
   [777781250,777781279],[777781276,777781253],[777781260,777781280],[777781281,777781268],
   [777781251,777781269],[777781263,777781273],[777781252,777781259],[777781274,777781258],
@@ -156,7 +157,7 @@ async function standingsReply(division){
     const selected=division.toLowerCase();
     rows=rows.filter(r=>{const name=String(r.division_name||r.div_name).toLowerCase();return selected==='afc'||selected==='nfc'?name.startsWith(selected):name===selected;});
   }
-  rows.sort((a,b)=>n(b.win_pct)-n(a.win_pct)||n(b.total_wins)-n(a.total_wins));
+  rows.sort((a,b)=>division?n(a.seed)-n(b.seed):n(b.win_pct)-n(a.win_pct)||n(b.total_wins)-n(a.total_wins));
   const body=rows.map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name||r.team_name)}** — ${n(r.total_wins)}-${n(r.total_losses)}${n(r.total_ties)?`-${n(r.total_ties)}`:''} • ${username(r)}`).join('\n');
   return {embeds:[baseEmbed(division?`${division} Standings`:'Season 14 Standings').setDescription(trim(body||'No standings found.')).setURL(`${WEBSITE}/standings.html`)]};
 }
@@ -230,16 +231,9 @@ async function compareReply(a,b){const players=await getPlayers(),p1=players.fin
 
 async function playoffsReply(){
   const data=await api('/standings');
-  const pct=r=>{const games=n(r.total_wins)+n(r.total_losses)+n(r.total_ties);return games?(n(r.total_wins)+n(r.total_ties)/2)/games:0;};
-  const sort=(a,b)=>pct(b)-pct(a)||n(b.net_pts)-n(a.net_pts);
   const side=conference=>{
-    const rows=(data.standings||[]).filter(r=>String(r.division_name||r.div_name).startsWith(conference));
-    const divisions=new Map();
-    for(const row of rows){const division=row.division_name||row.div_name;if(!divisions.has(division))divisions.set(division,[]);divisions.get(division).push(row);}
-    const leaders=[...divisions.values()].map(group=>group.sort(sort)[0]).sort(sort);
-    const used=new Set(leaders.map(row=>row.team_id));
-    const wildcards=rows.filter(row=>!used.has(row.team_id)).sort(sort).slice(0,3);
-    return [...leaders,...wildcards].map((r,i)=>`**${i+1}. ${teamName(r.team_id,r.display_name)}** ${n(r.total_wins)}-${n(r.total_losses)}${n(r.total_ties)?`-${n(r.total_ties)}`:''}`).join('\n');
+    const {seeds}=conferenceSeeds(data.standings||[],conference);
+    return seeds.map(r=>`**${r.seed}. ${teamName(r.team_id,r.display_name)}** ${n(r.total_wins)}-${n(r.total_losses)}${n(r.total_ties)?`-${n(r.total_ties)}`:''}`).join('\n');
   };
   return {embeds:[baseEmbed('Season 14 Playoff Picture').addFields({name:'AFC',value:side('AFC')||'No data',inline:true},{name:'NFC',value:side('NFC')||'No data',inline:true})]};
 }
