@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { createTeamIdentity } from './team-identity.mjs';
 import {
   ActionRowBuilder,
   Client,
@@ -74,18 +75,19 @@ const commands = [
 
 const client = new Client({intents:[GatewayIntentBits.Guilds]});
 let playerCache = {expires:0,items:[]};
+const identity = createTeamIdentity();
 
 async function api(path){
   const response=await fetch(`${API_BASE}${path}`,{headers:{accept:'application/json'}});
   const data=await response.json().catch(()=>({}));
   if(!response.ok||data.ok===false) throw new Error(data.error||`AML API ${response.status}`);
-  return data;
+  return identity.normalizePayload(data);
 }
 
 function n(value){const x=Number(value);return Number.isFinite(x)?x:0;}
 function clean(value){return String(value??'').trim().replace(/([a-z])([A-Z])/g,'$1 $2');}
-function teamName(teamId,fallback){return teamById.get(Number(teamId))?.name||clean(fallback)||'Unknown Team';}
-function username(row){return userOverrides.get(Number(row.team_id))||row.user_name||'CPU';}
+function teamName(teamId,fallback){return teamById.get(identity.canonicalTeamId(teamId))?.name||clean(fallback)||'Unknown Team';}
+function username(row){return userOverrides.get(identity.canonicalTeamId(row.team_id))||row.user_name||'CPU';}
 function weekLabel(index){return `Week ${n(index)+1}`;}
 function baseEmbed(title){return new EmbedBuilder().setColor(PINK).setTitle(title).setFooter({text:'Apollo Madden League • Live Madden 27 Data'}).setTimestamp();}
 function trim(text,max=4000){return text.length>max?`${text.slice(0,max-1)}…`:text;}

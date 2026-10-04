@@ -35,7 +35,7 @@ window.scrollTo(0,0);
   });
 
   const script = document.createElement('script');
-  script.src = 'aml-live.js?v=7';
+  script.src = 'aml-live.js?v=8';
   script.onload = async () => {
     const live = window.AML_LIVE;
     const teamId = live?.teamIdForSlug(slug);
@@ -112,7 +112,7 @@ window.scrollTo(0,0);
   let index=[
     ['PAGE','Current League','Live standings, rosters, schedules and stats','current-league.html'],['PAGE','Standings','Season 14 live standings','standings.html'],['PAGE','Playoff Picture','Live AFC and NFC seeds','playoff-picture.html'],['PAGE','League Records','Single-game, season and career records','records.html'],['PAGE','Schedule & Scores','Weekly matchups and final scores','schedule.html'],['PAGE','Season Stats','Passing, rushing, receiving and defense','stats.html'],['PAGE','MSPN Power Rankings','Season 14 rankings','mspn.html'],['PAGE','AML Teams','All 32 franchises','teams.html'],['PAGE','AML Users','Current AML users','users.html'],...Array.from({length:14},(_,i)=>['SEASON',`Season ${i+1}`,'AML history',`season-${i+1}.html`])
   ];let loaded=false;
-  async function loadLive(){if(loaded)return;loaded=true;try{if(!window.AML_LIVE){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='aml-live.js?v=7';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}const live=window.AML_LIVE,[td,pd]=await Promise.all([live.api('/teams'),live.api('/players?limit=2000')]);(td.teams||[]).forEach(t=>index.push(['TEAM',live.cleanTeamName(t.display_name||t.nick_name),live.userName(t.team_id,t.user_name||''),live.teamUrl(t.team_id)]));(pd.players||[]).forEach(p=>index.push(['PLAYER',`${p.first_name||''} ${p.last_name||''}`.trim(),`${p.position||''} • ${p.player_best_ovr||0} OVR`,live.playerUrl(p.roster_id)]))}catch(e){console.error('AML search:',e)}}
+  async function loadLive(){if(loaded)return;loaded=true;try{if(!window.AML_LIVE){await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='aml-live.js?v=8';s.onload=resolve;s.onerror=reject;document.head.appendChild(s)})}const live=window.AML_LIVE,[td,pd]=await Promise.all([live.api('/teams'),live.api('/players?limit=2000')]);(td.teams||[]).forEach(t=>index.push(['TEAM',live.cleanTeamName(t.display_name||t.nick_name),live.userName(t.team_id,t.user_name||''),live.teamUrl(t.team_id)]));(pd.players||[]).forEach(p=>index.push(['PLAYER',`${p.first_name||''} ${p.last_name||''}`.trim(),`${p.position||''} • ${p.player_best_ovr||0} OVR`,live.playerUrl(p.roster_id)]))}catch(e){console.error('AML search:',e)}}
   function render(){const q=input.value.trim().toLowerCase();if(!q){results.innerHTML='<div class="aml-search-empty">Start typing to search AML.</div>';return}const found=index.filter(x=>(x[1]+' '+x[2]).toLowerCase().includes(q)).slice(0,30);results.innerHTML=found.length?found.map(x=>`<a class="aml-search-result" href="${x[3]}"><small>${x[0]}</small><strong>${x[1]}</strong><div>${x[2]}</div></a>`).join(''):'<div class="aml-search-empty">No AML results found.</div>'}
   open.onclick=async()=>{modal.classList.add('open');input.focus();await loadLive();render()};modal.querySelector('button').onclick=()=>modal.classList.remove('open');input.oninput=render;document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open');if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();open.click()}})
 })();
