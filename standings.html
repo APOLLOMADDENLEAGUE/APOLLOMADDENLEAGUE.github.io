@@ -38,7 +38,7 @@
           const rows=(groups.get(div)||[]).sort((a,b)=>Number(a.seed)-Number(b.seed));
           const card=document.createElement('article');
           card.className='standing-card';
-          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team" style="${live.teamColorStyle(s.team_id)}">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
+          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team" style="${live.teamColorStyle(s.display_name||s.team_name)}">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
           grid.appendChild(card);
         });
         const week=Math.max(...data.standings.map(s=>Number(s.week_index)||0));
