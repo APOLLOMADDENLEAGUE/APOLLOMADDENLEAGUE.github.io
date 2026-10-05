@@ -29,18 +29,9 @@
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 
     .week12-block{margin-top:0}
-    .week12-block .section-head{margin-top:0}
-    .coming-soon{margin-top:28px;padding:24px;border:1px solid rgba(237,27,36,.38);background:linear-gradient(135deg,rgba(237,27,36,.10),rgba(255,255,255,.025) 60%,rgba(237,27,36,.04));position:relative;overflow:hidden}
-    .coming-soon::after{content:"?";position:absolute;right:28px;top:-22px;font-size:170px;line-height:1;color:rgba(237,27,36,.09);font-weight:950;pointer-events:none}
-    .coming-soon h2{margin:5px 0 8px;font-size:clamp(28px,4vw,48px);letter-spacing:-.04em;text-transform:uppercase}
-    .coming-soon h2 span{color:var(--red);font-size:.56em;letter-spacing:.04em;vertical-align:middle;margin-left:8px}
-    .coming-soon p{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.55;max-width:620px}
-    .coming-soon-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;position:relative;z-index:1}
-    .coming-card{min-height:88px;padding:11px 12px;border:1px dashed rgba(237,27,36,.38);background:rgba(0,0,0,.22);display:flex;flex-direction:column;justify-content:space-between}
-    .coming-card .coming-rank{font-size:10px;color:var(--red);font-weight:950;letter-spacing:.13em}
-    .coming-card strong{font-size:30px;line-height:1;color:#fff}
-    .coming-card small{font-size:9px;color:var(--muted);font-weight:900;letter-spacing:.10em}
-    @media(max-width:680px){.coming-soon{padding:18px}.coming-soon-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.coming-soon::after{right:8px;font-size:130px}}
+    .week12-block .section-head:first-child{margin-top:0}
+    .week12-lower-head{margin-top:34px!important}
+
   </style>
 </head>
 <body>
@@ -50,7 +41,7 @@
       <a class="back" href="index.html">← AML Home</a>
     </div>
   </header>
-  <div class="ticker"><div class="ticker-inner"><span class="ticker-tag">MSPN</span><span class="ticker-copy">AML Season 14 Week 12 • Ranks 32–16 live • Top 15 coming tonight</span></div></div>
+  <div class="ticker"><div class="ticker-inner"><span class="ticker-tag">MSPN</span><span class="ticker-copy">AML Season 14 Week 12 • Full board live • MSPN rankings</span></div></div>
 
   <main class="shell">
     <section class="hero">
@@ -58,21 +49,17 @@
         <img class="hero-logo" src="assets/mspn-logo.png" alt="MSPN" />
         <div class="kicker">Season 14 • Week 12</div>
         <h1>Power<br>Rankings</h1>
-        <p>The official MSPN Week 12 board. Ranks 32–16 are live now; the top 15 will be released tonight.</p>
+        <p>The official MSPN Week 12 board, now complete from #1 through #32.</p>
       </div>
       <aside class="edition"><span class="small">MSPN Rankings</span><span class="big">Week 12 Edition</span></aside>
     </section>
 
 
     <section class="edition-block week12-block" aria-label="Week 12 power rankings">
-      <div class="section-head"><div><div class="kicker">Season 14 • Week 12</div><h2>Ranks 32–16</h2></div><p>Ranks 32–16 are live now. The top 15 will be released tonight.</p></div>
-      <section class="ranking-grid" id="week12Grid" aria-label="Week 12 power rankings ranks 32 through 16"></section>
-      <div class="coming-soon" aria-label="Week 12 ranks 15 through 1 coming soon">
-        <div class="kicker">Week 12 • Top 15</div>
-        <h2>15–1 <span>Coming Soon</span></h2>
-        <p>MSPN’s top 15 Week 12 power rankings will be revealed tonight.</p>
-        <div class="coming-soon-grid" id="week12ComingSoon"></div>
-      </div>
+      <div class="section-head"><div><div class="kicker">Season 14 • Week 12</div><h2>Top 15</h2></div><p>MSPN’s top 15 Week 12 power rankings, now live in official order.</p></div>
+      <section class="ranking-grid" id="week12Top15Grid" aria-label="Week 12 power rankings ranks 1 through 15"></section>
+      <div class="section-head week12-lower-head"><div><div class="kicker">Season 14 • Week 12</div><h2>Ranks 32–16</h2></div><p>The complete Week 12 board, in official ranking order.</p></div>
+      <section class="ranking-grid" id="week12Grid" aria-label="Week 12 power rankings ranks 16 through 32"></section>
     </section>
 
     <section class="edition-block" aria-label="Week 6 power rankings">
@@ -104,6 +91,12 @@
 
   <script>
     (()=>{
+      const week12Top15=[
+        [1,'Houston Apollo'],[2,'New England Order'],[3,'San Antonio Stingers'],[4,'Key West Flamingos'],
+        [5,'Omaha Omnitrix'],[6,'South Burlington Supermen'],[7,'Seattle Kush'],[8,'Las Vegas Volts'],
+        [9,'Montreal Falcons'],[10,'Arizona Phoenixes'],[11,'Indianapolis Speed Racers'],[12,'Hollywood Stars'],
+        [13,'Hawaii Sharks'],[14,'Charm City Griffins'],[15,'Carolina Kloud Nine']
+      ];
       const week12=[
         [16,'Cincinnati Black Cats'],[17,'New Orleans Voodoo'],[18,'Cleveland Lakehawks'],[19,'Buffalo Blizzards'],
         [20,'Orlando Sorcerers'],[21,'D.C. Dragons'],[22,'Austin Ocelots'],[23,'Detroit Overdrive'],
@@ -111,7 +104,7 @@
         [28,'Rhode Island Road Runners'],[29,'Philadelphia Ducks'],[30,'Chicago Mob'],
         [31,'Golden Gate Guardians'],[32,'South Beach Surfers']
       ];
-      const week12Ext={16:'jpg',17:'png',18:'png',19:'png',20:'png',21:'png',22:'png',23:'png',24:'png',25:'png',26:'png',27:'jpg',28:'jpg',29:'jpg',30:'jpg',31:'jpg',32:'jpg'};
+      const week12Ext={1:'jpg',2:'jpg',3:'jpg',4:'jpg',5:'jpg',6:'jpg',7:'jpg',8:'jpg',9:'jpg',10:'jpg',11:'jpg',12:'jpg',13:'jpg',14:'jpg',15:'jpg',16:'jpg',17:'png',18:'png',19:'png',20:'png',21:'png',22:'png',23:'png',24:'png',25:'png',26:'png',27:'jpg',28:'jpg',29:'jpg',30:'jpg',31:'jpg',32:'jpg'};
       const week6=[
         [1,'Montreal Falcons'],[2,'Houston Apollo'],[3,'New England Order'],[4,'San Antonio Stingers'],
         [5,'Las Vegas Volts'],[6,'Indianapolis Speed Racers'],[7,'Hollywood Stars'],[8,'Arizona Phoenixes'],
@@ -137,10 +130,9 @@
       let current=0;
       function src(edition,rank){const key=String(rank).padStart(2,'0');if(edition==='Week 12')return 'assets/mspn/week-12/rank-'+key+'.'+week12Ext[rank];if(edition==='Week 6')return 'assets/mspn/week-6/rank-'+key+'.jpg';return 'assets/rank-'+key+'.jpg'}
       function card([rank,team],edition,compact=false){const idx=entries.push({rank,team,edition,src:src(edition,rank)})-1;const b=document.createElement('button');b.type='button';b.className='rank-card';b.setAttribute('aria-label',`Open ${edition} rank ${rank}, ${team}`);b.dataset.index=idx;b.style.padding='0';b.style.textAlign='left';b.style.color='inherit';b.innerHTML=`<span class="rank-badge">#${rank}</span><img loading="${edition==='Week 6'&&rank<=6?'eager':'lazy'}" src="${src(edition,rank)}" alt="MSPN Season 14 ${edition} power ranking number ${rank}: ${team}">${compact?'':`<div class="card-meta"><div class="rankline">${edition} • MSPN Rank #${rank}</div><h3>${team}</h3></div>`}`;b.addEventListener('click',()=>open(idx));return b}
-      function comingSoonCard(rank){const b=document.createElement('div');b.className='coming-card';b.innerHTML='<span class="coming-rank">#'+rank+'</span><strong>?</strong><small>COMING SOON</small>';return b}
-      const week12Grid=document.getElementById('week12Grid'),week12ComingSoon=document.getElementById('week12ComingSoon'),week6Podium=document.getElementById('week6Podium'),week6Grid=document.getElementById('week6Grid'),preseasonGrid=document.getElementById('preseasonGrid');
+      const week12Top15Grid=document.getElementById('week12Top15Grid'),week12Grid=document.getElementById('week12Grid'),week6Podium=document.getElementById('week6Podium'),week6Grid=document.getElementById('week6Grid'),preseasonGrid=document.getElementById('preseasonGrid');
+      week12Top15.forEach(r=>week12Top15Grid.appendChild(card(r,'Week 12')));
       week12.forEach(r=>week12Grid.appendChild(card(r,'Week 12')));
-      for(let rank=15;rank>=1;rank--)week12ComingSoon.appendChild(comingSoonCard(rank));
       week6.slice(0,3).forEach(r=>week6Podium.appendChild(card(r,'Week 6',true)));
       week6.slice(3).forEach(r=>week6Grid.appendChild(card(r,'Week 6')));
       preseason.forEach(r=>preseasonGrid.appendChild(card(r,'Preseason')));
