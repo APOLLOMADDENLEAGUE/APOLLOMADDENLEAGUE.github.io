@@ -31,6 +31,15 @@
   function addRecords(baseRecord,standing){const parts=String(baseRecord||'0-0').split('-').map(v=>Number(v)||0);const wins=(parts[0]||0)+(Number(standing?.total_wins)||0);const losses=(parts[1]||0)+(Number(standing?.total_losses)||0);const ties=(parts[2]||0)+(Number(standing?.total_ties)||0);return ties?`${wins}-${losses}-${ties}`:`${wins}-${losses}`;}
   function currentRecord(standing){if(!standing)return '0-0';const w=Number(standing.total_wins)||0,l=Number(standing.total_losses)||0,t=Number(standing.total_ties)||0;return t?`${w}-${l}-${t}`:`${w}-${l}`;}
   function canonicalTeamId(value){const id=Number(value);return TEAM_ID_ALIASES[id]||id;}
+  const TEAM_COLORS = Object.freeze({"apollo":{"primary":"#d6a548","secondary":"#7c5a21"},"black-cats":{"primary":"#b8f13b","secondary":"#31313d"},"blizzards":{"primary":"#65c7ff","secondary":"#173b66"},"dragons":{"primary":"#13b9b5","secondary":"#ef6a2e"},"ducks":{"primary":"#0a6247","secondary":"#f2bf2f"},"empire":{"primary":"#4da2ff","secondary":"#e6eef8"},"falcons":{"primary":"#ed2438","secondary":"#7d101a"},"flamingos":{"primary":"#ff6ea8","secondary":"#66d5c0"},"griffins":{"primary":"#e3b33d","secondary":"#68449a"},"guardians":{"primary":"#223b67","secondary":"#c89a3b"},"kloud-nine":{"primary":"#d9e5ff","secondary":"#6f8ed8"},"kush":{"primary":"#75c744","secondary":"#2c5a2b"},"lake-hawks":{"primary":"#2b8aa7","secondary":"#b8c7cf"},"metros":{"primary":"#e52a38","secondary":"#315a8c"},"minions":{"primary":"#2457c5","secondary":"#f2c62f"},"mob":{"primary":"#b8202e","secondary":"#d3b28c"},"ocelots":{"primary":"#d4a567","secondary":"#24472c"},"omnitrix":{"primary":"#9dff45","secondary":"#7f94a2"},"order":{"primary":"#b3882b","secondary":"#18375e"},"overdrive":{"primary":"#1d72ff","secondary":"#aebbd0"},"pheonixes":{"primary":"#e12a2e","secondary":"#f07839"},"rhode-runners":{"primary":"#7844aa","secondary":"#d6484b"},"sharks":{"primary":"#16999f","secondary":"#162c35"},"sorcerers":{"primary":"#57e2ff","secondary":"#253b72"},"speed-racers":{"primary":"#d7292f","secondary":"#d9dce4"},"stars":{"primary":"#2e77c8","secondary":"#50c8ff"},"stingers":{"primary":"#fff200","secondary":"#3f4248"},"supermen":{"primary":"#2d7959","secondary":"#d54444"},"surfers":{"primary":"#1f9898","secondary":"#f47d34"},"thunder-birds":{"primary":"#315ed1","secondary":"#f07433"},"vodoo":{"primary":"#cfaa4e","secondary":"#4b3922"},"volts":{"primary":"#72b7e9","secondary":"#efe73b"},"road-runners":{"primary":"#7844aa","secondary":"#d6484b"},"phoenixes":{"primary":"#e12a2e","secondary":"#f07839"},"voodoo":{"primary":"#cfaa4e","secondary":"#4b3922"}});
+  function colorSlug(value){
+    const raw=String(value??'').trim();
+    if(!raw)return '';
+    if(/^\\d+$/.test(raw))return TEAM_ID_TO_PAGE[canonicalTeamId(raw)]||'';
+    return raw.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+  function teamColors(value){return TEAM_COLORS[colorSlug(value)]||{primary:'#287f9c',secondary:'#15253d'};}
+  function teamColorStyle(value){const colors=teamColors(value);return `--team-primary:${colors.primary};--team-secondary:${colors.secondary};`}
   function normalizeIds(value){
     if(Array.isArray(value))return value.map(normalizeIds);
     if(!value||typeof value!=='object')return value;
@@ -63,5 +72,5 @@
   function teamUrl(teamId){const slug=TEAM_ID_TO_PAGE[Number(teamId)];return slug?`team-${slug}.html`:'teams.html';}
   function gameUrl(scheduleId){return `game.html?scheduleId=${encodeURIComponent(scheduleId)}`;}
   function weekLabel(weekIndex){const n=Number(weekIndex);return Number.isFinite(n)?`Week ${n+1}`:'Week';}
-  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,TEAM_ID_ALIASES,DEV_TRAITS,api,esc,userName,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,gameUrl,weekLabel});
+  window.AML_LIVE=Object.freeze({API_BASE,TEAM_SLUG_TO_ID,TEAM_ID_TO_PAGE,TEAM_ID_ALIASES,DEV_TRAITS,api,esc,userName,cleanTeamName,devLabel,playerName,formatHeight,addRecords,currentRecord,teamIdForSlug,rosterUrl,scheduleUrl,playerUrl,teamUrl,gameUrl,weekLabel,TEAM_COLORS,teamColors,teamColorStyle});
 })();

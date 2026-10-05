@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050507" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="premium.css?v=34" />
+  <link rel="stylesheet" href="premium.css?v=35" />
   <title>AML Standings | Apollo Madden League</title>
   <style>
     .live-note{margin:14px 0 26px;color:#9fa4b3}.standing-row{display:grid!important;grid-template-columns:1fr auto auto;gap:12px;align-items:center}.standing-record{font-weight:900}.standing-meta{font-size:.76rem;color:#9fa4b3}.standing-card h2{margin-bottom:14px}.loading-card{grid-column:1/-1;padding:26px;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:rgba(255,255,255,.03)}
@@ -38,7 +38,7 @@
           const rows=(groups.get(div)||[]).sort((a,b)=>Number(a.seed)-Number(b.seed));
           const card=document.createElement('article');
           card.className='standing-card';
-          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
+          card.innerHTML=`<span class="eyebrow">${live.esc(div.split(' ')[0])}</span><h2>${live.esc(div.toUpperCase())}</h2><div class="standing-list">${rows.map((s,i)=>`<div class="standing-row"><span class="standing-team" style="${live.teamColorStyle(s.team_id)}">${i+1}. ${live.esc(live.cleanTeamName(s.display_name||s.team_name))}</span><span class="standing-meta">${live.esc(live.userName(s.team_id,s.user_name||'CPU'))}</span><strong class="standing-record">${live.esc(live.currentRecord(s))}</strong></div>`).join('')}</div>`;
           grid.appendChild(card);
         });
         const week=Math.max(...data.standings.map(s=>Number(s.week_index)||0));

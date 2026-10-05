@@ -2897,3 +2897,152 @@ body.aml-page.team-page .team-shell{
   --team-accent:inherit!important;
   --team-accent-2:inherit!important;
 }
+
+
+/* AML LIVE DATA CONTRAST + TEAM COLORS */
+body.aml-page .game,
+body.aml-page .scoreboard,
+body.aml-page .team-table,
+body.aml-page .player-row,
+body.aml-page .player-hero,
+body.aml-page .stat-group,
+body.aml-page .season-stat,
+body.aml-page .rating,
+body.aml-page .loading-card{
+  background:#fff!important;
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+  box-shadow:0 8px 24px rgba(21,37,61,.06)!important;
+}
+body.aml-page .game,
+body.aml-page .scoreboard{
+  --team-primary:var(--aml-navy);
+  --team-secondary:var(--aml-pink);
+}
+body.aml-page .game{
+  text-decoration:none!important;
+}
+body.aml-page .game[href]:hover,
+body.aml-page .game[href]:focus-visible{
+  background:#fff!important;
+  border-color:var(--aml-pink)!important;
+}
+body.aml-page .team-name,
+body.aml-page .team-link,
+body.aml-page .team-link h1,
+body.aml-page .team-table h4 .team-link{
+  color:var(--aml-navy)!important;
+  text-decoration:none!important;
+}
+@supports (color:color-mix(in srgb,#000 50%,#fff)){
+  body.aml-page .team-name,
+  body.aml-page .team-link,
+  body.aml-page .team-link h1,
+  body.aml-page .team-table h4 .team-link{
+    color:color-mix(in srgb,var(--team-primary) 70%,var(--aml-navy) 30%)!important;
+  }
+}
+body.aml-page .team-name{
+  font-weight:950!important;
+  letter-spacing:-.02em;
+}
+body.aml-page .team-link:hover,
+body.aml-page .team-link:focus-visible{
+  color:color-mix(in srgb,var(--team-primary) 70%,var(--aml-navy) 30%)!important;
+}
+body.aml-page .game .meta,
+body.aml-page .user,
+body.aml-page .status,
+body.aml-page .live-note,
+body.aml-page .pos,
+body.aml-page .dev,
+body.aml-page .team,
+body.aml-page .player-meta{
+  color:var(--aml-muted)!important;
+}
+body.aml-page .box-score-note,
+body.aml-page .final-label,
+body.aml-page .section-heading span{
+  color:#c35c91!important;
+}
+body.aml-page .week-title,
+body.aml-page .section-heading,
+body.aml-page .final-score{
+  color:var(--aml-navy)!important;
+}
+body.aml-page .week-button{
+  background:#fff!important;
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+}
+body.aml-page .week-button.active{
+  background:var(--aml-navy)!important;
+  color:#fff!important;
+  border-color:var(--aml-navy)!important;
+}
+body.aml-page .comparison{
+  background:var(--aml-line)!important;
+  border-color:var(--aml-line)!important;
+}
+body.aml-page .comparison-row{
+  background:#fff!important;
+  color:var(--aml-ink)!important;
+}
+body.aml-page .comparison-label{
+  color:var(--aml-muted)!important;
+}
+body.aml-page .team-table h4{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--team-primary) 13%,#fff),#fff)!important;
+  color:var(--aml-navy)!important;
+  border-left:4px solid var(--team-primary)!important;
+}
+body.aml-page .team-table h4 .team-link{
+  color:color-mix(in srgb,var(--team-primary) 70%,var(--aml-navy) 30%)!important;
+}
+body.aml-page th,
+body.aml-page td{
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+}
+body.aml-page th{
+  color:var(--aml-muted)!important;
+}
+body.aml-page .player-link{
+  color:#287f9c!important;
+}
+body.aml-page .data-tools select,
+body.aml-page .data-tools input{
+  background:#fff!important;
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+}
+body.aml-page .empty,
+body.aml-page .empty-stats{
+  background:#fff!important;
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+}
+
+/* Champion cards keep the readable light archive surface while preserving the AML pink/blue edge. */
+body.aml-page.champions-page .champion-card{
+  background:linear-gradient(115deg,rgba(240,162,195,.14),rgba(155,220,242,.12)),#fff!important;
+  color:var(--aml-ink)!important;
+  border-color:var(--aml-line)!important;
+  box-shadow:0 12px 30px rgba(21,37,61,.08)!important;
+}
+body.aml-page.champions-page .champion-content h2{
+  color:var(--aml-navy)!important;
+  text-shadow:none!important;
+}
+body.aml-page.champions-page .champion-content h2 span{
+  color:var(--aml-muted)!important;
+}
+body.aml-page.champions-page .champion-kicker{
+  color:#b14f83!important;
+}
+body.aml-page.champions-page .matchup{
+  color:var(--aml-navy-2)!important;
+}
+body.aml-page.champions-page .description{
+  color:var(--aml-muted)!important;
+}
