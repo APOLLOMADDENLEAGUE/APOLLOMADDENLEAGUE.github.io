@@ -82,7 +82,7 @@ const commands = [
   new SlashCommandBuilder().setName('user').setDescription('Show an AML owner and their current team').addStringOption(o=>o.setName('team').setDescription("Owner's team").setRequired(true).setAutocomplete(true)),
   new SlashCommandBuilder().setName('playoffs').setDescription('Show the current AFC and NFC playoff picture'),
   new SlashCommandBuilder().setName('power-rankings').setDescription('Show the MSPN Season 14 power rankings'),
-  new SlashCommandBuilder().setName('create-game-channels').setDescription('Owner only: create every matchup channel for a week').addIntegerOption(o=>o.setName('week').setDescription('Week 1-18').setRequired(true).setMinValue(1).setMaxValue(18)),
+  new SlashCommandBuilder().setName('create-game-channels').setDescription('Owner only: create regular-season or playoff matchup channels').addIntegerOption(o=>o.setName('week').setDescription('Week 1-23, including playoffs (Wild Card: 19)').setRequired(true).setMinValue(1).setMaxValue(23)),
   new SlashCommandBuilder().setName('records').setDescription('Show AML records tracked since Season 14').addStringOption(o=>o.setName('type').setDescription('Record type').setRequired(true).addChoices({name:'Single Game',value:'game'},{name:'Season Records',value:'season'},{name:'Career Records',value:'career'})).addStringOption(o=>o.setName('category').setDescription('Stat category').setRequired(true).addChoices({name:'Passing',value:'passing'},{name:'Rushing',value:'rushing'},{name:'Receiving',value:'receiving'},{name:'Defense',value:'defense'},{name:'Kicking',value:'kicking'})),
 ].map(c=>c.toJSON());
 
@@ -264,6 +264,7 @@ async function createGameChannels(interaction){
   const me=guild.members.me||await guild.members.fetchMe();
   if(!me.permissions.has(PermissionFlagsBits.ManageChannels))return {content:'The AML Bot needs the **Manage Channels** permission first.'};
   const week=interaction.options.getInteger('week',true);
+  if(!Number.isInteger(week)||week<1||week>23)return {content:'Choose a week from 1–23. Wild Card is week 19.'};
   const [schedule,teamData]=await Promise.all([scheduleData(),api('/teams')]);
   const games=schedule.filter(g=>n(g.stage_index)===1&&n(g.week_index)+1===week);
   const liveTeams=new Map((teamData.teams||[]).map(team=>[n(team.team_id),team]));

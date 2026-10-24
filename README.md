@@ -12,6 +12,7 @@ Live Discord commands for the Apollo Madden League, powered by the same Madden 2
 - `/player name` — player profile and ratings
 - `/rivalries` — Season 14 rivalry records
 - `/help` — command guide
+- `/create-game-channels week` — owner only; creates matchup channels from the imported schedule for weeks 1–23, including playoffs. Use `week:19` for Wild Card. Later rounds must be exported from Madden before their channels can be created. Existing categories and matchup channels are reused.
 
 ## Required Railway variables
 
